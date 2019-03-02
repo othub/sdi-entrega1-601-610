@@ -10,7 +10,5 @@ import com.uniovi.entities.User;
  */
 public interface UsersRepository extends CrudRepository<User, Long> {
 
-    // find by....
-    User findByDni(String dni);
-
+    User findByEmail(String email);
 }

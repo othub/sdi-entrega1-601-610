@@ -1,5 +1,8 @@
 package com.uniovi.validators;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -18,6 +21,10 @@ public class SignUpFormValidator implements Validator {
     @Autowired
     private UsersService usersService;
 
+    private String regex = "^(.+)@(.+)$";
+
+    private Pattern pattern = Pattern.compile(regex);
+
     @Override
     public boolean supports(Class<?> aClass) {
 	return User.class.equals(aClass);
@@ -25,22 +32,26 @@ public class SignUpFormValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+
 	User user = (User) target;
-	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dni", "Error.empty");
+	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Error.empty");
+	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "Error.empty");
+	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "Error.empty");
+	Matcher matcher = pattern.matcher(user.getEmail());
 
-	if (user.getDni().length() < 5 || user.getDni().length() > 24) {
-	    errors.rejectValue("dni", "Error.signup.dni.length");
+	if (!matcher.matches()) {
+	    errors.rejectValue("email", "Error.signup.email.length");
 	}
 
-	if (usersService.getUserByDni(user.getDni()) != null) {
-	    errors.rejectValue("dni", "Error.signup.dni.duplicate");
+	if (usersService.getUserByEmail(user.getEmail()) != null) {
+	    errors.rejectValue("email", "Error.signup.email.duplicate");
 	}
 
-	if (user.getName().length() < 5 || user.getName().length() > 24) {
+	if (user.getName().length() < 2 || user.getName().length() > 24) {
 	    errors.rejectValue("name", "Error.signup.name.length");
 	}
 
-	if (user.getLastName().length() < 5 || user.getLastName().length() > 24) {
+	if (user.getLastName().length() < 2 || user.getLastName().length() > 24) {
 	    errors.rejectValue("lastName", "Error.signup.lastName.length");
 	}
 
@@ -51,6 +62,5 @@ public class SignUpFormValidator implements Validator {
 	if (!user.getPasswordConfirm().equals(user.getPassword())) {
 	    errors.rejectValue("passwordConfirm", "Error.signup.passwordConfirm.coincidence");
 	}
-
     }
 }

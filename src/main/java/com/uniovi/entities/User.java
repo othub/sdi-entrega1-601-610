@@ -24,10 +24,11 @@ public class User {
     private long id;
 
     @Column(unique = true)
-    private String dni;
+    private String email;
 
     private String name;
     private String lastName;
+    private double moneySum;
 
     // ROLES
     private String role;
@@ -41,11 +42,12 @@ public class User {
     @Transient // propiedad que no se almacena e la tabla.
     private String passwordConfirm;
 
-    public User(String dni, String name, String lastName) {
+    public User(String email, String name, String lastName) {
 	super();
-	this.dni = dni;
+	this.email = email;
 	this.name = name;
 	this.lastName = lastName;
+	this.moneySum = 100;
     }
 
     public User() {
@@ -75,12 +77,12 @@ public class User {
 	this.id = id;
     }
 
-    public String getDni() {
-	return dni;
+    public String getEmail() {
+	return email;
     }
 
-    public void setDni(String dni) {
-	this.dni = dni;
+    public void setEmail(String email) {
+	this.email = email;
     }
 
     public String getName() {
@@ -123,6 +125,20 @@ public class User {
      */
     public void setRole(String role) {
 	this.role = role;
+    }
+
+    /**
+     * @return the moneySum
+     */
+    public double getMoneySum() {
+	return moneySum;
+    }
+
+    /**
+     * @param moneySum the moneySum to set
+     */
+    public void setMoneySum(double moneySum) {
+	this.moneySum = moneySum;
     }
 
 }

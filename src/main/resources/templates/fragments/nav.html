@@ -16,7 +16,7 @@
 <!--         <li><a href="/mark/filter">Filtrar</a></li> -->
 		<li><a href="/" style="color : white; ">Home</a></li>
 		<li id="marks-menu" class="dropdown">
-		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : black; ">
+		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; ">
 		    Gestión de notas <span class="caret"></span>
 		  </a>
 		  <ul class="dropdown-menu" >
@@ -62,8 +62,8 @@
             Identifícate
           </a>
         </li>
- 		<li sec:authorize="isAuthenticated()" style="color : white; "> 
-	        <a href="/logout"> 
+ 		<li sec:authorize="isAuthenticated()"> 
+	        <a href="/logout" style="color : white; "> 
 	        	<span class = "glyphicon glyphicon-log-out"></span> 
 	        	Desconectar 
 	        </a> 

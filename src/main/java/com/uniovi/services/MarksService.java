@@ -70,7 +70,7 @@ public class MarksService {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	String dni = auth.getName();
 	Mark mark = marksRepository.findById(id).get();
-	if (mark.getUser().getDni().equals(dni)) {
+	if (mark.getUser().getEmail().equals(dni)) {
 	    marksRepository.updateResend(revised, id);
 	}
     }
