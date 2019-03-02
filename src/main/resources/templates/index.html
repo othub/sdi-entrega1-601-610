@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Fragmento de head -->
+<head th:replace="fragments/head"/>
+
+<body>
+	<!-- Fragmento de nav -->
+	<nav th:replace="fragments/nav"/>
+
+  <div class="container" style="text-align: center">
+  	
+    <h2 th:text="#{welcome.message}"></h2>
+    
+    <p>lorem ipsum</p>
+  </div>
+  
+  	<!-- Fragmento de footer -->
+  <footer th:replace="fragments/footer"/>
+  
+</body>
+
+</html>
