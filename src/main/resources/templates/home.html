@@ -5,12 +5,16 @@
 
 <body>
   <nav th:replace="fragments/nav" />
+  
   <div class="container" style="text-align: center">
     <h2 th:text="#{welcome.message}"></h2>
     <h3 th:text="#{private.welcome.message}"></h3>
-    <p <p th:text="#{user.welcome.message}">> </p>
+    <p th:text="#{user.welcome.message}"></p>
     <p>
       <b sec:authentication="principal.username" th:inline="text"> </b>
+    </p>
+    <p> Su sueldo actualmente es de : 
+    <span style = "font-weight:bold;"  th:text="${userMoney} + ' ' +'&euro;' "> </span>
     </p>
 	<p th:text="#{offers.welcome.message}">
 	</p>

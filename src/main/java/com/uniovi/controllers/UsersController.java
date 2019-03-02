@@ -90,7 +90,17 @@ public class UsersController {
 	String email = auth.getName();
 	User activeUser = usersService.getUserByEmail(email);
 	model.addAttribute("markList", activeUser.getMarks());
+	model.addAttribute("userMoney", activeUser.getMoneySum());
 	return "home";
+    }
+
+    @RequestMapping(value = { "/nav" }, method = RequestMethod.GET)
+    public String nav(Model model) {
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	String email = auth.getName();
+	User activeUser = usersService.getUserByEmail(email);
+	model.addAttribute("userMoney", activeUser.getMoneySum());
+	return "nav";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)

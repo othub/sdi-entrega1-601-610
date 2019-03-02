@@ -11,9 +11,6 @@
     
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-<!--         <li class="active"><a href="/mark/list">Ver Notas</a></li> -->
-<!--         <li><a href="/mark/add">Agregar Nota</a></li> -->
-<!--         <li><a href="/mark/filter">Filtrar</a></li> -->
 		<li><a href="/" style="color : white; ">Home</a></li>
 		<li id="marks-menu" class="dropdown">
 		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; ">
@@ -50,6 +47,11 @@
 		    </li>
 		  </ul>
 		</li>
+		<li sec:authorize="isAuthenticated()">
+           <a href="#"  style="color : white; " th:text="${userMoney} + ' ' +  '&euro;'">
+            <span class="glyphicon glyphicon-user"> </span>
+          </a>
+        </li>
         <li sec:authorize="!isAuthenticated()">
           <a href="/signup" th:text="#{signup.message}" style="color : white; ">
             <span class="glyphicon glyphicon-user"></span>

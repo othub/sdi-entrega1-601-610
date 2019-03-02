@@ -28,7 +28,7 @@ public class User {
 
     private String name;
     private String lastName;
-    private double moneySum;
+    private double moneySum = 100;
 
     // ROLES
     private String role;
@@ -47,7 +47,6 @@ public class User {
 	this.email = email;
 	this.name = name;
 	this.lastName = lastName;
-	this.moneySum = 100;
     }
 
     public User() {
