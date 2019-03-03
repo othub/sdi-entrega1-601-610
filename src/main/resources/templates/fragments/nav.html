@@ -15,12 +15,11 @@
 		
 		<!-- Gestion de notas BORRARLO LUEGO -->
 		<li id="marks-menu" class="dropdown">
-		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; ">
-		    Gestión de notas <span class="caret"></span>
+		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; " th:text="#{nav.menu.offers}"> <span class="caret"></span>
 		  </a>
 		  <ul class="dropdown-menu" >
-		    <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/mark/add" style="color : black; ">Agregar Nota</a></li>
-		    <li><a href="/mark/list" style="color : black; ">Ver Notas</a></li>
+		    <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/mark/add" style="color : black; " th:text="#{nav.menu.offers.add}"></a></li>
+		    <li><a href="/mark/list" style="color : black; " th:text="#{nav.menu.offers.list}"></a></li>
 		  </ul>
 		</li>
 		

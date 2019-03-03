@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Offer;
@@ -56,15 +54,6 @@ public class OffersService {
 	offersRepository.deleteById(id);
     }
 
-    public void setOfferResend(boolean revised, Long id) {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	String email = auth.getName();
-	Offer offer = offersRepository.findById(id).get();
-	if (offer.getUser().getEmail().equals(email)) {
-	    offersRepository.updateResend(revised, id);
-	}
-    }
-
     public Page<Offer> getOffersForUser(Pageable pageable, User user) {
 	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
 	if (user.getRole().equals("ROLE_STUDENT")) {
@@ -72,18 +61,6 @@ public class OffersService {
 	}
 	if (user.getRole().equals("ROLE_PROFESSOR")) {
 	    offers = getOffers(pageable);
-	}
-	return offers;
-    }
-
-    public Page<Offer> searchOffersByDescriptionAndNameForUser(Pageable pageable, String searchText, User user) {
-	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
-	searchText = "%" + searchText + "%";
-	if (user.getRole().equals("ROLE_STUDENT")) {
-	    offers = offersRepository.searchByDescriptionNameAndUser(pageable, searchText, user);
-	}
-	if (user.getRole().equals("ROLE_PROFESSOR")) {
-	    offers = offersRepository.searchByDescriptionAndName(pageable, searchText);
 	}
 	return offers;
     }

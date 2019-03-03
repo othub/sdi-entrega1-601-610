@@ -49,7 +49,8 @@ public class OffersController {
 	User user = usersService.getUserByEmail(email);
 	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
 	if (searchText != null && !searchText.isEmpty()) {
-	    offers = offersService.searchOffersByDescriptionAndNameForUser(pageable, searchText, user);
+	    // offers = offersService.searchOffersByDescriptionAndNameForUser(pageable,
+	    // searchText, user);
 	} else {
 	    offers = offersService.getOffersForUser(pageable, user);
 	}
@@ -118,18 +119,6 @@ public class OffersController {
 	model.addAttribute("offer", offersService.getOffer(id));
 	model.addAttribute("usersList", usersService.getUsers());
 	return "offer/edit";
-    }
-
-    @RequestMapping(value = "/offer/{id}/resend", method = RequestMethod.GET)
-    public String setResendTrue(Model model, @PathVariable Long id) {
-	offersService.setOfferResend(true, id);
-	return "redirect:/offer/list";
-    }
-
-    @RequestMapping(value = "/offer/{id}/noresend", method = RequestMethod.GET)
-    public String setResendFalse(Model model, @PathVariable Long id) {
-	offersService.setOfferResend(false, id);
-	return "redirect:/offer/list";
     }
 
 }
