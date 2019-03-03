@@ -1,4 +1,4 @@
-package com.uniovi.services;
+package com.uniovi;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Mark;
 import com.uniovi.entities.User;
+import com.uniovi.services.RolesService;
+import com.uniovi.services.UsersService;
 
 /**
  * Como necesitaremos varios usuarios y notas para ver en funcionamiento la
@@ -31,15 +33,16 @@ public class InsertSampleDataService {
     @SuppressWarnings("serial")
     @PostConstruct
     public void init() {
-	User user1 = new User("algo@gmail.com", "Pedro", "Díaz");
+	User user1 = new User("algo@gmail.com", "Pedro", "Pascal");
 	user1.setPassword("123456");
 	user1.setRole(rolesService.getRoles()[0]);
-	User user2 = new User("algo1@gmail.com", "Lucas", "Núñez");
+	User user2 = new User("algo1@gmail.com", "Lucas", "Hernandez");
 	user2.setPassword("123456");
 	user2.setRole(rolesService.getRoles()[0]);
-	User user3 = new User("algo3@gmail.com", "María", "Rodríguez");
-	user3.setPassword("123456");
-	user3.setRole(rolesService.getRoles()[1]);
+
+	User admin = new User("admin@email.com", "Oth", "Bakhtaoui");
+	admin.setPassword("123456");
+	admin.setRole(rolesService.getRoles()[1]);
 
 	Set<Mark> user1Marks = new HashSet<Mark>() {
 	    {
@@ -60,18 +63,18 @@ public class InsertSampleDataService {
 	    }
 	};
 	user2.setMarks(user2Marks);
-	Set<Mark> user3Marks = new HashSet<Mark>() {
+	Set<Mark> adminMarks = new HashSet<Mark>() {
 	    {
 		;
-		add(new Mark("Nota C1", 5.5, user3));
-		add(new Mark("Nota C2", 6.6, user3));
-		add(new Mark("Nota C3", 7.0, user3));
+		add(new Mark("Nota C1", 5.5, admin));
+		add(new Mark("Nota C2", 6.6, admin));
+		add(new Mark("Nota C3", 7.0, admin));
 	    }
 	};
-	user3.setMarks(user3Marks);
+	admin.setMarks(adminMarks);
 
 	usersService.addUser(user1);
 	usersService.addUser(user2);
-	usersService.addUser(user3);
+	usersService.addUser(admin);
     }
 }

@@ -1,13 +1,11 @@
 @CHARSET "UTF-8";
 
-/* Sticky footer styles-------------------------------------------------- */
 html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
 
@@ -20,6 +18,3 @@ footer {
   text-align:center;
   line-height:60px
 }
-
-
-/* Sticky footer styles-------------------------------------------------- */

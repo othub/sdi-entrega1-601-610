@@ -77,11 +77,13 @@ public class UsersController {
 	return "redirect:/user/details/" + id;
     }
 
-    // _______________________LOGIN______________________//
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model) {
-	return "login";
+    @RequestMapping(value = { "/nav" }, method = RequestMethod.GET)
+    public String nav(Model model) {
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	String email = auth.getName();
+	User activeUser = usersService.getUserByEmail(email);
+	model.addAttribute("userMoney", activeUser.getMoneySum());
+	return "nav";
     }
 
     @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
@@ -94,14 +96,14 @@ public class UsersController {
 	return "home";
     }
 
-    @RequestMapping(value = { "/nav" }, method = RequestMethod.GET)
-    public String nav(Model model) {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	String email = auth.getName();
-	User activeUser = usersService.getUserByEmail(email);
-	model.addAttribute("userMoney", activeUser.getMoneySum());
-	return "nav";
+    // _______________________LOGIN______________________//
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(Model model) {
+	return "login";
     }
+
+    // _______________________SIGNUP______________________//
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(Model model) {
@@ -115,7 +117,7 @@ public class UsersController {
 	if (result.hasErrors()) {
 	    return "signup";
 	}
-	// student role
+	// Standard role
 	user.setRole(rolesService.getRoles()[0]);
 	usersService.addUser(user);
 	securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());

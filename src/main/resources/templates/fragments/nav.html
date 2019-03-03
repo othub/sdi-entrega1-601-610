@@ -11,23 +11,26 @@
     
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-		<li><a href="/" style="color : white; ">Home</a></li>
+		<li><a th:text="#{nav.home}" href="/" style="color : white; "></a></li>
+		
+		<!-- Gestion de notas BORRARLO LUEGO -->
 		<li id="marks-menu" class="dropdown">
 		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; ">
 		    Gestión de notas <span class="caret"></span>
 		  </a>
 		  <ul class="dropdown-menu" >
-		    <li sec:authorize="hasRole('ROLE_PROFESSOR')"><a href="/mark/add" style="color : black; ">Agregar Nota</a></li>
-		    <li><a href="/mark/list" style="color : white; ">Ver Notas</a></li>
+		    <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/mark/add" style="color : black; ">Agregar Nota</a></li>
+		    <li><a href="/mark/list" style="color : black; ">Ver Notas</a></li>
 		  </ul>
 		</li>
+		
+		<!-- Gestion de usuarios -->
 		<li id="users-menu" class="dropdown" sec:authorize ="hasRole('ROLE_ADMIN')">
-		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; ">
-		    Gestión de Usuarios <span class="caret"></span>
+		  <a th:text="#{nav.users.menu}" class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; ">
+		     <span class="caret"></span>
 		  </a>
 		  <ul class="dropdown-menu">
-		    <li><a href="/user/add" style="color : white; ">Agregar usuario</a></li>
-		    <li><a href="/user/list" style="color : white; ">Ver Usuarios</a></li>
+		    <li><a th:text="#{nav.users.list}" href="/user/list" style="color : black; "></a></li>
 		  </ul>
 		</li>
       </ul>
@@ -38,7 +41,7 @@
 		  </a>
 		  <ul id="languageDropdownMenuButton" class="dropdown-menu">
 		    <li>
-		      <a id="btnEnglish" value="EN" style="color : black; "> <img th:src="@{/img/if_uk_flag.png}" style="border: 0; float: left; margin-right: 15px" /> <span th:text="#{language.en}">Inglés</span>
+		      <a id="btnEnglish" value="EN" style="color : black; "> <img th:src="@{/img/if_uk_flag.png}" style="border: 0; float: left; margin-right: 15px" /> <span th:text="#{language.en}">English</span>
 		      </a>
 		    </li>
 		    <li>
@@ -48,26 +51,23 @@
 		  </ul>
 		</li>
 		<li sec:authorize="isAuthenticated()">
-           <a href="#"  style="color : white; " th:text="${userMoney} + ' ' +  '&euro;'">
+           <a sec:authorize="hasRole('ROLE_STANDARD')" href="#"  style="color : white; " th:text="${userMoney} + ' ' +  '&euro;'">
             <span class="glyphicon glyphicon-user"> </span>
           </a>
         </li>
         <li sec:authorize="!isAuthenticated()">
           <a href="/signup" th:text="#{signup.message}" style="color : white; ">
             <span class="glyphicon glyphicon-user"></span>
-            Registrate
           </a>
         </li>
         <li sec:authorize="!isAuthenticated()">
           <a href="/login" th:text="#{login.message}" style="color : white; ">
             <span class="glyphicon glyphicon-log-in"></span>
-            Identifícate
           </a>
         </li>
  		<li sec:authorize="isAuthenticated()"> 
-	        <a href="/logout" style="color : white; "> 
+	        <a class = "btn-disconnect" href="/logout" style="color : white; " th:text="#{signout.message}"> 
 	        	<span class = "glyphicon glyphicon-log-out"></span> 
-	        	Desconectar 
 	        </a> 
         </li>
       </ul>

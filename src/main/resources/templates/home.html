@@ -13,12 +13,17 @@
     <p>
       <b sec:authentication="principal.username" th:inline="text"> </b>
     </p>
-    <p> Su sueldo actualmente es de : 
-    <span style = "font-weight:bold;"  th:text="${userMoney} + ' ' +'&euro;' "> </span>
+    
+    <p sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{home.admin.message}">
+    	
     </p>
-	<p th:text="#{offers.welcome.message}">
-	</p>
-	<div class="table-responsive">
+     
+    <p sec:authorize="hasRole('ROLE_STANDARD')" th:text="#{home.moneySum}">
+    	<span style = "font-weight:bold;"  th:text="${userMoney} + ' ' +'&euro;' "> </span>
+    </p>
+    
+	<p sec:authorize="hasRole('ROLE_STANDARD')" th:text="#{offers.welcome.message}"> </p>
+	<div sec:authorize="hasRole('ROLE_STANDARD')" class="table-responsive">
 	  <table class="table table-hover">
 	    <thead>
 	      <tr>

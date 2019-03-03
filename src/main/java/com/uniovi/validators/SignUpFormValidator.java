@@ -43,6 +43,10 @@ public class SignUpFormValidator implements Validator {
 	    errors.rejectValue("email", "Error.signup.email.length");
 	}
 
+	if (user.getEmail().equals("admin@email.com")) {
+	    errors.rejectValue("email", "Error.signup.email.admin");
+	}
+
 	if (usersService.getUserByEmail(user.getEmail()) != null) {
 	    errors.rejectValue("email", "Error.signup.email.duplicate");
 	}
