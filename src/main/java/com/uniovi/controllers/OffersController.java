@@ -58,6 +58,7 @@ public class OffersController {
 	String email = auth.getName();
 	User activeUser = usersService.getUserByEmail(email);
 	model.addAttribute("user", activeUser);
+	model.addAttribute("userMoney", activeUser.getMoneySum());
 	return "offer/add";
     }
 
@@ -76,6 +77,7 @@ public class OffersController {
 	} else {
 	    offers = offersService.getOffersForUser(pageable, user);
 	}
+	model.addAttribute("userMoney", user.getMoneySum());
 	model.addAttribute("offerList", offers.getContent());
 	model.addAttribute("page", offers);
 	return "offer/list";

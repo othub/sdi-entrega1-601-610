@@ -19,8 +19,8 @@
  */
 package com.uniovi.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +42,7 @@ public class Offer {
     private String title;
     private String descripcion;
     private double amount;
-    private Date date = Calendar.getInstance().getTime();
+    private String date = new SimpleDateFormat("yyyy-mm-dd hh:mm").format(Calendar.getInstance().getTime());
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -140,14 +140,14 @@ public class Offer {
     /**
      * @return the date
      */
-    public Date getDate() {
+    public String getDate() {
 	return date;
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(Date date) {
+    public void setDate(String date) {
 	this.date = date;
     }
 

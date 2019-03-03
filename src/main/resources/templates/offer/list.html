@@ -7,25 +7,21 @@
  <nav th:replace="fragments/nav" />
 
 <div class="container">
-   <h2>Ofertas</h2>
-		<form class="navbar-form" action="/offer/list">
-		  <div class="form-group"> 
-		  	<input name="searchText" type="text" class="form-control" size="50" placeholder="Buscar por descripción o nombre del alumno"> 
-		  </div> 
-		  <button type="submit" class="btn btn-default">Buscar</button>
-		</form>   
+   <h1  style="text-align:center;" th:text="#{offers.list.header}"></h1>
    
-  <p>Las ofertas tuyas son:</p>                                                                                      
-   <button type="button" id="updateButton" class="btn btn-default">Actualizar</button>
-	  
+  <p style="text-align:center;" th:text="#{offers.list.paragraph}"></p>  
+                                                                                      	  
   <div class="table-responsive">   
   <!--  actualizar únicamente la tabla de notas -->       
   <table class="table table-hover" th:fragment="tableOffers" id="tableOffers">
     <thead>
       <tr>
         <th class="col-md-1">id</th>
-        <th>Descripción</th>
-        <th>Puntuación</th>
+        <th th:text="#{offers.list.title}"></th>
+        <th th:text="#{offers.list.description}"></th>
+        <th th:text="#{offers.list.amount}"></th>
+        <th th:text="#{offers.list.date}"></th>
+        
 		<th class="col-md-1"> </th>
 		<th class="col-md-1"> </th>
 		<th class="col-md-1"> </th>
@@ -34,14 +30,14 @@
 	<tbody>
 	  <tr th:each="offer : ${offerList}">
 	    <td th:text="${offer.id}"> 1</td>
-	    <td th:text="${offer.title}"> Ejercicio 1</td>
+	    <td th:text="${offer.title}"> Title</td>
+	    <td th:text="${offer.descripcion}"> Description</td>
 	    <td th:text="${offer.amount}">10</td>
+	    <td th:text="${offer.date}">2019-02-02</td>
 	    
-	    <td><a th:href="${'/offer/details/' + offer.id}">detalles</a></td>
-	    <td>
-	    	<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/offer/edit/' + offer.id}">modificar</a>  
-	    </td>
-	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/offer/delete/' + offer.id}">eliminar</a></td>
+	    <td><a th:href="${'/offer/details/' + offer.id}" th:text="#{offers.list.details}"></a></td>
+	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/offer/edit/' + offer.id}" th:text="#{offers.list.edit}"></a> </td>
+	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/offer/delete/' + offer.id}" th:text="#{offers.list.delete}"></a></td>
 	  </tr>
 	</tbody>
   </table>

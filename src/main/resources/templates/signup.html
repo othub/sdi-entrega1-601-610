@@ -41,7 +41,7 @@
 	  <div class="form-group">
 	    <label class="control-label col-sm-2" for="passwordConfirm" th:text="#{signup.repeat.password}"></label>
 	    <div class="col-sm-10">
-	      <input type="password" class="form-control" name="passwordConfirm" placeholder="Repeat password" />
+	      <input type="password" class="form-control" name="passwordConfirm" th:placeholder="#{signup.repeat.password}"/>
 	      <span class="text-danger" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" />
 	    </div>
 	  </div>

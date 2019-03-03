@@ -25,8 +25,7 @@
 		
 		<!-- Gestion de usuarios -->
 		<li id="users-menu" class="dropdown" sec:authorize ="hasRole('ROLE_ADMIN')">
-		  <a th:text="#{nav.users.menu}" class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; ">
-		     <span class="caret"></span>
+		  <a th:text="#{nav.users.menu}" class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; "> <span class="caret"></span>
 		  </a>
 		  <ul class="dropdown-menu">
 		    <li><a th:text="#{nav.users.list}" href="/user/list" style="color : black; "></a></li>
