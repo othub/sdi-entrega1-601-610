@@ -19,6 +19,7 @@
  */
 package com.uniovi.entities;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -40,8 +41,8 @@ public class Offer {
 
     private String title;
     private String descripcion;
-    private Date date;
     private double amount;
+    private Date date = Calendar.getInstance().getTime();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -57,12 +58,11 @@ public class Offer {
      * @param date
      * @param amount
      */
-    public Offer(Long id, String title, String descripcion, Date date, double amount) {
+    public Offer(Long id, String title, String descripcion, double amount) {
 	super();
 	this.id = id;
 	this.title = title;
 	this.descripcion = descripcion;
-	this.date = date;
 	this.amount = amount;
     }
 
@@ -73,11 +73,10 @@ public class Offer {
      * @param amount
      * @param user
      */
-    public Offer(String title, String descripcion, Date date, double amount, User user) {
+    public Offer(String title, String descripcion, double amount, User user) {
 	super();
 	this.title = title;
 	this.descripcion = descripcion;
-	this.date = date;
 	this.amount = amount;
 	this.user = user;
     }

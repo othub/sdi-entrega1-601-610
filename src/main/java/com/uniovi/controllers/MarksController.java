@@ -3,8 +3,6 @@ package com.uniovi.controllers;
 import java.security.Principal;
 import java.util.LinkedList;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -40,9 +38,6 @@ public class MarksController {
 
     @Autowired
     private UsersService usersService;
-
-    @Autowired
-    private HttpSession httpSession;
 
     /*
      * incluimos una función por cada URL a la que va a responder el controlador,

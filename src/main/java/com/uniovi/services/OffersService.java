@@ -56,10 +56,11 @@ public class OffersService {
 
     public Page<Offer> getOffersForUser(Pageable pageable, User user) {
 	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
-	if (user.getRole().equals("ROLE_STUDENT")) {
+	if (user.getRole().equals("ROLE_STANDARD")) {
 	    offers = offersRepository.findAllByUser(pageable, user);
 	}
-	if (user.getRole().equals("ROLE_PROFESSOR")) {
+	// all offers
+	if (user.getRole().equals("ROLE_ADMIN")) {
 	    offers = getOffers(pageable);
 	}
 	return offers;

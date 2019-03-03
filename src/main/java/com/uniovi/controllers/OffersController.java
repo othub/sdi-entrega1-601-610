@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,10 +40,30 @@ public class OffersController {
     @Autowired
     private HttpSession httpSession;
 
+    /**
+     * Añadimos el POST Al lugar de request param, pasamos un parametro de la
+     * entidad Offer
+     * 
+     * @return
+     */
+    @RequestMapping(value = "/offer/add", method = RequestMethod.POST)
+    public String setOffer(@ModelAttribute Offer offer) {
+	offersService.addOffer(offer);
+	return "redirect:/offer/list";
+    }
+
+    @RequestMapping(value = "/offer/add")
+    public String getOffer(Model model) {
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	String email = auth.getName();
+	User activeUser = usersService.getUserByEmail(email);
+	model.addAttribute("user", activeUser);
+	return "offer/add";
+    }
+
     /*
      * incluimos una función por cada URL a la que va a responder el controlador,
      */
-
     @RequestMapping("/offer/list")
     public String getList(Model model, Pageable pageable, Principal principal,
 	    @RequestParam(value = "", required = false) String searchText) {
@@ -75,19 +97,6 @@ public class OffersController {
     }
 
     /**
-     * Añadimos el POST Al lugar de request param, pasamos un parametro de la
-     * entidad Offer
-     * 
-     * @return
-     */
-    @RequestMapping(value = "/offer/add", method = RequestMethod.POST)
-    public String setOffer(@ModelAttribute Offer offer) {
-	offersService.addOffer(offer);
-	// return "Nota añadida correctamente"; <-intenta devolver un fichero llamado
-	return "redirect:/offer/list";
-    }
-
-    /**
      * al lugar de ../offer/details?id=4 lo incluimos en el path como path variable
      * y no requestParam para que sea ../offer/details/4
      * 
@@ -106,12 +115,6 @@ public class OffersController {
 	// return "se ha borrado la nota con el id :" + id; <- intenta devolverlo como
 	// fichero
 	return "redirect:/offer/list";
-    }
-
-    @RequestMapping(value = "/offer/add")
-    public String getOffer(Model model) {
-	model.addAttribute("usersList", usersService.getUsers());
-	return "offer/add";
     }
 
     @RequestMapping(value = "/offer/edit/{id}")

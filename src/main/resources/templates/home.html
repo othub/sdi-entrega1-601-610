@@ -19,8 +19,8 @@
     </p>
      
     <p sec:authorize="hasRole('ROLE_STANDARD')" th:text="#{home.moneySum}">
-    	<span style = "font-weight:bold;"  th:text="${userMoney} + ' ' +'&euro;' "> </span>
     </p>
+    <p style = "font-weight:bold;"  th:text="${userMoney} + ' ' +'&euro;' "> </p>
     
 	<p sec:authorize="hasRole('ROLE_STANDARD')" th:text="#{offers.welcome.message}"> </p>
 	<div sec:authorize="hasRole('ROLE_STANDARD')" class="table-responsive">
@@ -28,21 +28,19 @@
 	    <thead>
 	      <tr>
 	        <th class="col-md-1">id</th>
-	        <th>Descripción</th>
-	        <th>Puntuación</th>
+	        <th>Title</th>
+	        <th>Price</th>
 	        <th class="col-md-1"> </th>
 	        <th class="col-md-1"> </th>
 	        <th class="col-md-1"> </th>
 	      </tr>
 	    </thead>
 	    <tbody>
-	      <tr th:each="mark : ${markList}">
-	        <td th:text="${mark.id}"> 1</td>
-	        <td th:text="${mark.description}"> Ejercicio 1</td>
-	        <td th:text="${mark.score}">10</td>
-	        <td><a th:href="${'/mark/details/' + mark.id}">detalles</a></td>
-	        <td><a th:href="${'/mark/edit/' + mark.id}">modificar</a></td>
-	        <td><a th:href="${'/mark/delete/' + mark.id}">eliminar</a></td>
+	      <tr th:each="offer : ${offerList}">
+	        <td th:text="${offer.id}"> 1</td>
+	        <td th:text="${offer.title}"> Ejercicio 1</td>
+	        <td th:text="${offer.amount}">10</td>
+	        <td><a th:href="${'/offer/details/' + offer.id}">detalles</a></td>
 	      </tr>
 	    </tbody>
 	  </table>

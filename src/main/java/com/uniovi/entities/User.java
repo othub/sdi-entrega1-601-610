@@ -142,4 +142,18 @@ public class User {
 	this.moneySum = moneySum;
     }
 
+    /**
+     * @return the offers
+     */
+    public Set<Offer> getOffers() {
+	return offers;
+    }
+
+    /**
+     * @param offers the offers to set
+     */
+    public void setOffers(Set<Offer> offers) {
+	this.offers = offers;
+    }
+
 }
