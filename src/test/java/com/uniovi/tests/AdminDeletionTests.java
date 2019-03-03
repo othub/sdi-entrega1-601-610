@@ -19,6 +19,7 @@
  */
 package com.uniovi.tests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -30,19 +31,19 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_NavView;
-import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.utils.SeleniumUtils;
 
 //Ordenamos las pruebas por el nombre del método
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ListUsersTest {
+public class AdminDeletionTests {
 
     // En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
     // automáticas)):
@@ -72,7 +73,7 @@ public class ListUsersTest {
     }
 
     @Test
-    public void Prueba12() {
+    public void Prueba13() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "admin@email.com", "123456");
 	PO_View.checkElement(driver, "text", "Bienvenido Administrador");
@@ -83,11 +84,88 @@ public class ListUsersTest {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
 	elementos.get(0).click();
 
-	// hay 3 usuarios en el sistema
+	// hay 7 usuarios en el sistema
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 7);
 
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	elementos = PO_View.checkElement(driver, "free",
+		"//td[contains(text(), 'algo@gmail.com')]/following-sibling::*/a[contains(@href, 'user/delete')]");
+	elementos.get(0).click();
+
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+
+	// No existe el email, se ha borrado
+	assertFalse(driver.getPageSource().contains("algo@gmail.com"));
+
+    }
+
+    @Test
+    public void Prueba14() {
+	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+	PO_LoginView.fillForm(driver, "admin@email.com", "123456");
+	PO_View.checkElement(driver, "text", "Bienvenido Administrador");
+
+	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+
+	elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
+	elementos.get(0).click();
+
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(elementos.size() == 6);
+
+	elementos = PO_View.checkElement(driver, "free",
+		"//td[contains(text(), 'algo5@gmail.com')]/following-sibling::*/a[contains(@href, 'user/delete')]");
+	elementos.get(0).click();
+
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+
+	// No existe el email, se ha borrado
+	assertFalse(driver.getPageSource().contains("algo5@gmail.com"));
+    }
+
+    @Test
+    public void Prueba15() {
+	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+	PO_LoginView.fillForm(driver, "admin@email.com", "123456");
+	PO_View.checkElement(driver, "text", "Bienvenido Administrador");
+
+	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+
+	elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
+	elementos.get(0).click();
+
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(elementos.size() == 5);
+
+	clickThreeCheckboxes();
+
+	driver.findElement(By.className("btn-danger")).click();
+
+	// No existe el email, se ha borrado
+	assertFalse(driver.getPageSource().contains("algo1@gmail.com"));
+	assertFalse(driver.getPageSource().contains("algo2@gmail.com"));
+	assertFalse(driver.getPageSource().contains("algo3@gmail.com"));
+
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(elementos.size() == 2);
+
+	assertTrue(driver.getPageSource().contains("alg4@gmail.com"));
+	assertTrue(driver.getPageSource().contains("admin@email.com"));
+
+    }
+
+    private void clickThreeCheckboxes() {
+	int count = 3;
+
+	for (WebElement e : driver.findElements(By.xpath("//input[@type='checkbox']"))) {
+	    if (!e.isSelected() && count > 0 && !e.getAttribute("id").equals("checkAll")
+		    && !e.getText().equals("admin@email.com")) {
+		e.click();
+		count -= 1;
+	    }
+	}
     }
 
     // Antes de la primera prueba
