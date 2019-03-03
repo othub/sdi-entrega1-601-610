@@ -34,8 +34,10 @@ public class User {
     private String role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Mark> marks; // Por ejemplo, si se borra un usuario se borrará en cascada las notas de ese
-			     // usuario cascade ALL
+    private Set<Mark> marks;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Offer> offers;
 
     private String password;
 
