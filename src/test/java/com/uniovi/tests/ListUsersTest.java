@@ -83,9 +83,9 @@ public class ListUsersTest {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
 	elementos.get(0).click();
 
-	// hay 3 usuarios en el sistema
+	// hay 8 usuarios en el sistema incluyendo el admin
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 7);
+	assertTrue(elementos.size() == 8);
 
 	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
     }
