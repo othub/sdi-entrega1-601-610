@@ -15,7 +15,7 @@
 		<!-- Gestion de ofertas -->
 		<li id="offers-menu" class="dropdown" sec:authorize="hasRole('ROLE_STANDARD')">
 		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; " th:text="#{nav.menu.offers}"> 
-		  		<span class="caret"></span>
+		  		<span class='caret'></span>
 		  </a>
 		  <ul class="dropdown-menu" >
 		    <li><a href="/offer/add" style="color : black; " th:text="#{nav.menu.offers.add}"></a></li>
@@ -26,7 +26,7 @@
 		<!-- Gestion de usuarios -->
 		<li id="users-menu" class="dropdown" sec:authorize ="hasRole('ROLE_ADMIN')">
 		  <a th:text="#{nav.users.menu}" class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; ">
-		  		<span class="caret"></span>
+		  		<span class='caret'></span>
 		  </a>
 		  <ul class="dropdown-menu">
 		    <li><a th:text="#{nav.users.list}" href="/user/list" style="color : black; "></a></li>

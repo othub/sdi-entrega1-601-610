@@ -1,5 +1,5 @@
 <div class="text-center">
-  <ul class="pagination pagination-centered">
+  <ul class="pagination pagination-centered" style="font-weight: bold;">
     <!-- Primera -->
     <li class="page-item"> <a class="page-link" th:href="@{'?page=0'}" th:text="#{pagination.first}"></a> </li> <!-- Anterior (si la hay ) -->
     <li class="page-item" th:if='${page.getNumber()-1 >= 0}'> <a class="page-link" th:href="@{'?page='+${page.getNumber()-1} }" th:text="${page.getNumber()}"></a> </li> <!-- Actual -->

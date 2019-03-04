@@ -80,7 +80,6 @@ public class OffersService {
 	Page<Offer> marks = new PageImpl<Offer>(new LinkedList<Offer>());
 	searchText = "%" + searchText + "%";
 	marks = offersRepository.searchOfferByTitle(pageable, searchText);
-
 	return marks;
 
     }

@@ -21,7 +21,7 @@
     <form th:action='@{/user/list}' method="POST">
     
          <button type="submit" name='delete' value="delete"
-             class='btn btn-danger'
+             class='btn btn-danger' style="font-weight: bold;"
              th:text="#{users.list.delete}" th:if="${usersList != null and not #lists.isEmpty(usersList)}"
              data-toggle="tooltip" data-placement="right">
    		 </button>

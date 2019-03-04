@@ -14,9 +14,18 @@ import com.uniovi.entities.User;
  */
 public interface OffersRepository extends CrudRepository<Offer, Long> {
 
-    @Query("SELECT r FROM Offer r WHERE r.user = ?1 ORDER BY r.id ASC ")
+    /**
+     * @param pageable
+     * @param user
+     * @return
+     */
+    @Query("SELECT o FROM Offer o WHERE o.user = ?1 ORDER BY o.id ASC ")
     Page<Offer> findAllByUser(Pageable pageable, User user);
 
+    /**
+     * @param pageable
+     * @return
+     */
     Page<Offer> findAll(Pageable pageable);
 
     /**
@@ -24,6 +33,7 @@ public interface OffersRepository extends CrudRepository<Offer, Long> {
      * @param searchText
      * @return
      */
+    @Query("SELECT o FROM Offer o WHERE (LOWER(o.title) LIKE LOWER(?1))")
     Page<Offer> searchOfferByTitle(Pageable pageable, String searchText);
 
 }

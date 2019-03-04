@@ -39,6 +39,7 @@ public class OffersController {
     @Autowired
     private UsersService usersService;
 
+    @SuppressWarnings("unused")
     @Autowired
     private HttpSession httpSession;
 
@@ -108,16 +109,14 @@ public class OffersController {
     }
 
     /**
-     * Actualiza la tabla de notas a traves del boton
+     * Actualiza la tabla de ofertas a traves del boton
      * 
      * @param model
      * @return
      */
     @RequestMapping("/offer/list/update")
     public String updateList(Model model, Pageable pageable, Principal principal) {
-	String email = principal.getName();
-	User user = usersService.getUserByEmail(email);
-	Page<Offer> offers = offersService.getOffersForUser(pageable, user);
+	Page<Offer> offers = offersService.getOffers(pageable);
 	model.addAttribute("offerList", offers.getContent());
 	return "offer/list :: tableOffers";
     }

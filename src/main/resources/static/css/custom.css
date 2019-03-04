@@ -23,3 +23,19 @@ footer {
 	background-color : white;
 	color:  #38DFCE !important;
 }
+
+.pagination>li>a, .pagination>li>span {
+    color: #38DFCE;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    background-color: #38DFCE;
+    border-color: #38DFCE;
+}
+
+.glyphicon-refresh {
+ 	content:"\e031" !important;
+}
