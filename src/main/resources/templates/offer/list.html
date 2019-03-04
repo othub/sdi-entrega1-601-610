@@ -4,7 +4,16 @@
 <head th:replace="fragments/head" />
 
 <body>
- <nav th:replace="fragments/nav" />
+ <script language="JavaScript">
+		function toggle(source) {
+			  checkboxes = document.getElementsByName('idChecked');
+			  for(var i=0, n=checkboxes.length;i<n;i++) {
+			    checkboxes[i].checked = source.checked;
+			  }
+		}
+	</script>
+	
+<nav th:replace="fragments/nav" />
 
 <div class="container">
    <h1  style="text-align:center;" th:text="#{offers.list.header}"></h1>
@@ -12,35 +21,36 @@
   <p style="text-align:center;" th:text="#{offers.list.paragraph}"></p>  
                                                                                       	  
   <div class="table-responsive">   
-  <!--  actualizar únicamente la tabla de notas -->       
-  <table class="table table-hover" th:fragment="tableOffers" id="tableOffers">
-    <thead>
-      <tr>
-        <th class="col-md-1">id</th>
-        <th th:text="#{offers.list.title}"></th>
-        <th th:text="#{offers.list.description}"></th>
-        <th th:text="#{offers.list.amount}  + ' ( ' +  '&euro;' + ' )'"></th>
-        <th th:text="#{offers.list.date}"></th>
-        
-		<th class="col-md-1"> </th>
-		<th class="col-md-1"> </th>
-		<th class="col-md-1"> </th>
-      </tr>
-    </thead>
-	<tbody>
-	  <tr th:each="offer : ${offerList}">
-	    <td th:text="${offer.id}"> 1</td>
-	    <td th:text="${offer.title}"> Title</td>
-	    <td th:text="${offer.description}"> Description</td>
-	    <td th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
-	    <td th:text="${offer.date}">2019-02-02</td>
-	    
-	    <td><a th:href="${'/offer/details/' + offer.id}" th:text="#{offers.list.details}"></a></td>
-	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/offer/edit/' + offer.id}" th:text="#{offers.list.edit}"></a> </td>
-	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/offer/delete/' + offer.id}" th:text="#{offers.list.delete}"></a></td>
-	  </tr>
-	</tbody>
-  </table>
+  <!--  actualizar únicamente la tabla de notas -->   
+  <form th:action='@{/offer/list}' method="POST">    
+	  <table class="table table-hover" th:fragment="tableOffers" id="tableOffers">
+	    <thead>
+	      <tr>
+	        <th><input id="checkAll" type="checkbox" onClick="toggle(this)"/></th>
+	        <th th:text="#{offers.list.title}"></th>
+	        <th th:text="#{offers.list.description}"></th>
+	        <th th:text="#{offers.list.amount}  + ' ( ' +  '&euro;' + ' )'"></th>
+	        <th th:text="#{offers.list.date}"></th>
+	      </tr>
+	    </thead>
+		<tbody>
+		  <tr th:each="offer : ${offerList}">
+		    <td>
+	             <input type="checkbox" th:name="idChecked" th:value="${offer.id}"/>
+	        </td>
+		    <td th:text="${offer.title}"> Title</td>
+		    <td th:text="${offer.description}"> Description</td>
+		    <td th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
+		    <td th:text="${offer.date}">2019-02-02</td>
+		  </tr>
+		</tbody>
+	  </table>
+	     <button type="submit" name='delete' value="delete"
+             class='btn btn-danger'
+             th:text="#{offers.list.delete}" th:if="${offerList != null and not #lists.isEmpty(offerList)}"
+             data-toggle="tooltip" data-placement="right">
+   		 </button>
+  	</form>
   </div>
   <footer th:replace="fragments/pagination"/>
 </div>

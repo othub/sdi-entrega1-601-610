@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="description" content="MyWallapop Web Application"/>
+  <meta name="keywords" content="HTML,CSS,JavaScript, Java, Spring"/>
+  <meta name="author" content="Othmane Bakhtaoui"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/error.css" />
+  <title>Error</title>
+</head>
+<body>
+	 <div id="main">
+	    	<div class="fof">
+	        	<h1 th:text="#{error.delete.offer.code}"></h1>
+	        	<p th:text="#{error.delete.offer.message}"></p>
+	    	</div>
+	</div>
+  <footer th:replace="fragments/footer" />
+</body>
+
+</html>

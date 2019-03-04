@@ -22,7 +22,7 @@
     
          <button type="submit" name='delete' value="delete"
              class='btn btn-danger'
-             th:text="#{users.list.delete}"
+             th:text="#{users.list.delete}" th:if="${usersList != null and not #lists.isEmpty(usersList)}"
              data-toggle="tooltip" data-placement="right">
    		 </button>
    		 

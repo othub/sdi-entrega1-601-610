@@ -2,6 +2,7 @@ package com.uniovi.controllers;
 
 import java.security.Principal;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +42,8 @@ public class OffersController {
     @Autowired
     private HttpSession httpSession;
 
+    // ___________________ ADD ___________________--//
+
     /**
      * Añadimos el POST Al lugar de request param, pasamos un parametro de la
      * entidad Offer
@@ -61,6 +65,27 @@ public class OffersController {
 	model.addAttribute("userMoney", activeUser.getMoneySum());
 	return "offer/add";
     }
+
+    // ____________________- DELETE ___________________--//
+
+    @RequestMapping("/offer/delete/{id}")
+    public String deleteOffer(@PathVariable Long id) {
+	offersService.deleteOffer(id);
+	return "redirect:/offer/list";
+    }
+
+    @PostMapping("/offer/list")
+    public String delete(@RequestParam("idChecked") List<String> idOffers) {
+	if (idOffers != null) {
+	    for (String id : idOffers) {
+		Long idToDelete = Long.parseLong(id);
+		offersService.deleteOffer(idToDelete);
+	    }
+	}
+	return "redirect:/offer/list";
+    }
+
+    // ____________________- LIST ___________________--//
 
     /*
      * incluimos una función por cada URL a la que va a responder el controlador,
@@ -96,34 +121,6 @@ public class OffersController {
 	Page<Offer> offers = offersService.getOffersForUser(pageable, user);
 	model.addAttribute("offerList", offers.getContent());
 	return "offer/list :: tableOffers";
-    }
-
-    /**
-     * al lugar de ../offer/details?id=4 lo incluimos en el path como path variable
-     * y no requestParam para que sea ../offer/details/4
-     * 
-     * @param id
-     * @return
-     */
-    @RequestMapping("/offer/details/{id}")
-    public String getDetail(Model model, @PathVariable Long id) {
-	model.addAttribute("offer", offersService.getOffer(id));
-	return "offer/details";
-    }
-
-    @RequestMapping("/offer/delete/{id}")
-    public String deleteOffer(@PathVariable Long id) {
-	offersService.deleteOffer(id);
-	// return "se ha borrado la nota con el id :" + id; <- intenta devolverlo como
-	// fichero
-	return "redirect:/offer/list";
-    }
-
-    @RequestMapping(value = "/offer/edit/{id}")
-    public String getEdit(Model model, @PathVariable Long id) {
-	model.addAttribute("offer", offersService.getOffer(id));
-	model.addAttribute("usersList", usersService.getUsers());
-	return "offer/edit";
     }
 
 }
