@@ -52,6 +52,10 @@ public class InsertSampleDataService {
 	user6.setPassword("123456");
 	user6.setRole(rolesService.getRoles()[0]);
 
+	User user7 = new User("algo7@gmail.com", "Neymar", "Jr");
+	user7.setPassword("123456");
+	user7.setRole(rolesService.getRoles()[0]);
+
 	User admin = new User("admin@email.com", "Othmane", "Bakhtaoui");
 	admin.setPassword("123456");
 	admin.setRole(rolesService.getRoles()[1]);
@@ -81,12 +85,29 @@ public class InsertSampleDataService {
 	};
 	user3.setOffers(user3Offers);
 
+	Set<Offer> user7Offers = new HashSet<Offer>() {
+	    {
+		add(new Offer("title71", "descr71", 71, user7));
+		add(new Offer("title72", "descr72", 72, user7));
+	    }
+	};
+	user7.setOffers(user7Offers);
+
+	Set<Offer> user6Offers = new HashSet<Offer>() {
+	    {
+		add(new Offer("title61", "descr61", 61, user6));
+		add(new Offer("title62", "descr62", 62, user6));
+	    }
+	};
+	user6.setOffers(user6Offers);
+
 	usersService.addUser(user1);
 	usersService.addUser(user2);
 	usersService.addUser(user3);
 	usersService.addUser(user4);
 	usersService.addUser(user5);
 	usersService.addUser(user6);
+	usersService.addUser(user7);
 	usersService.addUser(admin);
     }
 }
