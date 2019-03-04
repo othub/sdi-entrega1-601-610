@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse" style="	background-color: #38DFCE; color : white; ">
+<nav class="navbar navbar-inverse" style="	background-color: #38DFCE; color : white; font-weight: bold;">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -11,11 +11,11 @@
     
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-		<li><a th:text="#{nav.home}" href="/" style="color : white; "></a></li>
-		
+		<li><a th:text="#{nav.home}" href="/home" style="color : white; "></a></li>
 		<!-- Gestion de ofertas -->
 		<li id="offers-menu" class="dropdown" sec:authorize="hasRole('ROLE_STANDARD')">
-		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; " th:text="#{nav.menu.offers}"> <span class="caret"></span>
+		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; " th:text="#{nav.menu.offers}"> 
+		  		<span class="caret"></span>
 		  </a>
 		  <ul class="dropdown-menu" >
 		    <li><a href="/offer/add" style="color : black; " th:text="#{nav.menu.offers.add}"></a></li>
@@ -25,7 +25,8 @@
 		
 		<!-- Gestion de usuarios -->
 		<li id="users-menu" class="dropdown" sec:authorize ="hasRole('ROLE_ADMIN')">
-		  <a th:text="#{nav.users.menu}" class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; "> <span class="caret"></span>
+		  <a th:text="#{nav.users.menu}" class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; ">
+		  		<span class="caret"></span>
 		  </a>
 		  <ul class="dropdown-menu">
 		    <li><a th:text="#{nav.users.list}" href="/user/list" style="color : black; "></a></li>

@@ -71,4 +71,18 @@ public class OffersService {
 	return offers;
     }
 
+    /**
+     * @param pageable
+     * @param searchText
+     * @return
+     */
+    public Page<Offer> searchOffersByTitle(Pageable pageable, String searchText) {
+	Page<Offer> marks = new PageImpl<Offer>(new LinkedList<Offer>());
+	searchText = "%" + searchText + "%";
+	marks = offersRepository.searchOfferByTitle(pageable, searchText);
+
+	return marks;
+
+    }
+
 }

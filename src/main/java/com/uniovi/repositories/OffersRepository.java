@@ -19,4 +19,11 @@ public interface OffersRepository extends CrudRepository<Offer, Long> {
 
     Page<Offer> findAll(Pageable pageable);
 
+    /**
+     * @param pageable
+     * @param searchText
+     * @return
+     */
+    Page<Offer> searchOfferByTitle(Pageable pageable, String searchText);
+
 }

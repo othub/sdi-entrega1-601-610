@@ -18,3 +18,8 @@ footer {
   text-align:center;
   line-height:60px
 }
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+	background-color : white;
+	color:  #38DFCE !important;
+}

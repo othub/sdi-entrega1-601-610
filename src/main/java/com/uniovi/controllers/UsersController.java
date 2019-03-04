@@ -55,26 +55,6 @@ public class UsersController {
 	return "redirect:/user/list";
     }
 
-    @RequestMapping("/user/details/{id}")
-    public String getDetail(Model model, @PathVariable Long id) {
-	model.addAttribute("user", usersService.getUser(id));
-	return "user/details";
-    }
-
-    @RequestMapping(value = "/user/edit/{id}")
-    public String getEdit(Model model, @PathVariable Long id) {
-	User user = usersService.getUser(id);
-	model.addAttribute("user", user);
-	return "user/edit";
-    }
-
-    @RequestMapping(value = "/user/edit/{id}", method = RequestMethod.POST)
-    public String setEdit(Model model, @PathVariable Long id, @ModelAttribute User user) {
-	user.setId(id);
-	usersService.addUser(user);
-	return "redirect:/user/details/" + id;
-    }
-
     @RequestMapping(value = { "/nav" }, method = RequestMethod.GET)
     public String nav(Model model) {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -82,16 +62,6 @@ public class UsersController {
 	User activeUser = usersService.getUserByEmail(email);
 	model.addAttribute("userMoney", activeUser.getMoneySum());
 	return "nav";
-    }
-
-    @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
-    public String home(Model model) {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	String email = auth.getName();
-	User activeUser = usersService.getUserByEmail(email);
-	model.addAttribute("offerList", activeUser.getOffers());
-	model.addAttribute("userMoney", activeUser.getMoneySum());
-	return "home";
     }
 
     // _______________________LOGIN______________________//

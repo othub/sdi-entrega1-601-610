@@ -97,8 +97,7 @@ public class OffersController {
 	User user = usersService.getUserByEmail(email);
 	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
 	if (searchText != null && !searchText.isEmpty()) {
-	    // offers = offersService.searchOffersByDescriptionAndNameForUser(pageable,
-	    // searchText, user);
+	    offers = offersService.searchOffersByTitle(pageable, searchText);
 	} else {
 	    offers = offersService.getOffersForUser(pageable, user);
 	}
@@ -121,6 +120,28 @@ public class OffersController {
 	Page<Offer> offers = offersService.getOffersForUser(pageable, user);
 	model.addAttribute("offerList", offers.getContent());
 	return "offer/list :: tableOffers";
+    }
+
+    // _________________________ HOME _____________________//
+
+    @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
+    public String home(Model model, Pageable pageable, Principal principal,
+	    @RequestParam(value = "", required = false) String searchText) {
+	String email = principal.getName();
+	User user = usersService.getUserByEmail(email);
+	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
+
+	if (searchText != null && !searchText.isEmpty()) {
+	    offers = offersService.searchOffersByTitle(pageable, searchText);
+	} else {
+	    offers = offersService.getOffers(pageable);
+	}
+
+	model.addAttribute("userMoney", user.getMoneySum());
+	model.addAttribute("offerList", offers.getContent());
+	model.addAttribute("page", offers);
+
+	return "home";
     }
 
 }
