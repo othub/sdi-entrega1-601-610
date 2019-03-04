@@ -40,7 +40,7 @@ public class Offer {
     private Long id;
 
     private String title;
-    private String descripcion;
+    private String description;
     private double amount;
     private String date = new SimpleDateFormat("yyyy-mm-dd hh:mm").format(Calendar.getInstance().getTime());
 
@@ -58,11 +58,11 @@ public class Offer {
      * @param date
      * @param amount
      */
-    public Offer(Long id, String title, String descripcion, double amount) {
+    public Offer(Long id, String title, String description, double amount) {
 	super();
 	this.id = id;
 	this.title = title;
-	this.descripcion = descripcion;
+	this.description = description;
 	this.amount = amount;
     }
 
@@ -73,10 +73,10 @@ public class Offer {
      * @param amount
      * @param user
      */
-    public Offer(String title, String descripcion, double amount, User user) {
+    public Offer(String title, String description, double amount, User user) {
 	super();
 	this.title = title;
-	this.descripcion = descripcion;
+	this.description = description;
 	this.amount = amount;
 	this.user = user;
     }
@@ -126,15 +126,15 @@ public class Offer {
     /**
      * @return the descripcion
      */
-    public String getDescripcion() {
-	return descripcion;
+    public String getDescription() {
+	return description;
     }
 
     /**
      * @param descripcion the descripcion to set
      */
-    public void setDescripcion(String descripcion) {
-	this.descripcion = descripcion;
+    public void setDescription(String description) {
+	this.description = description;
     }
 
     /**
@@ -172,7 +172,7 @@ public class Offer {
      */
     @Override
     public String toString() {
-	return "Offer [id=" + id + ", title=" + title + ", descripcion=" + descripcion + ", date=" + date + ", amount="
+	return "Offer [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date + ", amount="
 		+ amount + ", user=" + user + "]";
     }
 
