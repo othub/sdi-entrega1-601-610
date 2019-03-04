@@ -19,7 +19,7 @@
         <th class="col-md-1">id</th>
         <th th:text="#{offers.list.title}"></th>
         <th th:text="#{offers.list.description}"></th>
-        <th th:text="#{offers.list.amount}"></th>
+        <th th:text="#{offers.list.amount}  + ' ( ' +  '&euro;' + ' )'"></th>
         <th th:text="#{offers.list.date}"></th>
         
 		<th class="col-md-1"> </th>
@@ -32,7 +32,7 @@
 	    <td th:text="${offer.id}"> 1</td>
 	    <td th:text="${offer.title}"> Title</td>
 	    <td th:text="${offer.description}"> Description</td>
-	    <td th:text="${offer.amount}">10</td>
+	    <td th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
 	    <td th:text="${offer.date}">2019-02-02</td>
 	    
 	    <td><a th:href="${'/offer/details/' + offer.id}" th:text="#{offers.list.details}"></a></td>

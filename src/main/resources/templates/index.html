@@ -4,16 +4,16 @@
 <!-- Fragmento de head -->
 <head th:replace="fragments/head"/>
 
-<body style="font-size: 18px;">
+<body>
 	<nav th:replace="fragments/nav"/>
 
   <div class="container" style="text-align: center">
   	<img src="/img/logo.png" alt="logo wallapop" />
   	
-    <h1 th:text="#{welcome.message}"></h1>
+    <h1 style="font-size: 18px;" th:text="#{welcome.message}"></h1>
     
-    <p  th:text="#{welcome.body.login}"></p>
-    <p  th:text="#{welcome.body.register}"></p>
+    <p  style="font-size: 18px;" th:text="#{welcome.body.login}"></p>
+    <p  style="font-size: 18px;" th:text="#{welcome.body.register}"></p>
   </div>
   
   	<!-- Fragmento de footer -->
