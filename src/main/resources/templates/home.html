@@ -73,15 +73,16 @@
 					  /*<![CDATA[*/
 					  $("#buyButton[[${offer.id}]]").click(function() {
 					    $.get("/home/[[${offer.id}]]/available", function(data) {
-					    	//location.reload();
-					      var numberPage = [[${param.page}]];
+					    	location.reload();
+/* 					      var numberPage = [[${param.page}]];
 					      var urlUpdate = '/home/update';
 					      if (numberPage != null) {
 					        urlUpdate += "?page=" + numberPage[0];
 					      }
-					      $("#tableOffers").load(urlUpdate); 
+					      $("#tableOffers").load(urlUpdate); */
 					    });
-					  }); /*]]>*/
+					  }); 
+					   /*]]>*/
 					</script>			  
 			  </div>
 			  <!-- NOT available -->

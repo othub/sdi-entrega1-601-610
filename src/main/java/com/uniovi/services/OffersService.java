@@ -108,6 +108,7 @@ public class OffersService {
 		return true;
 	    }
 	}
+	System.err.println("NO SE COMPRA EH CABRON");
 	return false;
     }
 

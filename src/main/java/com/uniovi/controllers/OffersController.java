@@ -152,6 +152,6 @@ public class OffersController {
 	if (offersService.setAvailable(activeUser, false, id)) {
 	    return "redirect:/home";
 	} else
-	    return "error/buying";
+	    return "error/deletion";
     }
 }
