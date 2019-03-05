@@ -24,12 +24,12 @@
     
 	<p sec:authorize="hasRole('ROLE_STANDARD')" th:text="#{offers.welcome.message}"> </p>
 	
-			<form class="navbar-form" action="/home">
-		  <div class="form-group"> 
-		  	<input name="searchText" type="text" class="form-control" size="50" th:placeholder="#{home.offers.searchPH}"> 
-		  </div> 
-		  <button type="submit" class="btn btn-outline-success" th:text="#{home.offers.search}"></button>
-		</form>  
+	<form class="navbar-form" action="/home">
+	  <div class="form-group"> 
+	  	<input name="searchText" type="text" class="form-control" size="50" th:placeholder="#{home.offers.searchPH}"> 
+	  </div> 
+	  <button type="submit" class="btn btn-outline-success" th:text="#{home.offers.search}"></button>
+	</form>  
 	
 	<div sec:authorize="hasRole('ROLE_STANDARD')" class="table-responsive">
    	   <button type="button" id="updateButton" class="btn btn-primary"  style = "background-color: #38DFCE; color : white; font-weight: bold;" th:text="#{home.offers.update}">
@@ -38,7 +38,7 @@
 		/*<![CDATA[*/
 		$( "#updateButton" ).click(function() { 
 			var numberPage = [[${param.page}]];
-			var urlUpdate = '/offer/list/update'; 
+			var urlUpdate = '/home/update'; 
 			if (numberPage != null ){ 
 				urlUpdate += "?page="+numberPage[0]; 
 			} 
@@ -46,6 +46,7 @@
 		});
 		/*]]>*/
 	 </script>
+	 <form class="navbar-form" action="/home">
 	  <table class="table table-hover" th:fragment="tableOffers" id="tableOffers">
 	    <thead>
 	      <tr>
@@ -54,6 +55,7 @@
 	        <th th:text="#{offers.list.description}"></th>
 	        <th th:text="#{offers.list.amount}  + ' ( ' +  '&euro;' + ' )'"></th>
 	        <th th:text="#{offers.list.date}"></th>
+	        <th></th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -62,10 +64,35 @@
 		    <td th:text="${offer.title}"> Title</td>
 		    <td th:text="${offer.description}"> Description</td>
 		    <td th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
-		    <td th:text="${offer.date}">2019-02-02</td>
+		    <td th:text="${offer.date}">2019-02-02</td>    
+			<td>
+				<!-- Available  -->
+				<div th:if="${offer.isAvailable}"> 
+					<button type="button" th:id="${'buyButton' + offer.id}" class="btn btn-info">Comprar</button>
+					<script th:inline="javascript">
+					  /*<![CDATA[*/
+					  $("#buyButton[[${offer.id}]]").click(function() {
+					    $.get("/home/[[${offer.id}]]/available", function(data) {
+					    	//location.reload();
+					      var numberPage = [[${param.page}]];
+					      var urlUpdate = '/home/update';
+					      if (numberPage != null) {
+					        urlUpdate += "?page=" + numberPage[0];
+					      }
+					      $("#tableOffers").load(urlUpdate); 
+					    });
+					  }); /*]]>*/
+					</script>			  
+			  </div>
+			  <!-- NOT available -->
+			  <div th:unless="${offer.isAvailable}"> 
+				<button type="button" th:id="${'noAvailable' + offer.id}" class="btn btn-danger">Comprado</button>
+			  </div>
+			</td>
 	      </tr>
 	    </tbody>
 	  </table>
+	  </form>  
 	</div>
 	  <footer th:replace="fragments/pagination"/>
   </div>

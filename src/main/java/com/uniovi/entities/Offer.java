@@ -1,22 +1,3 @@
-/*
- * See the NOTICE file distributed with this work for additional
- * information regarding copyright ownership.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
 package com.uniovi.entities;
 
 import java.text.SimpleDateFormat;
@@ -43,6 +24,8 @@ public class Offer {
     private String description;
     private double amount;
     private String date = new SimpleDateFormat("yyyy-mm-dd hh:mm").format(Calendar.getInstance().getTime());
+
+    public boolean isAvailable = true;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -172,8 +155,22 @@ public class Offer {
      */
     @Override
     public String toString() {
-	return "Offer [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date + ", amount="
-		+ amount + ", user=" + user + "]";
+	return "Offer [id=" + id + ", title=" + title + ", description=" + description + ", amount=" + amount
+		+ ", date=" + date + ", isAvailable=" + isAvailable + ", user=" + user + "]";
+    }
+
+    /**
+     * @return the isAvailable
+     */
+    public boolean isAvailable() {
+	return isAvailable;
+    }
+
+    /**
+     * @param isAvailable the isAvailable to set
+     */
+    public void setAvailable(boolean isAvailable) {
+	this.isAvailable = isAvailable;
     }
 
 }

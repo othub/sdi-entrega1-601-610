@@ -108,19 +108,6 @@ public class OffersController {
 	return "offer/list";
     }
 
-    /**
-     * Actualiza la tabla de ofertas a traves del boton
-     * 
-     * @param model
-     * @return
-     */
-    @RequestMapping("/offer/list/update")
-    public String updateList(Model model, Pageable pageable, Principal principal) {
-	Page<Offer> offers = offersService.getOffers(pageable);
-	model.addAttribute("offerList", offers.getContent());
-	return "offer/list :: tableOffers";
-    }
-
     // _________________________ HOME _____________________//
 
     @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
@@ -143,4 +130,28 @@ public class OffersController {
 	return "home";
     }
 
+    // _________________________ UPDATE _______________________//
+    /**
+     * Actualiza la tabla de notas a traves del boton
+     * 
+     * @param model
+     * @return
+     */
+    @RequestMapping("/home/update")
+    public String updateList(Model model, Pageable pageable, Principal principal) {
+	Page<Offer> offers = offersService.getOffers(pageable);
+	model.addAttribute("offerList", offers.getContent());
+	return "home :: tableOffers";
+    }
+
+    @RequestMapping(value = "/home/{id}/available", method = RequestMethod.GET)
+    public String setResendTrue(Model model, @PathVariable Long id) {
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	String email = auth.getName();
+	User activeUser = usersService.getUserByEmail(email);
+	if (offersService.setAvailable(activeUser, false, id)) {
+	    return "redirect:/home";
+	} else
+	    return "error/buying";
+    }
 }
