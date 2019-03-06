@@ -34,9 +34,6 @@ public class User {
     private String role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Mark> marks;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Offer> offers;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -103,14 +100,6 @@ public class User {
 
     public void setLastName(String lastName) {
 	this.lastName = lastName;
-    }
-
-    public void setMarks(Set<Mark> marks) {
-	this.marks = marks;
-    }
-
-    public Set<Mark> getMarks() {
-	return marks;
     }
 
     public String getFullName() {
