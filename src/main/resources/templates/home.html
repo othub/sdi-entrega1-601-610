@@ -68,7 +68,7 @@
 			<td>
 				<!-- Available  -->
 				<div th:if="${offer.isAvailable}"> 
-					<button type="button" th:id="${'buyButton' + offer.id}" class="btn btn-info">Comprar</button>
+					<button type="button" th:id="${'buyButton' + offer.id}" class="btn btn-info" th:text="#{home.list.buy}">Comprar</button>
 					<script th:inline="javascript">
 					  /*<![CDATA[*/
 					  $("#buyButton[[${offer.id}]]").click(function() {
@@ -87,7 +87,7 @@
 			  </div>
 			  <!-- NOT available -->
 			  <div th:unless="${offer.isAvailable}"> 
-				<button type="button" th:id="${'noAvailable' + offer.id}" class="btn btn-danger">Comprado</button>
+				<button type="button" th:id="${'noAvailable' + offer.id}" class="btn btn-danger" th:text="#{home.list.bought}">Comprado</button>
 			  </div>
 			</td>
 	      </tr>

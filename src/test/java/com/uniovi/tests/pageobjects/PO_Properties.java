@@ -33,11 +33,11 @@ public class PO_Properties {
 
 	ResourceBundle bundle = ResourceBundle.getBundle(Path, idioms[locale]);
 	String value = bundle.getString(prop);
+	@SuppressWarnings("unused")
 	String result;
 	try {
 	    result = new String(value.getBytes("ISO-8859-1"), "UTF-8");
 	} catch (UnsupportedEncodingException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 	return value;
