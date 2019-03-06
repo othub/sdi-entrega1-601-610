@@ -145,13 +145,13 @@ public class OffersController {
     }
 
     @RequestMapping(value = "/home/{id}/available", method = RequestMethod.GET)
-    public String setResendTrue(Model model, @PathVariable Long id) {
+    public String setAvailableFalse(Model model, @PathVariable Long id) {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	String email = auth.getName();
 	User activeUser = usersService.getUserByEmail(email);
 	if (offersService.setAvailable(activeUser, false, id)) {
 	    return "redirect:/home";
 	} else
-	    return "error/deletion";
+	    return "buying";
     }
 }

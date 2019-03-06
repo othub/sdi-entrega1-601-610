@@ -39,6 +39,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Offer> offers;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<ProductBought> offersBought;
+
     private String password;
 
     @Transient // propiedad que no se almacena e la tabla.
@@ -154,6 +157,20 @@ public class User {
      */
     public void setOffers(Set<Offer> offers) {
 	this.offers = offers;
+    }
+
+    /**
+     * @return the offersBought
+     */
+    public Set<ProductBought> getOffersBought() {
+	return offersBought;
+    }
+
+    /**
+     * @param offersBought the offersBought to set
+     */
+    public void setOffersBought(Set<ProductBought> offersBought) {
+	this.offersBought = offersBought;
     }
 
 }

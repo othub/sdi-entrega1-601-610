@@ -27,4 +27,5 @@ public interface UsersRepository extends CrudRepository<User, Long> {
     @Transactional
     @Query("UPDATE User SET moneySum = ?1 WHERE id = ?2")
     void updateUserAmount(double rest, Long id);
+
 }

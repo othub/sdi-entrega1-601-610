@@ -46,7 +46,7 @@
 		});
 		/*]]>*/
 	 </script>
-	 <form class="navbar-form" action="/home">
+	 <form class="navbar-form" action="/home" method="POST">
 	  <table class="table table-hover" th:fragment="tableOffers" id="tableOffers">
 	    <thead>
 	      <tr>
@@ -95,7 +95,7 @@
 	  </table>
 	  </form>  
 	</div>
-	  <footer th:replace="fragments/pagination"/>
+	  <footer sec:authorize="hasRole('ROLE_STANDARD')" th:replace="fragments/pagination"/>
   </div>
   <footer th:replace="fragments/footer" />
 </body>

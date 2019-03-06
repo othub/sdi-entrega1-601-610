@@ -15,8 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Offer;
+import com.uniovi.entities.ProductBought;
 import com.uniovi.entities.User;
 import com.uniovi.repositories.OffersRepository;
+import com.uniovi.repositories.ProductBoughtRepository;
 import com.uniovi.repositories.UsersRepository;
 
 /**
@@ -37,6 +39,9 @@ public class OffersService {
 
     @Autowired
     private UsersRepository usersRepository;
+
+    @Autowired
+    private ProductBoughtRepository offersOwnedRepository;
 
     public Offer getOffer(Long id) {
 	@SuppressWarnings("unchecked")
@@ -103,7 +108,9 @@ public class OffersService {
 		offersRepository.updateAvailable(isAvailable, id);
 		double rest = user.getMoneySum() - offer.getAmount();
 		usersRepository.updateUserAmount(rest, user.getId());
-		System.err.println("SE BORRO JODER");
+		offersOwnedRepository.save(new ProductBought(offer.getTitle(), offer.getDescription(),
+			offer.getAmount(), user, offer.getUser().getEmail()));
+		System.err.println("SE COMPRO JODER");
 		System.err.println("AMOUNT DE USUARIO ES :" + user.getMoneySum());
 		return true;
 	    }
