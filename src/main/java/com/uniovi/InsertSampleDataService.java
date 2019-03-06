@@ -62,7 +62,7 @@ public class InsertSampleDataService {
 
 	Set<Offer> user2Offers = new HashSet<Offer>() {
 	    {
-		add(new Offer("title21", "descr21", 21, user2));
+		add(new Offer("Patinete 2019", "patinete electrico", 40, user2));
 		add(new Offer("title22", "descr22", 22, user2));
 
 	    }
@@ -95,11 +95,19 @@ public class InsertSampleDataService {
 
 	Set<Offer> user6Offers = new HashSet<Offer>() {
 	    {
-		add(new Offer("title61", "descr61", 61, user6));
-		add(new Offer("title62", "descr62", 62, user6));
+		add(new Offer("Coche VolksWagen", "golf", 60, user6));
+		add(new Offer("Coche Mercedes", "220c", 70, user6));
 	    }
 	};
 	user6.setOffers(user6Offers);
+
+	Set<Offer> user5Offers = new HashSet<Offer>() {
+	    {
+		add(new Offer("title51", "descr51", 51, user5));
+		add(new Offer("title52", "descr52", 52, user5));
+	    }
+	};
+	user5.setOffers(user5Offers);
 
 	usersService.addUser(user1);
 	usersService.addUser(user2);
