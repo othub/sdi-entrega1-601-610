@@ -144,7 +144,7 @@ public class BuyOfferTests {
 	List<WebElement> btnComprar = driver.findElements(By.className("btn-info"));
 	assertTrue(btnComprar.isEmpty()); // sigue en comprar
 
-	// se actualiza el precio a 60
+	// se actualiza el precio a 00
 	PO_View.checkElement(driver, "text", "0.0 €");
 
 	// desconectamos
@@ -181,7 +181,7 @@ public class BuyOfferTests {
 	List<WebElement> btnComprar = driver.findElements(By.className("btn-info"));
 	assertTrue(btnComprar.size() == 1); // SIGUE EL BOTON DE COMPRAR
 
-	// se actualiza el precio a 60
+	// se queda el mismo precio
 	assertTrue(driver.getPageSource().contains("0.0 €")); // no se cambió el saldo del usuario
 
 	// desconectamos
