@@ -34,6 +34,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_NavView;
+import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
 
 //Ordenamos las pruebas por el nombre del método
@@ -79,6 +80,10 @@ public class SecurityTests {
 	PO_LoginView.fillForm(driver, "admin@email.com", "123456");
 	// vemos los usuarios del sistema
 	PO_View.checkElement(driver, "text", "Los usuarios de myWallaPop son los siguientes:");
+
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+
     }
 
     @Test
@@ -93,6 +98,10 @@ public class SecurityTests {
 	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
 	// vea sus ofertas
 	PO_View.checkElement(driver, "text", "Su ofertas publicadas en myWallapop son las siguientes :");
+
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+
     }
 
     @Test
@@ -100,7 +109,7 @@ public class SecurityTests {
 	// login con usuario estandar
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
 	// cambiamos el home
 	String url = driver.getCurrentUrl().replace("home", "");
 	String newUrl = url + "user/list";
@@ -110,6 +119,7 @@ public class SecurityTests {
 	assertTrue(driver.getPageSource().contains("HTTP Status 403 – Forbidden"));
 	// asegurar que no se ven la pagina de usuarios gestionada por el admin
 	assertFalse(driver.getPageSource().contains("Los usuarios de myWallaPop son los siguientes:"));
+	// no estamos conectados entonces.
     }
 
     // Antes de la primera prueba

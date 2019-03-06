@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,18 +40,6 @@ public class UsersController {
     public String getListado(Model model) {
 	model.addAttribute("usersList", usersService.getUsers());
 	return "user/list";
-    }
-
-    @RequestMapping(value = "/user/add")
-    public String getUser(Model model) {
-	model.addAttribute("rolesList", rolesService.getRoles());
-	return "user/add";
-    }
-
-    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
-    public String setUser(@ModelAttribute User user) {
-	usersService.addUser(user);
-	return "redirect:/user/list";
     }
 
     @RequestMapping(value = { "/nav" }, method = RequestMethod.GET)

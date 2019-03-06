@@ -38,12 +38,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_NavView;
+import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.utils.SeleniumUtils;
 
 //Ordenamos las pruebas por el nombre del método
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class OffersDeletionTests {
+public class DeleteOffersTests {
 
     // En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
     // automáticas)):
@@ -76,7 +77,7 @@ public class OffersDeletionTests {
     public void Prueba19() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo7@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -101,13 +102,17 @@ public class OffersDeletionTests {
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 1);
+
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+
     }
 
     @Test
     public void Prueba20() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo7@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -131,6 +136,10 @@ public class OffersDeletionTests {
 	// desaperece el boton de borrar
 	List<WebElement> btnDelete = driver.findElements(By.className("btn-danger"));
 	assertTrue(btnDelete.isEmpty());
+
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+
     }
 
     private void clickOneCheckbox() {

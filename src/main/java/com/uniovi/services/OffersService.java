@@ -88,10 +88,10 @@ public class OffersService {
      * @return
      */
     public Page<Offer> searchOffersByTitle(Pageable pageable, String searchText) {
-	Page<Offer> marks = new PageImpl<Offer>(new LinkedList<Offer>());
+	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
 	searchText = "%" + searchText + "%";
-	marks = offersRepository.searchOfferByTitle(pageable, searchText);
-	return marks;
+	offers = offersRepository.searchOfferByTitle(pageable, searchText);
+	return offers;
 
     }
 

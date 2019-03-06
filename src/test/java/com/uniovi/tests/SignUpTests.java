@@ -30,6 +30,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.tests.pageobjects.PO_NavView;
+import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_Properties;
 import com.uniovi.tests.pageobjects.PO_RegisterView;
 import com.uniovi.tests.pageobjects.PO_View;
@@ -69,7 +70,11 @@ public class SignUpTests {
     public void Prueba1() {
 	PO_NavView.clickOption(driver, "signup", "class", "btn btn-primary");
 	PO_RegisterView.fillForm(driver, "alguien88@example.org", "Josefo", "Perez", "123456", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
+
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+
     }
 
     @Test
@@ -98,9 +103,6 @@ public class SignUpTests {
 
 	PO_RegisterView.fillForm(driver, "alguien@example.com", "Josefo", "Perez", "77777", "77776");
 	PO_View.getP();
-	// error
-	// PO_RegisterView.checkKey(driver, "Error.signup.passwordConfirm.coincidence",
-	// PO_Properties.getSPANISH());
 	// queda en la misma página
 	PO_View.checkElement(driver, "text", "Email:");
 
@@ -110,9 +112,9 @@ public class SignUpTests {
     public void Prueba4() {
 	PO_NavView.clickOption(driver, "signup", "class", "btn btn-primary");
 	// Rellenamos el formulario.
-	PO_RegisterView.fillForm(driver, "algo2@example.org", "Josefo", "Perez", "77777", "77777");
+	PO_RegisterView.fillForm(driver, "alguien88@example.org", "Josefo", "Perez", "77777", "77777");
 	PO_View.getP();
-	// COmprobamos el error de DNI repetido.
+	// COmprobamos el error de email repetido.
 	PO_RegisterView.checkKey(driver, "Error.signup.email.duplicate", PO_Properties.getSPANISH());
 
     }

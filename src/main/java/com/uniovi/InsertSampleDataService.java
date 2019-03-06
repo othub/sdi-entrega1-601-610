@@ -109,6 +109,29 @@ public class InsertSampleDataService {
 	};
 	user5.setOffers(user5Offers);
 
+	User delete1 = new User("akran1@gmail.com", "Pedro", "Pascal");
+	delete1.setPassword("123456");
+	delete1.setRole(rolesService.getRoles()[0]);
+	User delete2 = new User("akran2@gmail.com", "Lucas", "Hernandez");
+	delete2.setPassword("123456");
+	delete2.setRole(rolesService.getRoles()[0]);
+	User delete3 = new User("akran3@gmail.com", "Iker", "Casillas");
+	delete3.setPassword("123456");
+	delete3.setRole(rolesService.getRoles()[0]);
+	User delete4 = new User("akran4@gmail.com", "Xavi", "Hernandez");
+	delete4.setPassword("123456");
+	delete4.setRole(rolesService.getRoles()[0]);
+	User delete5 = new User("akran5@gmail.com", "Pedro", "Rodriguez");
+	delete5.setPassword("123456");
+	delete5.setRole(rolesService.getRoles()[0]);
+
+	// FOR ADMIN DELETE
+	usersService.addUser(delete1);
+	usersService.addUser(delete2);
+	usersService.addUser(delete3);
+	usersService.addUser(delete4);
+	usersService.addUser(delete5);
+	// for normal use
 	usersService.addUser(user1);
 	usersService.addUser(user2);
 	usersService.addUser(user3);
@@ -117,5 +140,6 @@ public class InsertSampleDataService {
 	usersService.addUser(user6);
 	usersService.addUser(user7);
 	usersService.addUser(admin);
+
     }
 }

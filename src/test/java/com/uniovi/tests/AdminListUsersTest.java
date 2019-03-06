@@ -1,22 +1,3 @@
-/*
- * See the NOTICE file distributed with this work for additional
- * information regarding copyright ownership.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
 package com.uniovi.tests;
 
 import static org.junit.Assert.assertTrue;
@@ -40,9 +21,8 @@ import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.utils.SeleniumUtils;
 
-//Ordenamos las pruebas por el nombre del método
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ListUsersTest {
+public class AdminListUsersTest {
 
     // En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
     // automáticas)):
@@ -85,9 +65,10 @@ public class ListUsersTest {
 
 	// hay 8 usuarios en el sistema incluyendo el admin
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 8);
+	assertTrue(elementos.size() == 14);
 
 	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+
     }
 
     // Antes de la primera prueba

@@ -83,7 +83,7 @@ public class LogOutTests {
     public void Prueba11() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
 
 	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
 
@@ -92,7 +92,7 @@ public class LogOutTests {
 	assertTrue(disconnect.isEmpty());
 
 	PO_LoginView.fillForm(driver, "algo@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
 
     }
 

@@ -1,22 +1,3 @@
-/*
- * See the NOTICE file distributed with this work for additional
- * information regarding copyright ownership.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
 package com.uniovi.tests;
 
 import static org.junit.Assert.assertTrue;
@@ -37,6 +18,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import com.uniovi.tests.pageobjects.PO_AddOfferView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_NavView;
+import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.utils.SeleniumUtils;
 
@@ -75,7 +57,7 @@ public class AddOfferTests {
     public void Prueba16() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo2@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -100,13 +82,16 @@ public class AddOfferTests {
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 3);
+
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
     }
 
     @Test
     public void Prueba17() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo2@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -143,6 +128,10 @@ public class AddOfferTests {
 	// hay 2 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 3);
+
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+
     }
 
     // Antes de la primera prueba

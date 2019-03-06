@@ -126,7 +126,7 @@ public class InternalizationTests {
     private void listUsersTest() {
 	// hay 7 usuarios en el sistema
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 8);
+	assertTrue(elementos.size() == 9);
 	// estamos en spanish, probamos que si
 	PO_View.checkElement(driver, "text", "Los usuarios de myWallaPop son los siguientes:");
 	// changing to english
@@ -205,7 +205,7 @@ public class InternalizationTests {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.checkElement(driver, "text", "Identificate");
 	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
 	// disconnect
 	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
 
@@ -213,7 +213,7 @@ public class InternalizationTests {
 	PO_NavView.changeIdiom(driver, "English");
 	PO_LoginView.checkElement(driver, "text", "Login");
 	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Your products / Offers");
+	PO_View.checkElement(driver, "text", "The current offers in myWallapop are the following :");
 	// disconnect
 	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
 
@@ -221,7 +221,7 @@ public class InternalizationTests {
 	PO_NavView.changeIdiom(driver, "Spanish");
 	PO_LoginView.checkElement(driver, "text", "Identificate");
 	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
     }
 
     /**

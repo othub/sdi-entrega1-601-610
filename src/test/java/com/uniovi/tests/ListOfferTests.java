@@ -37,6 +37,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import com.uniovi.tests.pageobjects.PO_AddOfferView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_NavView;
+import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.utils.SeleniumUtils;
 
@@ -75,7 +76,7 @@ public class ListOfferTests {
     public void Prueba18() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo3@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Ofertas del usuario");
+	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -102,6 +103,10 @@ public class ListOfferTests {
 	// se ha actualizado
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 3);
+
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+
     }
 
     // Antes de la primera prueba

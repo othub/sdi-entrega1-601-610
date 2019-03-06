@@ -1,22 +1,3 @@
-/*
- * See the NOTICE file distributed with this work for additional
- * information regarding copyright ownership.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
 package com.uniovi.tests;
 
 import static org.junit.Assert.assertFalse;
@@ -38,6 +19,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_NavView;
+import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.utils.SeleniumUtils;
 
@@ -84,18 +66,20 @@ public class AdminDeletionTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
 	elementos.get(0).click();
 
-	// hay 7 usuarios en el sistema
+	// hay 8 usuarios en el sistema
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 7);
+	assertTrue(elementos.size() == 14);
 
 	elementos = PO_View.checkElement(driver, "free",
-		"//td[contains(text(), 'algo@gmail.com')]/following-sibling::*/a[contains(@href, 'user/delete')]");
+		"//td[contains(text(), 'akran1@gmail.com')]/following-sibling::*/a[contains(@href, 'user/delete')]");
 	elementos.get(0).click();
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 
 	// No existe el email, se ha borrado
-	assertFalse(driver.getPageSource().contains("algo@gmail.com"));
+	assertFalse(driver.getPageSource().contains("akran1@gmail.com"));
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
 
     }
 
@@ -112,16 +96,19 @@ public class AdminDeletionTests {
 	elementos.get(0).click();
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 6);
+	assertTrue(elementos.size() == 13);
 
 	elementos = PO_View.checkElement(driver, "free",
-		"//td[contains(text(), 'algo5@gmail.com')]/following-sibling::*/a[contains(@href, 'user/delete')]");
+		"//td[contains(text(), 'akran5@gmail.com')]/following-sibling::*/a[contains(@href, 'user/delete')]");
 	elementos.get(0).click();
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 
 	// No existe el email, se ha borrado
-	assertFalse(driver.getPageSource().contains("algo5@gmail.com"));
+	assertFalse(driver.getPageSource().contains("akran5@gmail.com"));
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+
     }
 
     @Test
@@ -137,22 +124,26 @@ public class AdminDeletionTests {
 	elementos.get(0).click();
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 5);
+	assertTrue(elementos.size() == 12);
 
 	clickThreeCheckboxes();
 
 	driver.findElement(By.className("btn-danger")).click();
 
 	// No existe el email, se ha borrado
-	assertFalse(driver.getPageSource().contains("algo1@gmail.com"));
-	assertFalse(driver.getPageSource().contains("algo2@gmail.com"));
-	assertFalse(driver.getPageSource().contains("algo3@gmail.com"));
+	assertFalse(driver.getPageSource().contains("akran1@gmail.com"));
+	assertFalse(driver.getPageSource().contains("akran2@gmail.com"));
+	assertFalse(driver.getPageSource().contains("akran3@gmail.com"));
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 2);
+	assertTrue(elementos.size() == 9);
 
-	assertTrue(driver.getPageSource().contains("alg4@gmail.com"));
+	assertTrue(driver.getPageSource().contains("algo1@gmail.com"));
+	// y los demas
 	assertTrue(driver.getPageSource().contains("admin@email.com"));
+
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
 
     }
 
