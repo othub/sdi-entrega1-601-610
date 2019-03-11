@@ -18,7 +18,7 @@ public class Offer {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long ID;
 
     private String title;
     private String description;
@@ -43,7 +43,7 @@ public class Offer {
      */
     public Offer(Long id, String title, String description, double amount) {
 	super();
-	this.id = id;
+	this.ID = id;
 	this.title = title;
 	this.description = description;
 	this.amount = amount;
@@ -68,14 +68,14 @@ public class Offer {
      * @return the id
      */
     public Long getId() {
-	return id;
+	return ID;
     }
 
     /**
      * @param id the id to set
      */
     public void setId(Long id) {
-	this.id = id;
+	this.ID = id;
     }
 
     /**
@@ -155,7 +155,7 @@ public class Offer {
      */
     @Override
     public String toString() {
-	return "Offer [id=" + id + ", title=" + title + ", description=" + description + ", amount=" + amount
+	return "Offer [ID=" + ID + ", title=" + title + ", description=" + description + ", amount=" + amount
 		+ ", date=" + date + ", isAvailable=" + isAvailable + ", user=" + user + "]";
     }
 
