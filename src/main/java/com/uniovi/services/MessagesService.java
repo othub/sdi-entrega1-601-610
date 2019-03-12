@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Message;
 import com.uniovi.entities.Offer;
@@ -29,6 +30,7 @@ import com.uniovi.repositories.UsersRepository;
  * 
  * @version $Id$
  */
+@Service
 public class MessagesService {
 
 	@Autowired
@@ -36,10 +38,9 @@ public class MessagesService {
 
 	@Autowired
 	private MessagesRepository messagesRepository;
-	
+
 	@Autowired
 	private OffersRepository offersRepository;
-
 
 //	@Autowired
 //	private ProductBoughtRepository offersOwnedRepository;
@@ -95,29 +96,26 @@ public class MessagesService {
 //		return offers;
 //
 //	}
-//
-//	/**
-//	 * @param isAvailable
-//	 * @param id
-//	 */
-//	public boolean setAvailable(User user, boolean isAvailable, Long id) {
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		String email = auth.getName();
-//		Offer offer = offersRepository.findById(id).get();
-//		if (!offer.getUser().getEmail().equals(email)) { // no comprar producto propio
-//			if (user.getMoneySum() >= offer.getAmount()) {
-//				offersRepository.updateAvailable(isAvailable, id);
-//				double rest = user.getMoneySum() - offer.getAmount();
-//				usersRepository.updateUserAmount(rest, user.getId());
-//				offersOwnedRepository.save(new ProductBought(offer.getTitle(), offer.getDescription(),
-//						offer.getAmount(), user, offer.getUser().getEmail()));
-//				System.err.println("SE COMPRO JODER");
-//				System.err.println("AMOUNT DE USUARIO ES :" + user.getMoneySum());
-//				return true;
-//			}
-//		}
-//		System.err.println("NO SE COMPRA EH CABRON");
-//		return false;
-//	}
-	
+
+	/**
+	 * @param isAvailable
+	 * @param id
+	 */
+	public boolean createNewMessage(User user, Offer offer, Long id) {
+		if (!user.equals(offer.getUser())) {
+			Message newMessage = new Message(user, offer.getUser(), offer);
+			this.addMessage(newMessage);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @param sender
+	 * @param receiver
+	 */
+	public Message getOffersForUser(User sender, User receiver) {
+		return messagesRepository.findMessageByUser(sender, receiver);
+	}
+
 }
