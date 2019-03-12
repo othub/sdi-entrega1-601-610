@@ -50,21 +50,21 @@
 	  <table class="table table-hover" th:fragment="tableOffers" id="tableOffers">
 	    <thead>
 	      <tr>
-	        <th class="col-md-1">ID</th>
-	        <th th:text="#{offers.list.title}"></th>
-	        <th th:text="#{offers.list.description}"></th>
-	        <th th:text="#{offers.list.amount}  + ' ( ' +  '&euro;' + ' )'"></th>
-	        <th th:text="#{offers.list.date}"></th>
+	        <th class="col-md-1" align="center">ID</th>
+	        <th align="center" th:text="#{offers.list.title}"></th>
+	        <th align="center" th:text="#{offers.list.description}"></th>
+	        <th align="center" th:text="#{offers.list.amount}  + ' ( ' +  '&euro;' + ' )'"></th>
+	        <th align="center" th:text="#{offers.list.date}"></th>
 	        <th></th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	      <tr th:each="offer : ${offerList}">
-		    <td th:text="${offer.id}"> 1</td>
-		    <td th:text="${offer.title}"> Title</td>
-		    <td th:text="${offer.description}"> Description</td>
-		    <td th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
-		    <td th:text="${offer.date}">2019-02-02</td>    
+		    <td align="center" th:text="${offer.id}"> 1</td>
+		    <td align="center" th:text="${offer.title}"> Title</td>
+		    <td align="center" th:text="${offer.description}"> Description</td>
+		    <td align="center" th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
+		    <td align="center" th:text="${offer.date}">2019-02-02</td>    
 			<td>
 				<!-- Available  -->
 				<div th:if="${offer.isAvailable}"> 
@@ -83,12 +83,15 @@
 					    });
 					  }); 
 					   /*]]>*/
-					</script>			  
+					</script>	  
 			  </div>
 			  <!-- NOT available -->
 			  <div th:unless="${offer.isAvailable}"> 
 				<button type="button" th:id="${'noAvailable' + offer.id}" class="btn btn-danger" th:text="#{home.list.bought}">Comprado</button>
 			  </div>
+			</td>
+			<td>
+				<button type="button" th:id="${'messageButton' + offer.id}" class="btn btn-info" th:text="#{home.list.message}">Enviar mensaje</button>	
 			</td>
 	      </tr>
 	    </tbody>

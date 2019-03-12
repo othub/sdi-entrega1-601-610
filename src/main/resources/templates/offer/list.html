@@ -42,6 +42,9 @@
 		    <td th:text="${offer.description}"> Description</td>
 		    <td th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
 		    <td th:text="${offer.date}">2019-02-02</td>
+		    <td>
+		    	<button type="button" th:id="${'highlightButton' + offer.id}" class="btn btn-info" th:text="#{offers.list.highlight}">Destacar</button>
+		    </td>
 		  </tr>
 		</tbody>
 	  </table>
