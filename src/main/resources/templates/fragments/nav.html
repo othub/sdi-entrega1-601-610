@@ -25,8 +25,8 @@
 		</li>
 		
 		<!-- Mensajes -->
-		<li id="messages-menu" sec:authoriza="hasRole('ROLE_STANDARD')">
-			<a th:text="#{nav.messages}" href="/message/list" style="color : white; " ></a>
+		<li id="messages-menu" class="dropdown" sec:authorize ="hasRole('ROLE_STANDARD')">
+		  <a th:text="#{nav.messages}" href="/message/list" style="color : white; "></a>
 		</li>
 		
 		<!-- Gestion de usuarios -->
