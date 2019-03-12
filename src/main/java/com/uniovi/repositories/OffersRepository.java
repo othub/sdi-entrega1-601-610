@@ -16,35 +16,35 @@ import com.uniovi.entities.User;
  */
 public interface OffersRepository extends CrudRepository<Offer, Long> {
 
-    /**
-     * @param pageable
-     * @param user
-     * @return
-     */
-    @Query("SELECT o FROM Offer o WHERE o.user = ?1 ORDER BY o.id ASC ")
-    Page<Offer> findAllByUser(Pageable pageable, User user);
+	/**
+	 * @param pageable
+	 * @param user
+	 * @return
+	 */
+	@Query("SELECT o FROM Offer o WHERE o.user = ?1 ORDER BY o.id ASC ")
+	Page<Offer> findAllByUser(Pageable pageable, User user);
 
-    /**
-     * @param pageable
-     * @return
-     */
-    Page<Offer> findAll(Pageable pageable);
+	/**
+	 * @param pageable
+	 * @return
+	 */
+	Page<Offer> findAll(Pageable pageable);
 
-    /**
-     * @param pageable
-     * @param searchText
-     * @return
-     */
-    @Query("SELECT o FROM Offer o WHERE (LOWER(o.title) LIKE LOWER(?1))")
-    Page<Offer> searchOfferByTitle(Pageable pageable, String searchText);
+	/**
+	 * @param pageable
+	 * @param searchText
+	 * @return
+	 */
+	@Query("SELECT o FROM Offer o WHERE (LOWER(o.title) LIKE LOWER(?1))")
+	Page<Offer> searchOfferByTitle(Pageable pageable, String searchText);
 
-    /**
-     * @param isAvailable
-     * @param id
-     */
-    @Modifying
-    @Transactional
-    @Query("UPDATE Offer SET isAvailable = ?1 WHERE id = ?2")
-    void updateAvailable(boolean isAvailable, Long id);
+	/**
+	 * @param isAvailable
+	 * @param id
+	 */
+	@Modifying
+	@Transactional
+	@Query("UPDATE Offer SET isAvailable = ?1 WHERE id = ?2")
+	void updateAvailable(boolean isAvailable, Long id);
 
 }

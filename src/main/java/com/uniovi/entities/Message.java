@@ -134,7 +134,8 @@ public class Message {
 	 */
 	@Override
 	public String toString() {
-		return "Message [ID=" + ID + ", title=" + title + ", description=" + description + ", email=" + email + ", offer=" + offer + "]";
+		return "Message [ID=" + ID + ", title=" + title + ", description=" + description + ", email=" + email
+				+ ", offer=" + offer + "]";
 	}
 
 }

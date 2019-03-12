@@ -13,19 +13,19 @@ import com.uniovi.entities.User;
  */
 public interface UsersRepository extends CrudRepository<User, Long> {
 
-    User findByEmail(String email);
+	User findByEmail(String email);
 
-    /**
-     * @param rest
-     * @param id
-     */
-    /**
-     * @param rest
-     * @param id
-     */
-    @Modifying
-    @Transactional
-    @Query("UPDATE User SET moneySum = ?1 WHERE id = ?2")
-    void updateUserAmount(double rest, Long id);
+	/**
+	 * @param rest
+	 * @param id
+	 */
+	/**
+	 * @param rest
+	 * @param id
+	 */
+	@Modifying
+	@Transactional
+	@Query("UPDATE User SET moneySum = ?1 WHERE id = ?2")
+	void updateUserAmount(double rest, Long id);
 
 }

@@ -31,92 +31,92 @@ import com.uniovi.repositories.UsersRepository;
 @Service
 public class OffersService {
 
-    @Autowired
-    private HttpSession httpSession;
+	@Autowired
+	private HttpSession httpSession;
 
-    @Autowired
-    private OffersRepository offersRepository;
+	@Autowired
+	private OffersRepository offersRepository;
 
-    @Autowired
-    private UsersRepository usersRepository;
+	@Autowired
+	private UsersRepository usersRepository;
 
-    @Autowired
-    private ProductBoughtRepository offersOwnedRepository;
+	@Autowired
+	private ProductBoughtRepository offersOwnedRepository;
 
-    public Offer getOffer(Long id) {
-	@SuppressWarnings("unchecked")
-	Set<Offer> consultedList = (Set<Offer>) httpSession.getAttribute("consultedList");
-	if (consultedList == null) {
-	    consultedList = new HashSet<Offer>();
+	public Offer getOffer(Long id) {
+		@SuppressWarnings("unchecked")
+		Set<Offer> consultedList = (Set<Offer>) httpSession.getAttribute("consultedList");
+		if (consultedList == null) {
+			consultedList = new HashSet<Offer>();
+		}
+		Offer offerObtained = offersRepository.findById(id).get();
+
+		consultedList.add(offerObtained);
+
+		httpSession.setAttribute("consultedList", consultedList);
+		return offerObtained;
 	}
-	Offer offerObtained = offersRepository.findById(id).get();
 
-	consultedList.add(offerObtained);
-
-	httpSession.setAttribute("consultedList", consultedList);
-	return offerObtained;
-    }
-
-    public void addOffer(Offer offer) {
-	offersRepository.save(offer);
-    }
-
-    public void deleteOffer(Long id) {
-	offersRepository.deleteById(id);
-    }
-
-    public Page<Offer> getOffersForUser(Pageable pageable, User user) {
-	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
-	if (user.getRole().equals("ROLE_STANDARD")) {
-	    offers = offersRepository.findAllByUser(pageable, user);
+	public void addOffer(Offer offer) {
+		offersRepository.save(offer);
 	}
-	// all offers
-	if (user.getRole().equals("ROLE_ADMIN")) {
-	    offers = getOffers(pageable);
+
+	public void deleteOffer(Long id) {
+		offersRepository.deleteById(id);
 	}
-	return offers;
-    }
 
-    public Page<Offer> getOffers(Pageable pageable) {
-	Page<Offer> offers = offersRepository.findAll(pageable);
-	return offers;
-    }
-
-    /**
-     * @param pageable
-     * @param searchText
-     * @return
-     */
-    public Page<Offer> searchOffersByTitle(Pageable pageable, String searchText) {
-	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
-	searchText = "%" + searchText + "%";
-	offers = offersRepository.searchOfferByTitle(pageable, searchText);
-	return offers;
-
-    }
-
-    /**
-     * @param isAvailable
-     * @param id
-     */
-    public boolean setAvailable(User user, boolean isAvailable, Long id) {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	String email = auth.getName();
-	Offer offer = offersRepository.findById(id).get();
-	if (!offer.getUser().getEmail().equals(email)) { // no comprar producto propio
-	    if (user.getMoneySum() >= offer.getAmount()) {
-		offersRepository.updateAvailable(isAvailable, id);
-		double rest = user.getMoneySum() - offer.getAmount();
-		usersRepository.updateUserAmount(rest, user.getId());
-		offersOwnedRepository.save(new ProductBought(offer.getTitle(), offer.getDescription(),
-			offer.getAmount(), user, offer.getUser().getEmail()));
-		System.err.println("SE COMPRO JODER");
-		System.err.println("AMOUNT DE USUARIO ES :" + user.getMoneySum());
-		return true;
-	    }
+	public Page<Offer> getOffersForUser(Pageable pageable, User user) {
+		Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
+		if (user.getRole().equals("ROLE_STANDARD")) {
+			offers = offersRepository.findAllByUser(pageable, user);
+		}
+		// all offers
+		if (user.getRole().equals("ROLE_ADMIN")) {
+			offers = getOffers(pageable);
+		}
+		return offers;
 	}
-	System.err.println("NO SE COMPRA EH CABRON");
-	return false;
-    }
+
+	public Page<Offer> getOffers(Pageable pageable) {
+		Page<Offer> offers = offersRepository.findAll(pageable);
+		return offers;
+	}
+
+	/**
+	 * @param pageable
+	 * @param searchText
+	 * @return
+	 */
+	public Page<Offer> searchOffersByTitle(Pageable pageable, String searchText) {
+		Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
+		searchText = "%" + searchText + "%";
+		offers = offersRepository.searchOfferByTitle(pageable, searchText);
+		return offers;
+
+	}
+
+	/**
+	 * @param isAvailable
+	 * @param id
+	 */
+	public boolean setAvailable(User user, boolean isAvailable, Long id) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Offer offer = offersRepository.findById(id).get();
+		if (!offer.getUser().getEmail().equals(email)) { // no comprar producto propio
+			if (user.getMoneySum() >= offer.getAmount()) {
+				offersRepository.updateAvailable(isAvailable, id);
+				double rest = user.getMoneySum() - offer.getAmount();
+				usersRepository.updateUserAmount(rest, user.getId());
+				offersOwnedRepository.save(new ProductBought(offer.getTitle(), offer.getDescription(),
+						offer.getAmount(), user, offer.getUser().getEmail()));
+				System.err.println("SE COMPRO JODER");
+				System.err.println("AMOUNT DE USUARIO ES :" + user.getMoneySum());
+				return true;
+			}
+		}
+		System.err.println("NO SE COMPRA EH CABRON");
+		return false;
+	}
 
 }
