@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments/head" />
+
+<body>
+	
+<nav th:replace="fragments/nav" />
+
+<div class="container">
+   <h1  style="text-align:center;" th:text="#{messages.list.header}"></h1>
+   
+  <p style="text-align:center;" th:text="#{messages.list.paragraph}"></p>  
+                                                                                      	  
+  <div class="table-responsive">
+  <!--  actualizar únicamente la tabla de mensajes --> 
+  <form th:action='@{/message/list}' method="POST">    
+	  <table class="table table-hover" th:fragment="tableMessages" id="tableMessages">
+	    <thead>
+	      <tr>
+	        <th><input id="checkAll" type="checkbox" onClick="toggle(this)"/></th>
+	        <th th:text="#{messages.list.title}"></th>
+	        <th th:text="#{messages.list.description}"></th>
+	        <th th:text="#{messages.list.email}"></th>
+	      </tr>
+	    </thead>
+		<tbody>
+		  <tr th:each="message : ${messageList}">
+		    <td>
+	             <input type="checkbox" th:name="idChecked" th:value="${message.id}"/>
+	        </td>
+		    <td th:text="${message.title}"> Title</td>
+		    <td th:text="${message.description}"> Description</td>
+		    <td th:text="#{messages.email}">example@email.com</td>
+		  </tr>
+		</tbody>
+	  </table>
+	     <button type="submit" name='delete' value="delete"
+             class='btn btn-danger' style="font-weight: bold;"
+             th:text="#{messages.list.delete}" th:if="${messageList != null and not #lists.isEmpty(messageList)}"
+             data-toggle="tooltip" data-placement="right">
+   		 </button>
+  	</form> 
+  </div>
+  <footer th:replace="fragments/pagination"/>
+</div>
+
+<footer th:replace="fragments/footer"/>
+</body>
+
+</html>

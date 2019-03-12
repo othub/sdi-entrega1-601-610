@@ -9,12 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-/**
- * 
- * @version $Id$
- */
 @Entity
-public class Offer {
+public class Message {
 
 	@Id
 	@GeneratedValue
@@ -22,16 +18,13 @@ public class Offer {
 
 	private String title;
 	private String description;
-	private double amount;
-	private String date = new SimpleDateFormat("yyyy-mm-dd hh:mm").format(Calendar.getInstance().getTime());
-
-	public boolean isAvailable = true;
+	private String email;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	@JoinColumn(name = "offer_id")
+	private Offer offer;
 
-	public Offer() {
+	public Message() {
 	}
 
 	/**
@@ -41,12 +34,12 @@ public class Offer {
 	 * @param date
 	 * @param amount
 	 */
-	public Offer(Long id, String title, String description, double amount) {
+	public Message(Long id, String title, String description, String email) {
 		super();
 		this.ID = id;
 		this.title = title;
 		this.description = description;
-		this.amount = amount;
+		this.email = email;
 	}
 
 	/**
@@ -56,12 +49,12 @@ public class Offer {
 	 * @param amount
 	 * @param user
 	 */
-	public Offer(String title, String description, double amount, User user) {
+	public Message(String title, String description, String email, Offer offer) {
 		super();
 		this.title = title;
 		this.description = description;
-		this.amount = amount;
-		this.user = user;
+		this.email = email;
+		this.offer = offer;
 	}
 
 	/**
@@ -81,15 +74,15 @@ public class Offer {
 	/**
 	 * @return the user
 	 */
-	public User getUser() {
-		return user;
+	public Offer getOffer() {
+		return offer;
 	}
 
 	/**
 	 * @param user the user to set
 	 */
-	public void setUser(User user) {
-		this.user = user;
+	public void setOffer(Offer offer) {
+		this.offer = offer;
 	}
 
 	/**
@@ -123,29 +116,15 @@ public class Offer {
 	/**
 	 * @return the date
 	 */
-	public String getDate() {
-		return date;
+	public String getEmail() {
+		return email;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	/**
-	 * @return the amount
-	 */
-	public double getAmount() {
-		return amount;
-	}
-
-	/**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	/**
@@ -155,8 +134,7 @@ public class Offer {
 	 */
 	@Override
 	public String toString() {
-		return "Offer [ID=" + ID + ", title=" + title + ", description=" + description + ", amount=" + amount
-				+ ", date=" + date + ", isAvailable=" + isAvailable + ", user=" + user + "]";
+		return "Message [ID=" + ID + ", title=" + title + ", description=" + description + ", email=" + email + ", offer=" + offer + "]";
 	}
 
 }
