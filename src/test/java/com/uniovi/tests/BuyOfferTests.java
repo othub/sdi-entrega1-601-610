@@ -1,22 +1,3 @@
-/*
- * See the NOTICE file distributed with this work for additional
- * information regarding copyright ownership.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
 package com.uniovi.tests;
 
 import static org.junit.Assert.assertFalse;
@@ -78,7 +59,7 @@ public class BuyOfferTests {
     public void Prueba23() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "alg4@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
 		PO_View.getTimeout());
@@ -105,14 +86,14 @@ public class BuyOfferTests {
 	assertFalse(driver.getPageSource().contains("100.0 €")); // el saldo se ha cambiado
 
 	// desconectamos
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
     }
 
     @Test
     public void Prueba24() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "alg4@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
 		PO_View.getTimeout());
@@ -148,14 +129,14 @@ public class BuyOfferTests {
 	PO_View.checkElement(driver, "text", "0.0 €");
 
 	// desconectamos
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
     }
 
     @Test
     public void Prueba25() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "alg4@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
 		PO_View.getTimeout());
@@ -185,7 +166,7 @@ public class BuyOfferTests {
 	assertTrue(driver.getPageSource().contains("0.0 €")); // no se cambió el saldo del usuario
 
 	// desconectamos
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
     }
 
     @BeforeClass

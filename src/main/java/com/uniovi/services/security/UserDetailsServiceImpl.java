@@ -17,19 +17,19 @@ import com.uniovi.repositories.UsersRepository;
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
-	private UsersRepository usersRepository;
+    @Autowired
+    private UsersRepository usersRepository;
 
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = usersRepository.findByEmail(email);
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	User user = usersRepository.findByEmail(email);
 
-		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+	Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
-		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
+	grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
 
-		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-				grantedAuthorities);
-	}
+	return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+		grantedAuthorities);
+    }
 
 }

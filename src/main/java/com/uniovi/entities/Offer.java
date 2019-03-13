@@ -16,147 +16,147 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Offer {
 
-	@Id
-	@GeneratedValue
-	private Long ID;
+    @Id
+    @GeneratedValue
+    private Long ID;
 
-	private String title;
-	private String description;
-	private double amount;
-	private String date = new SimpleDateFormat("yyyy-mm-dd hh:mm").format(Calendar.getInstance().getTime());
+    private String title;
+    private String description;
+    private double amount;
+    private String date = new SimpleDateFormat("yyyy-mm-dd hh:mm").format(Calendar.getInstance().getTime());
 
-	public boolean isAvailable = true;
+    public boolean isAvailable = true;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-	public Offer() {
-	}
+    public Offer() {
+    }
 
-	/**
-	 * @param id
-	 * @param title
-	 * @param descripcion
-	 * @param date
-	 * @param amount
-	 */
-	public Offer(Long id, String title, String description, double amount) {
-		super();
-		this.ID = id;
-		this.title = title;
-		this.description = description;
-		this.amount = amount;
-	}
+    /**
+     * @param id
+     * @param title
+     * @param descripcion
+     * @param date
+     * @param amount
+     */
+    public Offer(Long id, String title, String description, double amount) {
+	super();
+	this.ID = id;
+	this.title = title;
+	this.description = description;
+	this.amount = amount;
+    }
 
-	/**
-	 * @param title
-	 * @param descripcion
-	 * @param date
-	 * @param amount
-	 * @param user
-	 */
-	public Offer(String title, String description, double amount, User user) {
-		super();
-		this.title = title;
-		this.description = description;
-		this.amount = amount;
-		this.user = user;
-	}
+    /**
+     * @param title
+     * @param descripcion
+     * @param date
+     * @param amount
+     * @param user
+     */
+    public Offer(String title, String description, double amount, User user) {
+	super();
+	this.title = title;
+	this.description = description;
+	this.amount = amount;
+	this.user = user;
+    }
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return ID;
-	}
+    /**
+     * @return the id
+     */
+    public Long getId() {
+	return ID;
+    }
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.ID = id;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+	this.ID = id;
+    }
 
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
-		return user;
-	}
+    /**
+     * @return the user
+     */
+    public User getUser() {
+	return user;
+    }
 
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(User user) {
-		this.user = user;
-	}
+    /**
+     * @param user the user to set
+     */
+    public void setUser(User user) {
+	this.user = user;
+    }
 
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+	return title;
+    }
 
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+	this.title = title;
+    }
 
-	/**
-	 * @return the descripcion
-	 */
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * @return the descripcion
+     */
+    public String getDescription() {
+	return description;
+    }
 
-	/**
-	 * @param descripcion the descripcion to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescription(String description) {
+	this.description = description;
+    }
 
-	/**
-	 * @return the date
-	 */
-	public String getDate() {
-		return date;
-	}
+    /**
+     * @return the date
+     */
+    public String getDate() {
+	return date;
+    }
 
-	/**
-	 * @param date the date to set
-	 */
-	public void setDate(String date) {
-		this.date = date;
-	}
+    /**
+     * @param date the date to set
+     */
+    public void setDate(String date) {
+	this.date = date;
+    }
 
-	/**
-	 * @return the amount
-	 */
-	public double getAmount() {
-		return amount;
-	}
+    /**
+     * @return the amount
+     */
+    public double getAmount() {
+	return amount;
+    }
 
-	/**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
+    /**
+     * @param amount the amount to set
+     */
+    public void setAmount(double amount) {
+	this.amount = amount;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Offer [ID=" + ID + ", title=" + title + ", description=" + description + ", amount=" + amount
-				+ ", date=" + date + ", isAvailable=" + isAvailable + ", user=" + user + "]";
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+	return "Offer [ID=" + ID + ", title=" + title + ", description=" + description + ", amount=" + amount
+		+ ", date=" + date + ", isAvailable=" + isAvailable + ", user=" + user + "]";
+    }
 
 }

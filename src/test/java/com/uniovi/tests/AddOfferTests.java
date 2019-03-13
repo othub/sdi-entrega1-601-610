@@ -57,7 +57,7 @@ public class AddOfferTests {
     public void Prueba16() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo2@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -66,7 +66,7 @@ public class AddOfferTests {
 
 	// hay 2 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 2);
+	assertTrue(elementos.size() == 3);
 
 	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -74,24 +74,24 @@ public class AddOfferTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/add')]");
 	elementos.get(0).click();
 
-	PO_View.checkElement(driver, "text", "Agregar una Oferta");
+	PO_View.checkElement(driver, "text", "Agregar una oferta");
 
 	PO_AddOfferView.fillForm(driver, "Coche a vender", "Polo 2009", 4500);
 
 	PO_View.checkElement(driver, "text", "Polo 2009");
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 3);
+	assertTrue(elementos.size() == 4);
 
 	// desconectamos
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
     }
 
     @Test
     public void Prueba17() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo2@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -100,7 +100,7 @@ public class AddOfferTests {
 
 	// hay 2 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 3);
+	assertTrue(elementos.size() == 4);
 
 	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -108,17 +108,17 @@ public class AddOfferTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/add')]");
 	elementos.get(0).click();
 
-	PO_View.checkElement(driver, "text", "Agregar una Oferta");
+	PO_View.checkElement(driver, "text", "Agregar una oferta");
 
 	// titulo vacio
 	PO_AddOfferView.fillForm(driver, "", "Polo 2009", 4500);
 	// no cambiamos de pagina
-	PO_View.checkElement(driver, "text", "Agregar una Oferta");
+	PO_View.checkElement(driver, "text", "Agregar una oferta");
 
 	// descripcion vacia
 	PO_AddOfferView.fillForm(driver, "Coche 2", "", 4500);
 	// no cambiamos de pagina
-	PO_View.checkElement(driver, "text", "Agregar una Oferta");
+	PO_View.checkElement(driver, "text", "Agregar una oferta");
 
 	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -127,10 +127,10 @@ public class AddOfferTests {
 
 	// hay 2 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 3);
+	assertTrue(elementos.size() == 4);
 
 	// desconectamos
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
     }
 

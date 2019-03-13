@@ -67,7 +67,7 @@ public class AdminListUsersTest {
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 14);
 
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
     }
 

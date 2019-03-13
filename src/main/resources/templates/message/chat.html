@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head" />
+
+<body>
+	
+<nav th:replace="fragments/nav" />
+
+<div class="container">
+  <h2 th:text="#{messages.list.header}">Messages</h2>
+  <form class="form-horizontal" method="post" action="/message/chat">
+  
+  <!--  Seleccionar la oferta --> 
+   <div class="form-group">
+	  <label class="control-label col-sm-2" for="offer" th:text="#{message.offer.list.select}">Oferta:</label>
+	  <div class="col-sm-10" th:if="${offersList != null and not #lists.isEmpty(offersList)}">
+	    <select id="user" class="form-control" name="offer">
+	      <option th:each="offer : ${offersList}" th:value="${offer.id}" th:text="${offer.user.email}+'  <->  '+${offer.title}+'  <->  '+${offer.amount} +' &euro;'">
+	       		Oferta
+	      </option>
+	    </select>
+	  </div>
+	</div>
+	
+	
+	<!-- Mensaje a enviar -->
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="messageText"  th:text="#{message.offer.list.message}">Mensaje:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" name="messageText" th:placeholder="#{message.offer.list.message}" required="true" />
+      </div>
+      
+    </div>
+    
+    <!-- Tabla de mensajes -->
+    <div>
+	      <table class="table table-hover" th:fragment="tableMessages" id = "MsgTable">
+	      	<caption th:text="#{message.send.table.caption}" style=" display: table-caption; text-align: center;">Sent Messages</caption>
+	        <thead>
+	          <tr>
+	          	<th th:text="#{message.send.table.receiver}">Receiver</th>
+	          	<th th:text="#{message.send.table.messageText}">Text</th>
+	          	<th th:text="#{message.send.table.offer}">Offer</th>
+	          	<th th:text="#{offers.list.amount}">Price</th>
+	          	<th th:text="#{message.send.table.date}">Date</th>      	
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <tr th:each="msg : ${messagesList}">
+	            <td th:text="${msg.receiver.name}+ ' -- ' + ${msg.receiver.email} ">example@email.com</td>
+	            <td th:text="${msg.messageText}">Sent Message</td>
+	            <td th:text="${msg.offer.title}">Title</td>
+	            <td th:text="${msg.offer.amount}">Title</td>
+	            <td th:text="${msg.date}">Date</td>
+	          </tr>
+	        </tbody>
+	      </table>
+     </div>
+    <!-- Boton Envio del mensaje -->
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" id = "sendBtn" class="btn btn-primary" th:text="#{message.send}" style = " font-weight: bold; background-color: #38DFCE; color : white; ">Enviar</button>
+      </div>
+    </div>
+    
+  </form>
+</div>
+
+</body>
+</html>

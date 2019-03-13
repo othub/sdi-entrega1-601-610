@@ -79,7 +79,7 @@ public class AdminDeletionTests {
 	// No existe el email, se ha borrado
 	assertFalse(driver.getPageSource().contains("akran1@gmail.com"));
 	// desconectamos
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
     }
 
@@ -107,7 +107,7 @@ public class AdminDeletionTests {
 	// No existe el email, se ha borrado
 	assertFalse(driver.getPageSource().contains("akran5@gmail.com"));
 	// desconectamos
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
     }
 
@@ -143,7 +143,7 @@ public class AdminDeletionTests {
 	assertTrue(driver.getPageSource().contains("admin@email.com"));
 
 	// desconectamos
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
     }
 

@@ -1,22 +1,3 @@
-/*
- * See the NOTICE file distributed with this work for additional
- * information regarding copyright ownership.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
 package com.uniovi.tests;
 
 import static org.junit.Assert.assertTrue;
@@ -76,7 +57,7 @@ public class ListOfferTests {
     public void Prueba18() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo3@gmail.com", "123456");
-	PO_View.checkElement(driver, "text", "Las Ofertas actuales en my Wallapop son las siguientes :");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -85,7 +66,7 @@ public class ListOfferTests {
 
 	// hay 2 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 2);
+	assertTrue(elementos.size() == 3);
 
 	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -94,7 +75,7 @@ public class ListOfferTests {
 	elementos.get(0).click();
 
 	// add iferta
-	PO_View.checkElement(driver, "text", "Agregar una Oferta");
+	PO_View.checkElement(driver, "text", "Agregar una oferta");
 
 	PO_AddOfferView.fillForm(driver, "Coche a vender", "Golf 2009", 4500);
 	// comprobar que existe en offer/list
@@ -102,10 +83,10 @@ public class ListOfferTests {
 
 	// se ha actualizado
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 3);
+	assertTrue(elementos.size() == 4);
 
 	// desconectamos
-	PO_PrivateView.clickOption(driver, "logout", "text", "Email:");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
     }
 
