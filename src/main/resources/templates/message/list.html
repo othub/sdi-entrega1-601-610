@@ -7,7 +7,7 @@
 <nav th:replace="fragments/nav" />
 
 <div class="container">
-  <h2>Listar Conversaciones</h2>
+  <h2 th:text="#{message.list.button}"></h2>
   <form class="form-horizontal" method="post" action="/message/list">
     
     <!-- Tabla de mensajes -->
