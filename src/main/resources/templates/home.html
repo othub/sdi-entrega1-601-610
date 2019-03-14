@@ -28,7 +28,7 @@
 	  <div class="form-group"> 
 	  	<input name="searchText" type="text" class="form-control" size="50" th:placeholder="#{home.offers.searchPH}"> 
 	  </div> 
-	  <button type="submit" class="btn btn-outline-success" th:text="#{home.offers.search}"></button>
+	  <button type="submit" class="btn btn-outline-success" th:text="#{home.offers.search}" style= "font-weight: bold;"></button>
 	</form>  
 	
 	<div sec:authorize="hasRole('ROLE_STANDARD')" class="table-responsive">
@@ -69,13 +69,13 @@
 		    <td align="center" th:text="${offer.date}">2019-02-02</td>
 		    <td> 
 			    <button
-			    	th:if="${offer.isHighlighted}" align="center" th:text="#{offers.list.highlighted}" style= "background-color: #FFD700; color: white; font-weight: bold;">    
+			    	th:if="${offer.isHighlighted}" align="center" th:text="#{offers.list.highlighted}" class="btn btn-warning" style= "font-weight: bold;">    
 			    </button>
 			</td>
 		    <td>
 				<!-- Available  -->
 				<div th:if="${offer.isAvailable}"> 
-					<button type="button" th:id="${'buyButton' + offer.id}" class="btn btn-info" th:text="#{home.list.buy}">Comprar</button>
+					<button type="button" th:id="${'buyButton' + offer.id}" class="btn btn-info" th:text="#{home.list.buy}"  style= "background-color:#800080; font-weight: bold;">Comprar</button>
 					<script th:inline="javascript">
 					  /*<![CDATA[*/
 					  $("#buyButton[[${offer.id}]]").click(function() {
@@ -94,7 +94,7 @@
 			  </div>
 			  <!-- NOT available -->
 			  <div th:unless="${offer.isAvailable}"> 
-				<button type="button" th:id="${'noAvailable' + offer.id}" class="btn btn-danger" th:text="#{home.list.bought}">Comprado</button>
+				<button type="button" th:id="${'noAvailable' + offer.id}" class="btn btn-danger" th:text="#{home.list.bought}"  style= "font-weight: bold;">Comprado</button>
 			  </div>
 			</td>
 	      </tr>

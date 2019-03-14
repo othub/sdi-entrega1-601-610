@@ -48,7 +48,7 @@
 		    <div th:if="${!offer.isHighlighted}">
 		    	<button type="button" th:id="${'highlightButton' + offer.id}" 
 		    			class="btn btn-info" th:text="#{offers.list.highlight}" 
-		    			th:href="${'/offer/highlight/' + offer.id}">
+		    			th:href="${'/offer/highlight/' + offer.id}" style= "font-weight: bold;">
 		    			Destacar
 		    	</button>
 		    	<script th:inline="javascript">
@@ -56,12 +56,6 @@
 					  $("#highlightButton[[${offer.id}]]").click(function() {
 					    $.get("/offer/highlight/[[${offer.id}]]", function(data) {
 					    	location.reload();
-/* 					      var numberPage = [[${param.page}]];
-					      var urlUpdate = '/home/update';
-					      if (numberPage != null) {
-					        urlUpdate += "?page=" + numberPage[0];
-					      }
-					      $("#tableOffers").load(urlUpdate); */
 					    });
 					  }); 
 					   /*]]>*/
@@ -69,7 +63,7 @@
 			  </div>
 			  <!-- NOT highlight -->
 			  <div th:unless="${!offer.isHighlighted}"> 
-				<button type="button" th:id="${'highlighted' + offer.id}" class="btn btn-warning" th:text="#{offers.list.highlighted}">Destacado</button>
+				<button type="button" th:id="${'highlighted' + offer.id}" class="btn btn-warning" th:text="#{offers.list.highlighted}" style= "font-weight: bold;">Destacado</button>
 			  </div>
 		    </td>
 		  </tr>

@@ -21,7 +21,7 @@ public interface OffersRepository extends CrudRepository<Offer, Long> {
      * @param user
      * @return
      */
-    @Query("SELECT o FROM Offer o WHERE o.user = ?1 ORDER BY o.id ASC ")
+    @Query("SELECT o FROM Offer o WHERE o.user = ?1 ORDER BY o.isHighlighted DESC")
     Page<Offer> findAllByUser(Pageable pageable, User user);
 
     /**
@@ -35,7 +35,7 @@ public interface OffersRepository extends CrudRepository<Offer, Long> {
      * @param searchText
      * @return
      */
-    @Query("SELECT o FROM Offer o WHERE (LOWER(o.title) LIKE LOWER(?1))")
+    @Query("SELECT o FROM Offer o WHERE (LOWER(o.title) LIKE LOWER(?1)) ORDER BY o.isHighlighted DESC")
     Page<Offer> searchOfferByTitle(Pageable pageable, String searchText);
 
     /**
@@ -55,9 +55,9 @@ public interface OffersRepository extends CrudRepository<Offer, Long> {
     @Modifying
     @Transactional
     @Query("UPDATE Offer SET isHighlighted = ?1 WHERE id = ?2")
-	void updateHighlight(boolean isHighlighted, Long id);
+    void updateHighlight(boolean isHighlighted, Long id);
 
     @Query("SELECT o FROM Offer o ORDER BY o.isHighlighted DESC ")
-	Page<Offer> findAllSorted(Pageable pageable);
+    Page<Offer> findAllSorted(Pageable pageable);
 
 }
