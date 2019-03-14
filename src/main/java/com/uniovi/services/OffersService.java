@@ -67,13 +67,9 @@ public class OffersService {
 	offersRepository.deleteById(id);
     }
 
-    public List<Offer> getOffersList(User user) {
+    public List<Offer> getOffersListForMessages() {
 	List<Offer> offers = new ArrayList<Offer>();
-	for (Offer offer : offersRepository.findAll()) {
-	    if (offer.getUser() != user) {
-		offers.add(offer);
-	    }
-	}
+	offersRepository.findAll().forEach(offers::add);
 	return offers;
     }
 

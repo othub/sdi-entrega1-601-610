@@ -33,15 +33,18 @@
 		    <li>
 				<a th:text="#{nav.messages.send}" style="color : black; " href="/message/chat" ></a>
 		    </li>
+		   	<li>
+				<a th:text="#{nav.messages.list}" style="color : black; " href="/message/list"></a>			
+		    </li>
 		    <li>
-				<a th:text="#{nav.messages.delete}" style="color : black; " href="/message/list"></a>			
+				<a th:text="#{nav.messages.delete}" style="color : black; " href="/message/delete"></a>			
 		    </li>
 		  </ul>
 		</li>
 		
 		<!-- Gestion de usuarios -->
 		<li id="users-menu" class="dropdown" sec:authorize ="hasRole('ROLE_ADMIN')">
-		  <a th:text="#{nav.users.menu}" class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; ">
+		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color : white; "> <span  th:text="#{nav.users.menu}"></span>
 		  		<span class='caret'></span>
 		  </a>
 		  <ul class="dropdown-menu">

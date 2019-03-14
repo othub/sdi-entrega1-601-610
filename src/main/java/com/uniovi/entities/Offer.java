@@ -2,12 +2,15 @@ package com.uniovi.entities;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * 
@@ -18,7 +21,7 @@ public class Offer {
 
     @Id
     @GeneratedValue
-    private Long ID;
+    private Long id;
 
     private String title;
     private String description;
@@ -30,6 +33,23 @@ public class Offer {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL)
+    private Set<Message> messagesExchanged;
+
+    /**
+     * @return the messagesExchanged
+     */
+    public Set<Message> getMessagesExchanged() {
+	return messagesExchanged;
+    }
+
+    /**
+     * @param messagesExchanged the messagesExchanged to set
+     */
+    public void setMessagesExchanged(Set<Message> messagesExchanged) {
+	this.messagesExchanged = messagesExchanged;
+    }
 
     public Offer() {
     }
@@ -43,7 +63,7 @@ public class Offer {
      */
     public Offer(Long id, String title, String description, double amount) {
 	super();
-	this.ID = id;
+	this.id = id;
 	this.title = title;
 	this.description = description;
 	this.amount = amount;
@@ -68,14 +88,14 @@ public class Offer {
      * @return the id
      */
     public Long getId() {
-	return ID;
+	return id;
     }
 
     /**
      * @param id the id to set
      */
     public void setId(Long id) {
-	this.ID = id;
+	this.id = id;
     }
 
     /**
@@ -155,7 +175,7 @@ public class Offer {
      */
     @Override
     public String toString() {
-	return "Offer [ID=" + ID + ", title=" + title + ", description=" + description + ", amount=" + amount
+	return "Offer [ID=" + id + ", title=" + title + ", description=" + description + ", amount=" + amount
 		+ ", date=" + date + ", isAvailable=" + isAvailable + ", user=" + user + "]";
     }
 

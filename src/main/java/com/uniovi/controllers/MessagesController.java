@@ -1,11 +1,10 @@
 package com.uniovi.controllers;
 
-import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.uniovi.entities.Message;
+import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
 import com.uniovi.services.MessagesService;
 import com.uniovi.services.OffersService;
@@ -40,7 +40,7 @@ public class MessagesController {
     @Autowired
     private HttpSession httpSession;
 
-    // ___________________ ADD ___________________--//
+    // ___________________ SEND MESSAGES ___________________--//
 
     /**
      * Añadimos el POST Al lugar de request param, pasamos un parametro de la
@@ -63,15 +63,26 @@ public class MessagesController {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	String email = auth.getName();
 	User activeUser = usersService.getUserByEmail(email);
-	model.addAttribute("offersList", offersService.getOffersList(activeUser));
+	model.addAttribute("offersList", offersService.getOffersListForMessages());
 	model.addAttribute("userMoney", activeUser.getMoneySum());
 	model.addAttribute("messagesList", messagesService.getMessagesForUser(activeUser));
 	return "message/chat";
     }
 
-    @RequestMapping("/message/update")
-    public String updateList(Model model, Pageable pageable, Principal principal) {
-	return "message/chat :: tableMessages";
+    // ___________________ SEND MESSAGES ___________________--//
+
+    @RequestMapping(value = "/message/list")
+    public String listMessages(Model model) {
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	String email = auth.getName();
+	User activeUser = usersService.getUserByEmail(email);
+	// model.addAttribute("offersList", offersService.getOffersListForMessages());
+	List<Message> list = messagesService.getConversationForUser(activeUser);
+	List<Offer> offers = offersService.getOffersListForMessages();
+	model.addAttribute("userMoney", activeUser.getMoneySum());
+	model.addAttribute("messagesList", list);
+	model.addAttribute("offersList", offers);
+	return "message/list";
     }
 
 }

@@ -39,6 +39,12 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<ProductBought> offersBought;
 
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    private Set<Message> messagesSent;
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private Set<Message> messagesReceived;
+
     private String password;
 
     @Transient // propiedad que no se almacena e la tabla.
@@ -153,6 +159,34 @@ public class User {
      */
     public Set<ProductBought> getOffersBought() {
 	return offersBought;
+    }
+
+    /**
+     * @return the messagesSent
+     */
+    public Set<Message> getMessagesSent() {
+	return messagesSent;
+    }
+
+    /**
+     * @param messagesSent the messagesSent to set
+     */
+    public void setMessagesSent(Set<Message> messagesSent) {
+	this.messagesSent = messagesSent;
+    }
+
+    /**
+     * @return the messagesReceived
+     */
+    public Set<Message> getMessagesReceived() {
+	return messagesReceived;
+    }
+
+    /**
+     * @param messagesReceived the messagesReceived to set
+     */
+    public void setMessagesReceived(Set<Message> messagesReceived) {
+	this.messagesReceived = messagesReceived;
     }
 
     /**

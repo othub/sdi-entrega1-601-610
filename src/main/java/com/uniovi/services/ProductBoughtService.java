@@ -26,44 +26,44 @@ import com.uniovi.repositories.ProductBoughtRepository;
 @Service
 public class ProductBoughtService {
 
-	@Autowired
-	private HttpSession httpSession;
+    @Autowired
+    private HttpSession httpSession;
 
-	@Autowired
-	private ProductBoughtRepository productsRepository;
+    @Autowired
+    private ProductBoughtRepository productsRepository;
 
-	public ProductBought getProductBought(Long id) {
-		@SuppressWarnings("unchecked")
-		Set<ProductBought> consultedList = (Set<ProductBought>) httpSession.getAttribute("consultedList");
-		if (consultedList == null) {
-			consultedList = new HashSet<ProductBought>();
-		}
-		ProductBought productObtained = productsRepository.findById(id).get();
-
-		consultedList.add(productObtained);
-
-		httpSession.setAttribute("consultedList", consultedList);
-		return productObtained;
+    public ProductBought getProductBought(Long id) {
+	@SuppressWarnings("unchecked")
+	Set<ProductBought> consultedList = (Set<ProductBought>) httpSession.getAttribute("consultedList");
+	if (consultedList == null) {
+	    consultedList = new HashSet<ProductBought>();
 	}
+	ProductBought productObtained = productsRepository.findById(id).get();
 
-	public void addProductBought(ProductBought product) {
-		productsRepository.save(product);
-	}
+	consultedList.add(productObtained);
 
-	public void deleteProductBought(Long id) {
-		productsRepository.deleteById(id);
-	}
+	httpSession.setAttribute("consultedList", consultedList);
+	return productObtained;
+    }
 
-	public Page<ProductBought> getProductBoughtsForUser(Pageable pageable, User user) {
-		Page<ProductBought> products = new PageImpl<ProductBought>(new LinkedList<ProductBought>());
-		products = productsRepository.findAllByUser(pageable, user);
+    public void addProductBought(ProductBought product) {
+	productsRepository.save(product);
+    }
 
-		return products;
-	}
+    public void deleteProductBought(Long id) {
+	productsRepository.deleteById(id);
+    }
 
-	public Page<ProductBought> getProductBoughts(Pageable pageable) {
-		Page<ProductBought> products = productsRepository.findAll(pageable);
-		return products;
-	}
+    public Page<ProductBought> getProductBoughtsForUser(Pageable pageable, User user) {
+	Page<ProductBought> products = new PageImpl<ProductBought>(new LinkedList<ProductBought>());
+	products = productsRepository.findAllByUser(pageable, user);
+
+	return products;
+    }
+
+    public Page<ProductBought> getProductBoughts(Pageable pageable) {
+	Page<ProductBought> products = productsRepository.findAll(pageable);
+	return products;
+    }
 
 }
