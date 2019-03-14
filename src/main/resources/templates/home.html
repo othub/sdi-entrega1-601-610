@@ -57,6 +57,7 @@
 	        <th align="center" th:text="#{offers.list.date}"></th>
 	        <th></th>
 	        <th></th>
+	        <th></th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -65,8 +66,13 @@
 		    <td align="center" th:text="${offer.title}"> Title</td>
 		    <td align="center" th:text="${offer.description}"> Description</td>
 		    <td align="center" th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
-		    <td align="center" th:text="${offer.date}">2019-02-02</td>    
-			<td>
+		    <td align="center" th:text="${offer.date}">2019-02-02</td>
+		    <td> 
+			    <button
+			    	th:if="${offer.isHighlighted}" align="center" th:text="#{offers.list.highlighted}" style= "background-color: #FFD700; color: white; font-weight: bold;">    
+			    </button>
+			</td>
+		    <td>
 				<!-- Available  -->
 				<div th:if="${offer.isAvailable}"> 
 					<button type="button" th:id="${'buyButton' + offer.id}" class="btn btn-info" th:text="#{home.list.buy}">Comprar</button>
