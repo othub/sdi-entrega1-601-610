@@ -29,7 +29,11 @@
       <div class="col-sm-10">          
         <input type="text" class="form-control" name="messageText" th:placeholder="#{message.offer.list.message}" required="true" />
       </div>
-      
+	    	<button type="submit" id = "sendBtn" 
+	      		class="btn btn-primary" th:text="#{message.send}" 
+	      		style = " font-weight: bold; background-color: #38DFCE; 
+	      		color : white; position: absolute; right: 10;">Enviar
+			</button>    
     </div>
     
     <!-- Tabla de mensajes -->
@@ -56,12 +60,6 @@
 	        </tbody>
 	      </table>
      </div>
-    <!-- Boton Envio del mensaje -->
-    <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" id = "sendBtn" class="btn btn-primary" th:text="#{message.send}" style = " font-weight: bold; background-color: #38DFCE; color : white; ">Enviar</button>
-      </div>
-    </div>
     
   </form>
 </div>
