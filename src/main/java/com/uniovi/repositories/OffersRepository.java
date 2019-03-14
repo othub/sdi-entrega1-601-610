@@ -47,4 +47,14 @@ public interface OffersRepository extends CrudRepository<Offer, Long> {
     @Query("UPDATE Offer SET isAvailable = ?1 WHERE id = ?2")
     void updateAvailable(boolean isAvailable, Long id);
 
+    /**
+     * 
+     * @param isHighlighted
+     * @param id
+     */
+    @Modifying
+    @Transactional
+    @Query("UPDATE Offer SET isHighlighted = ?1 WHERE id = ?2")
+	void updateHighlight(boolean isHighlighted, Long id);
+
 }

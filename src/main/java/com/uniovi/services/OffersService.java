@@ -36,138 +36,158 @@ import com.uniovi.repositories.UsersRepository;
 @Service
 public class OffersService {
 
-    @Autowired
-    private HttpSession httpSession;
+	@Autowired
+	private HttpSession httpSession;
 
-    @Autowired
-    private OffersRepository offersRepository;
+	@Autowired
+	private OffersRepository offersRepository;
 
-    @Autowired
-    private UsersRepository usersRepository;
+	@Autowired
+	private UsersRepository usersRepository;
 
-    @Autowired
-    private ProductBoughtRepository offersOwnedRepository;
+	@Autowired
+	private ProductBoughtRepository offersOwnedRepository;
+	
+	public final static int HIGHLIGHT_PRICE = 20;
 
-    public Offer getOffer(Long id) {
-	@SuppressWarnings("unchecked")
-	Set<Offer> consultedList = (Set<Offer>) httpSession.getAttribute("consultedList");
-	if (consultedList == null) {
-	    consultedList = new HashSet<Offer>();
-	}
-	Offer offerObtained = offersRepository.findById(id).get();
-
-	consultedList.add(offerObtained);
-
-	httpSession.setAttribute("consultedList", consultedList);
-	return offerObtained;
-    }
-
-    public void addOffer(Offer offer) {
-	offersRepository.save(offer);
-    }
-
-    public void deleteOffer(Long id) {
-	offersRepository.deleteById(id);
-    }
-
-    public List<Offer> getOffersListForMessages() {
-	List<Offer> offers = new ArrayList<Offer>();
-	offersRepository.findAll().forEach(offers::add);
-	return offers;
-    }
-
-    public List<Offer> getOffersListForMessages(User user) {
-	List<Offer> offers = new ArrayList<Offer>();
-	for (Offer o : offersRepository.findAll()) {
-	    for (Message m : o.getMessagesExchanged()) {
-		if (m.getReceiver().getEmail().equals(user.getEmail())
-			|| m.getSender().getEmail().equals(user.getEmail())) {
-		    offers.add(o);
+	public Offer getOffer(Long id) {
+		@SuppressWarnings("unchecked")
+		Set<Offer> consultedList = (Set<Offer>) httpSession.getAttribute("consultedList");
+		if (consultedList == null) {
+			consultedList = new HashSet<Offer>();
 		}
-	    }
-	}
-	List<Offer> finalList = new ArrayList<>(new HashSet<>(offers));
-	// finalList.forEach(o -> o.getMessagesExchanged()
-	// .forEach(m -> System.err.println("Msg in delete is: " + m.getId() +
-	// m.getMessageText())));
-	return finalList;
-    }
+		Offer offerObtained = offersRepository.findById(id).get();
 
-    public List<Message> getOffersListForMessagesToDelete(User user) {
-	List<Message> offers = new ArrayList<Message>();
-	for (Offer o : offersRepository.findAll()) {
-	    for (Message m : o.getMessagesExchanged()) {
-		if (m.getReceiver().getEmail().equals(user.getEmail())
-			|| m.getSender().getEmail().equals(user.getEmail())) {
-		    offers.add(m);
+		consultedList.add(offerObtained);
+
+		httpSession.setAttribute("consultedList", consultedList);
+		return offerObtained;
+	}
+
+	public void addOffer(Offer offer) {
+		offersRepository.save(offer);
+	}
+
+	public void deleteOffer(Long id) {
+		offersRepository.deleteById(id);
+	}
+
+	public List<Offer> getOffersListForMessages() {
+		List<Offer> offers = new ArrayList<Offer>();
+		offersRepository.findAll().forEach(offers::add);
+		return offers;
+	}
+
+	public List<Offer> getOffersListForMessages(User user) {
+		List<Offer> offers = new ArrayList<Offer>();
+		for (Offer o : offersRepository.findAll()) {
+			for (Message m : o.getMessagesExchanged()) {
+				if (m.getReceiver().getEmail().equals(user.getEmail())
+						|| m.getSender().getEmail().equals(user.getEmail())) {
+					offers.add(o);
+				}
+			}
 		}
-	    }
+		List<Offer> finalList = new ArrayList<>(new HashSet<>(offers));
+		// finalList.forEach(o -> o.getMessagesExchanged()
+		// .forEach(m -> System.err.println("Msg in delete is: " + m.getId() +
+		// m.getMessageText())));
+		return finalList;
 	}
-	Map<Offer, List<Message>> map = new ArrayList<>(new HashSet<>(offers)).stream()
-		.collect(Collectors.groupingBy(w -> w.getOffer()));
 
-	map.forEach((o, m) -> System.err.println("Key : " + o + " Value : " + m));
-	// Java 8, Convert all Map keys to a List
-	// List<Offer> result3 = map.keySet().stream().collect(Collectors.toList());
+	public List<Message> getOffersListForMessagesToDelete(User user) {
+		List<Message> offers = new ArrayList<Message>();
+		for (Offer o : offersRepository.findAll()) {
+			for (Message m : o.getMessagesExchanged()) {
+				if (m.getReceiver().getEmail().equals(user.getEmail())
+						|| m.getSender().getEmail().equals(user.getEmail())) {
+					offers.add(m);
+				}
+			}
+		}
+		Map<Offer, List<Message>> map = new ArrayList<>(new HashSet<>(offers)).stream()
+				.collect(Collectors.groupingBy(w -> w.getOffer()));
 
-	return offers;
-    }
+		map.forEach((o, m) -> System.err.println("Key : " + o + " Value : " + m));
+		// Java 8, Convert all Map keys to a List
+		// List<Offer> result3 = map.keySet().stream().collect(Collectors.toList());
 
-    public Page<Offer> getOffersForUser(Pageable pageable, User user) {
-	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
-	if (user.getRole().equals("ROLE_STANDARD")) {
-	    offers = offersRepository.findAllByUser(pageable, user);
+		return offers;
 	}
-	return offers;
-    }
 
-    public Page<Offer> getOffers(Pageable pageable) {
-	Page<Offer> offers = offersRepository.findAll(pageable);
-	return offers;
-    }
-
-    /**
-     * @param pageable
-     * @param searchText
-     * @return
-     */
-    public Page<Offer> searchOffersByTitle(Pageable pageable, String searchText) {
-	Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
-	searchText = "%" + searchText + "%";
-	offers = offersRepository.searchOfferByTitle(pageable, searchText);
-	return offers;
-
-    }
-
-    /**
-     * @param isAvailable
-     * @param id
-     */
-    public boolean setAvailable(User user, boolean isAvailable, Long id) {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	String email = auth.getName();
-	Offer offer = offersRepository.findById(id).get();
-	if (!offer.getUser().getEmail().equals(email)) { // no comprar producto propio
-	    if (user.getMoneySum() >= offer.getAmount()) {
-		offersRepository.updateAvailable(isAvailable, id);
-		double rest = user.getMoneySum() - offer.getAmount();
-		usersRepository.updateUserAmount(rest, user.getId());
-		offersOwnedRepository.save(new ProductBought(offer.getTitle(), offer.getDescription(),
-			offer.getAmount(), user, offer.getUser().getEmail()));
-		System.err.println("SE COMPRO JODER");
-		System.err.println("AMOUNT DE USUARIO ES :" + user.getMoneySum());
-		return true;
-	    }
+	public Page<Offer> getOffersForUser(Pageable pageable, User user) {
+		Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
+		if (user.getRole().equals("ROLE_STANDARD")) {
+			offers = offersRepository.findAllByUser(pageable, user);
+		}
+		return offers;
 	}
-	System.err.println("NO SE COMPRA EH CABRON");
-	return false;
-    }
 
-    /**
-     * @param offer
-     */
-    public void deleteConversation(Offer offer) {
-	offersRepository.findById(offer.getId()).get().getMessagesExchanged().clear();
-    }
+	public Page<Offer> getOffers(Pageable pageable) {
+		Page<Offer> offers = offersRepository.findAll(pageable);
+		return offers;
+	}
+
+	/**
+	 * @param pageable
+	 * @param searchText
+	 * @return
+	 */
+	public Page<Offer> searchOffersByTitle(Pageable pageable, String searchText) {
+		Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
+		searchText = "%" + searchText + "%";
+		offers = offersRepository.searchOfferByTitle(pageable, searchText);
+		return offers;
+
+	}
+
+	/**
+	 * @param isAvailable
+	 * @param id
+	 */
+	public boolean setAvailable(User user, boolean isAvailable, Long id) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Offer offer = offersRepository.findById(id).get();
+		if (!offer.getUser().getEmail().equals(email)) { // no comprar producto propio
+			if (user.getMoneySum() >= offer.getAmount()) {
+				offersRepository.updateAvailable(isAvailable, id);
+				double rest = user.getMoneySum() - offer.getAmount();
+				usersRepository.updateUserAmount(rest, user.getId());
+				offersOwnedRepository.save(new ProductBought(offer.getTitle(), offer.getDescription(),
+						offer.getAmount(), user, offer.getUser().getEmail()));
+				System.err.println("SE COMPRO JODER");
+				System.err.println("AMOUNT DE USUARIO ES :" + user.getMoneySum());
+				return true;
+			}
+		}
+		System.err.println("NO SE COMPRA EH CABRON");
+		return false;
+	}
+
+	/**
+	 * @param offer
+	 */
+	public void deleteConversation(Offer offer) {
+		offersRepository.findById(offer.getId()).get().getMessagesExchanged().clear();
+	}
+
+	/**
+	 * 
+	 * @param id
+	 */
+	public void updateHighlight(Long id) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		User user = usersRepository.findByEmail(email);
+		Offer offer = offersRepository.findById(id).get();
+		if(!offer.isHighlighted()) {
+			offersRepository.updateHighlight(true, id);
+			double rest = user.getMoneySum() - HIGHLIGHT_PRICE;
+			usersRepository.updateUserAmount(rest, user.getId());
+		}
+		
+		System.err.println("NO SE PUEDE DESTACAR LA OFERTA");
+	}
 
 }
