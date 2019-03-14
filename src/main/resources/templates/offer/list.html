@@ -44,7 +44,33 @@
 		    <td th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
 		    <td th:text="${offer.date}">2019-02-02</td>
 		    <td>
-		    	<button type="button" th:id="${'highlightButton' + offer.id}" class="btn btn-info" th:text="#{offers.list.highlight}">Destacar</button>
+		    <!-- Highlight -->
+		    <div th:if="${!offer.isHighlighted}">
+		    	<button type="button" th:id="${'highlightButton' + offer.id}" 
+		    			class="btn btn-info" th:text="#{offers.list.highlight}" 
+		    			th:href="${'/offer/highlight/' + offer.id}">
+		    			Destacar
+		    	</button>
+		    	<script th:inline="javascript">
+					  /*<![CDATA[*/
+					  $("#highlightButton[[${offer.id}]]").click(function() {
+					    $.get("/offer/highlight/[[${offer.id}]]", function(data) {
+					    	location.reload();
+/* 					      var numberPage = [[${param.page}]];
+					      var urlUpdate = '/home/update';
+					      if (numberPage != null) {
+					        urlUpdate += "?page=" + numberPage[0];
+					      }
+					      $("#tableOffers").load(urlUpdate); */
+					    });
+					  }); 
+					   /*]]>*/
+					</script>	  
+			  </div>
+			  <!-- NOT highlight -->
+			  <div th:unless="${!offer.isHighlighted}"> 
+				<button type="button" th:id="${'highlighted' + offer.id}" class="btn btn-warning" th:text="#{offers.list.highlighted}">Destacado</button>
+			  </div>
 		    </td>
 		  </tr>
 		</tbody>
