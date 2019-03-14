@@ -1,6 +1,8 @@
 package com.uniovi.controllers;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -121,7 +123,7 @@ public class OffersController {
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
 		Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
-
+		
 		if (searchText != null && !searchText.isEmpty()) {
 			offers = offersService.searchOffersByTitle(pageable, searchText);
 		} else {
