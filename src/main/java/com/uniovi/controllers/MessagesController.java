@@ -77,10 +77,8 @@ public class MessagesController {
 	String email = auth.getName();
 	User activeUser = usersService.getUserByEmail(email);
 	// model.addAttribute("offersList", offersService.getOffersListForMessages());
-	List<Message> list = messagesService.getConversationForUser(activeUser);
-	List<Offer> offers = offersService.getOffersListForMessages();
+	List<Offer> offers = offersService.getOffersListForMessages(activeUser);
 	model.addAttribute("userMoney", activeUser.getMoneySum());
-	model.addAttribute("messagesList", list);
 	model.addAttribute("offersList", offers);
 	return "message/list";
     }

@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.uniovi.entities.Message;
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.ProductBought;
 import com.uniovi.entities.User;
@@ -70,6 +71,20 @@ public class OffersService {
     public List<Offer> getOffersListForMessages() {
 	List<Offer> offers = new ArrayList<Offer>();
 	offersRepository.findAll().forEach(offers::add);
+	return offers;
+    }
+
+    public List<Offer> getOffersListForMessages(User user) {
+	List<Offer> offers = new ArrayList<Offer>();
+
+	for (Offer o : offersRepository.findAll()) {
+	    for (Message m : o.getMessagesExchanged()) {
+		if (m.getReceiver().getEmail().equals(user.getEmail())
+			|| m.getSender().getEmail().equals(user.getEmail())) {
+		    offers.add(o);
+		}
+	    }
+	}
 	return offers;
     }
 
