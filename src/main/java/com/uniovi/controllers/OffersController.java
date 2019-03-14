@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
+import com.uniovi.services.OffersComparator;
 import com.uniovi.services.OffersService;
 import com.uniovi.services.UsersService;
 

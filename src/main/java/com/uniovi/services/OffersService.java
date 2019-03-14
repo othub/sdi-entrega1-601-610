@@ -126,7 +126,7 @@ public class OffersService {
 	}
 
 	public Page<Offer> getOffers(Pageable pageable) {
-		Page<Offer> offers = offersRepository.findAll(pageable);
+		Page<Offer> offers = offersRepository.findAllSorted(pageable);
 		return offers;
 	}
 
