@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -76,7 +78,6 @@ public class OffersService {
 
     public List<Offer> getOffersListForMessages(User user) {
 	List<Offer> offers = new ArrayList<Offer>();
-
 	for (Offer o : offersRepository.findAll()) {
 	    for (Message m : o.getMessagesExchanged()) {
 		if (m.getReceiver().getEmail().equals(user.getEmail())
@@ -85,6 +86,30 @@ public class OffersService {
 		}
 	    }
 	}
+	List<Offer> finalList = new ArrayList<>(new HashSet<>(offers));
+	// finalList.forEach(o -> o.getMessagesExchanged()
+	// .forEach(m -> System.err.println("Msg in delete is: " + m.getId() +
+	// m.getMessageText())));
+	return finalList;
+    }
+
+    public List<Message> getOffersListForMessagesToDelete(User user) {
+	List<Message> offers = new ArrayList<Message>();
+	for (Offer o : offersRepository.findAll()) {
+	    for (Message m : o.getMessagesExchanged()) {
+		if (m.getReceiver().getEmail().equals(user.getEmail())
+			|| m.getSender().getEmail().equals(user.getEmail())) {
+		    offers.add(m);
+		}
+	    }
+	}
+	Map<Offer, List<Message>> map = new ArrayList<>(new HashSet<>(offers)).stream()
+		.collect(Collectors.groupingBy(w -> w.getOffer()));
+
+	map.forEach((o, m) -> System.err.println("Key : " + o + " Value : " + m));
+	// Java 8, Convert all Map keys to a List
+	// List<Offer> result3 = map.keySet().stream().collect(Collectors.toList());
+
 	return offers;
     }
 
@@ -136,6 +161,13 @@ public class OffersService {
 	}
 	System.err.println("NO SE COMPRA EH CABRON");
 	return false;
+    }
+
+    /**
+     * @param offer
+     */
+    public void deleteConversation(Offer offer) {
+	offersRepository.findById(offer.getId()).get().getMessagesExchanged().clear();
     }
 
 }

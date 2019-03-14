@@ -47,4 +47,12 @@ public class UsersService {
     public User getUserByEmail(String email) {
 	return usersRepository.findByEmail(email);
     }
+
+    /**
+     * @param activeUser
+     */
+    public void deleteExchanges(User activeUser) {
+	// TODO Auto-generated method stub
+
+    }
 }

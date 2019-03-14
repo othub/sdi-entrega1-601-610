@@ -1,6 +1,5 @@
 package com.uniovi.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +34,6 @@ public class MessagesService {
 	Offer ofr = message.getOffer();
 	ofr.getMessagesExchanged().add(message);
 
-	for (Message o : message.getOffer().getMessagesExchanged()) {
-	    System.err.print("msg in offer is :" + o);
-	}
     }
 
     /**
@@ -48,22 +44,15 @@ public class MessagesService {
 	return messagesRepository.findMessageByUser(activeUser);
     }
 
-    /**
-     * @param message
-     * @return
-     */
-    public List<Message> getConversationForUser(User user) {
-	List<Message> received = new ArrayList<Message>(user.getMessagesReceived());
-	List<Message> sent = new ArrayList<Message>(user.getMessagesSent());
-
-	List<Message> full = new ArrayList<Message>(received);
-	full.addAll(sent);
-
-	for (Message msg : full) {
-	    System.err.println(msg);
-	}
-
-	return full;
-    }
+//    /**
+//     * @param id
+//     */
+//    public void deleteMessage(Long id) {
+//	System.err.println("msg to delete in service is: " + id);
+//	Message m = messagesRepository.findById(id).get();
+//	m.getSender().getMessagesSent().remove(m);
+//	m.getReceiver().getMessagesReceived().remove(message);
+//	messagesRepository.deleteById(id);
+//    }
 
 }
