@@ -65,6 +65,8 @@ public class OffersService {
 	}
 
 	public void addOffer(Offer offer) {
+		if(offer.isHighlighted)
+			offer.getUser().setMoneySum(offer.getUser().getMoneySum() - HIGHLIGHT_PRICE);
 		offersRepository.save(offer);
 	}
 

@@ -52,7 +52,12 @@ public class OffersController {
 	 * @return
 	 */
 	@RequestMapping(value = "/offer/add", method = RequestMethod.POST)
-	public String setOffer(@ModelAttribute Offer offer) {
+	public String setOffer(@ModelAttribute Offer offer, @RequestParam(value = "isHighlighted", required = false) String checkboxValue) {
+		if (checkboxValue != null) {
+			offer.setHighlighted(true);
+		} else {
+			offer.setHighlighted(false);
+		}
 		offersService.addOffer(offer);
 		return "redirect:/offer/list";
 	}
@@ -156,7 +161,7 @@ public class OffersController {
 	}
 
 	// _________________________ HIGHLIGHT _______________________//
-	
+
 	@RequestMapping("/offer/highlight/{id}")
 	public String highlight(@PathVariable Long id) {
 		Offer offer = offersService.getOffer(id);
