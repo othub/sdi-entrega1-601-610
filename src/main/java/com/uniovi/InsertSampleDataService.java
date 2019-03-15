@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Offer;
+import com.uniovi.entities.ProductBought;
 import com.uniovi.entities.User;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.UsersService;
@@ -51,7 +52,6 @@ public class InsertSampleDataService {
 	User user6 = new User("algo5@gmail.com", "Leo", "Messi");
 	user6.setPassword("123456");
 	user6.setRole(rolesService.getRoles()[0]);
-
 	User user7 = new User("algo7@gmail.com", "Neymar", "Jr");
 	user7.setPassword("123456");
 	user7.setRole(rolesService.getRoles()[0]);
@@ -116,6 +116,76 @@ public class InsertSampleDataService {
 	    }
 	};
 	user5.setOffers(user5Offers);
+
+	Set<ProductBought> user7ProductBought = new HashSet<ProductBought>() {
+	    {
+		int count = 2;
+		for (Offer o : user3.getOffers()) {
+		    if (count > 0) {
+			add(new ProductBought(o.getTitle(), o.getDescription(), o.getAmount(), user7,
+				o.getUser().getEmail()));
+		    }
+		    count--;
+		}
+	    }
+	};
+	user7.setOffersBought(user7ProductBought);
+
+	Set<ProductBought> user1ProductBought = new HashSet<ProductBought>() {
+	    {
+		int count = 2;
+		for (Offer o : user4.getOffers()) {
+		    if (count > 0) {
+			add(new ProductBought(o.getTitle(), o.getDescription(), o.getAmount(), user1,
+				o.getUser().getEmail()));
+		    }
+		    count--;
+		}
+	    }
+	};
+	user1.setOffersBought(user1ProductBought);
+
+	Set<ProductBought> user2ProductBought = new HashSet<ProductBought>() {
+	    {
+		int count = 2;
+		for (Offer o : user5.getOffers()) {
+		    if (count > 0) {
+			add(new ProductBought(o.getTitle(), o.getDescription(), o.getAmount(), user2,
+				o.getUser().getEmail()));
+		    }
+		    count--;
+		}
+	    }
+	};
+	user2.setOffersBought(user2ProductBought);
+
+	Set<ProductBought> user3ProductBought = new HashSet<ProductBought>() {
+	    {
+		int count = 2;
+		for (Offer o : user7.getOffers()) {
+		    if (count > 0) {
+			add(new ProductBought(o.getTitle(), o.getDescription(), o.getAmount(), user3,
+				o.getUser().getEmail()));
+		    }
+		    count--;
+		}
+	    }
+	};
+	user3.setOffersBought(user3ProductBought);
+
+	Set<ProductBought> user6ProductBought = new HashSet<ProductBought>() {
+	    {
+		int count = 2;
+		for (Offer o : user2.getOffers()) {
+		    if (count > 0) {
+			add(new ProductBought(o.getTitle(), o.getDescription(), o.getAmount(), user6,
+				o.getUser().getEmail()));
+		    }
+		    count--;
+		}
+	    }
+	};
+	user6.setOffersBought(user6ProductBought);
 
 	User delete1 = new User("akran1@gmail.com", "Pedro", "Pascal");
 	delete1.setPassword("123456");

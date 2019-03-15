@@ -25,6 +25,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.uniovi.entities.Offer;
+import com.uniovi.entities.ProductBought;
 import com.uniovi.entities.User;
 import com.uniovi.repositories.UsersRepository;
 import com.uniovi.services.RolesService;
@@ -53,14 +54,16 @@ public class MyWallapopAppTests {
     @Autowired
     private UsersRepository usersRepository;
 
-    // En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
-    // automáticas)):
     static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+
     // CHANGE THIS
     static String Geckdriver024 = "D:\\Documents\\S6\\SDI\\Practicas\\PL-SDI-Sesion5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
     static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
-    static String URL = "http://localhost:8090";
+
+    static String URLlocal = "http://localhost:8090";
+    static String URLremota = "";
+    static String URL = URLlocal;
 
     public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 	System.setProperty("webdriver.firefox.bin", PathFirefox);
@@ -83,7 +86,6 @@ public class MyWallapopAppTests {
 
 	// Borramos todas las entidades.
 	usersRepository.deleteAll();
-
 	User user1 = new User("algo@gmail.com", "Pedro", "Pascal");
 	user1.setPassword("123456");
 	user1.setRole(rolesService.getRoles()[0]);
@@ -102,7 +104,6 @@ public class MyWallapopAppTests {
 	User user6 = new User("algo5@gmail.com", "Leo", "Messi");
 	user6.setPassword("123456");
 	user6.setRole(rolesService.getRoles()[0]);
-
 	User user7 = new User("algo7@gmail.com", "Neymar", "Jr");
 	user7.setPassword("123456");
 	user7.setRole(rolesService.getRoles()[0]);
@@ -167,6 +168,76 @@ public class MyWallapopAppTests {
 	    }
 	};
 	user5.setOffers(user5Offers);
+
+	Set<ProductBought> user7ProductBought = new HashSet<ProductBought>() {
+	    {
+		int count = 2;
+		for (Offer o : user3.getOffers()) {
+		    if (count > 0) {
+			add(new ProductBought(o.getTitle(), o.getDescription(), o.getAmount(), user7,
+				o.getUser().getEmail()));
+		    }
+		    count--;
+		}
+	    }
+	};
+	user7.setOffersBought(user7ProductBought);
+
+	Set<ProductBought> user1ProductBought = new HashSet<ProductBought>() {
+	    {
+		int count = 2;
+		for (Offer o : user4.getOffers()) {
+		    if (count > 0) {
+			add(new ProductBought(o.getTitle(), o.getDescription(), o.getAmount(), user1,
+				o.getUser().getEmail()));
+		    }
+		    count--;
+		}
+	    }
+	};
+	user1.setOffersBought(user1ProductBought);
+
+	Set<ProductBought> user2ProductBought = new HashSet<ProductBought>() {
+	    {
+		int count = 2;
+		for (Offer o : user5.getOffers()) {
+		    if (count > 0) {
+			add(new ProductBought(o.getTitle(), o.getDescription(), o.getAmount(), user2,
+				o.getUser().getEmail()));
+		    }
+		    count--;
+		}
+	    }
+	};
+	user2.setOffersBought(user2ProductBought);
+
+	Set<ProductBought> user3ProductBought = new HashSet<ProductBought>() {
+	    {
+		int count = 2;
+		for (Offer o : user7.getOffers()) {
+		    if (count > 0) {
+			add(new ProductBought(o.getTitle(), o.getDescription(), o.getAmount(), user3,
+				o.getUser().getEmail()));
+		    }
+		    count--;
+		}
+	    }
+	};
+	user3.setOffersBought(user3ProductBought);
+
+	Set<ProductBought> user6ProductBought = new HashSet<ProductBought>() {
+	    {
+		int count = 2;
+		for (Offer o : user2.getOffers()) {
+		    if (count > 0) {
+			add(new ProductBought(o.getTitle(), o.getDescription(), o.getAmount(), user6,
+				o.getUser().getEmail()));
+		    }
+		    count--;
+		}
+	    }
+	};
+	user6.setOffersBought(user6ProductBought);
 
 	User delete1 = new User("akran1@gmail.com", "Pedro", "Pascal");
 	delete1.setPassword("123456");
@@ -1406,7 +1477,7 @@ public class MyWallapopAppTests {
 	assertTrue(elementos.size() == 5); // tiene cuatro
 
 	// click en la oferta de un Coche
-	By boton = By.xpath("//*[@id=\"highlightButton57\"]");
+	By boton = By.xpath("//*[@id=\"highlightButton72\"]");
 	driver.findElement(boton).click();
 
 	PO_View.checkElement(driver, "text", "60.0 €");
@@ -1440,8 +1511,8 @@ public class MyWallapopAppTests {
 
 	assertTrue(driver.getPageSource().contains("0.0 €")); // estamos sin dinero
 
-	// click en la oferta de un Coche
-	By boton = By.xpath("//*[@id=\"highlightButton53\"]");
+	// click en cualquier oferta para destacarla
+	By boton = By.xpath("//*[@id=\"highlightButton68\"]");
 	driver.findElement(boton).click();
 
 	PO_View.checkElement(driver, "text", "0.0 €");

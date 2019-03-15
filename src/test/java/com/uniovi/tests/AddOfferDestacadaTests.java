@@ -121,7 +121,7 @@ public class AddOfferDestacadaTests {
 	assertTrue(elementos.size() == 5); // tiene cuatro
 
 	// click en la oferta de un Coche
-	By boton = By.xpath("//*[@id=\"highlightButton24\"]");
+	By boton = By.xpath("//*[@id=\"highlightButton32\"]");
 	driver.findElement(boton).click();
 
 	PO_View.checkElement(driver, "text", "60.0 €");
@@ -157,7 +157,7 @@ public class AddOfferDestacadaTests {
 	assertTrue(driver.getPageSource().contains("0.0 €")); // estamos sin dinero
 
 	// click en la oferta de un Coche
-	By boton = By.xpath("//*[@id=\"highlightButton20\"]");
+	By boton = By.xpath("//*[@id=\"highlightButton27\"]");
 	driver.findElement(boton).click();
 
 	PO_View.checkElement(driver, "text", "0.0 €");
