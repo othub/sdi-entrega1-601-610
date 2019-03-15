@@ -164,13 +164,6 @@ public class OffersService {
     }
 
     /**
-     * @param offer
-     */
-    public void deleteConversation(Offer offer) {
-	offersRepository.findById(offer.getId()).get().getMessagesExchanged().clear();
-    }
-
-    /**
      * 
      * @param id
      */
