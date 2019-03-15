@@ -56,7 +56,7 @@ public class ListMessageTests {
     }
 
     @Test
-    public void Prueba31() {
+    public void Prueba33() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
 	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");

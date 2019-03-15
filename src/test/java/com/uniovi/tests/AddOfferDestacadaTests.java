@@ -68,7 +68,7 @@ public class AddOfferDestacadaTests {
 
 	// hay 3 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 3);
+	assertTrue(elementos.size() == 4);
 
 	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
 	elementos.get(0).click();
@@ -83,7 +83,7 @@ public class AddOfferDestacadaTests {
 	PO_View.checkElement(driver, "text", "iMac 2009");
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 4);
+	assertTrue(elementos.size() == 5);
 
 	PO_View.checkElement(driver, "text", "80.0 €");
 	assertFalse(driver.getPageSource().contains("100.0 €")); // el saldo se ha cambiado
@@ -118,7 +118,7 @@ public class AddOfferDestacadaTests {
 
 	// hay 3 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	assertTrue(elementos.size() == 4); // tiene cuatro
+	assertTrue(elementos.size() == 5); // tiene cuatro
 
 	// click en la oferta de un Coche
 	By boton = By.xpath("//*[@id=\"highlightButton24\"]");
