@@ -58,7 +58,7 @@ public class DeleteMessageTests {
     @Test
     public void Prueba34() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-	PO_LoginView.fillForm(driver, "algo1@gmail.com", "123456");
+	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
 	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
@@ -79,7 +79,7 @@ public class DeleteMessageTests {
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	// tiene tres mensajes
-	assertTrue(elementos.size() == 3);
+	assertTrue(elementos.size() == 5);
 
 	PO_View.checkElement(driver, "text", "Quiero verlo");
 
@@ -105,7 +105,7 @@ public class DeleteMessageTests {
     @Test
     public void Prueba35() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-	PO_LoginView.fillForm(driver, "algo1@gmail.com", "123456");
+	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
 	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
@@ -115,7 +115,7 @@ public class DeleteMessageTests {
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	// tiene tres mensajes
-	assertTrue(elementos.size() == 2); // ahora tenemos solamente 2 mensajes
+	assertTrue(elementos.size() == 4); // ahora tenemos solamente 2 mensajes
 
 	// comprobamos que se actualizó en la lista de mensajes
 	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
@@ -135,7 +135,7 @@ public class DeleteMessageTests {
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	// tiene un mensaje
-	assertTrue(elementos.size() == 1); // ahora tenemos solamente 1 msg
+	assertTrue(elementos.size() == 3); // ahora tenemos solamente 1 msg
 
 	// desconectamos
 	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");

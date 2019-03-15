@@ -58,7 +58,7 @@ public class SendMessageTests {
     @Test
     public void Prueba31() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-	PO_LoginView.fillForm(driver, "algo2@gmail.com", "123456");
+	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
 	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
@@ -93,7 +93,7 @@ public class SendMessageTests {
 
 	PO_View.checkElement(driver, "text", "Cuantos años la tienes");
 	PO_View.checkElement(driver, "text", "algo1@gmail.com");
-	PO_View.checkElement(driver, "text", "algo2@gmail.com");
+	PO_View.checkElement(driver, "text", "algo5@gmail.com");
 
 	// desconectamos
 	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
@@ -102,7 +102,7 @@ public class SendMessageTests {
     @Test
     public void Prueba32() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-	PO_LoginView.fillForm(driver, "algo2@gmail.com", "123456");
+	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
 	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
@@ -139,7 +139,7 @@ public class SendMessageTests {
 	PO_View.checkElement(driver, "text", "Cuantos años la tienes");
 	PO_View.checkElement(driver, "text", "Quiero verlo en persona porfa");
 	PO_View.checkElement(driver, "text", "algo1@gmail.com");
-	PO_View.checkElement(driver, "text", "algo2@gmail.com");
+	PO_View.checkElement(driver, "text", "algo5@gmail.com");
 
 	// desconectamos
 	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");

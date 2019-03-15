@@ -58,7 +58,7 @@ public class ListMessageTests {
     @Test
     public void Prueba31() {
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-	PO_LoginView.fillForm(driver, "algo1@gmail.com", "123456");
+	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
 	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
 	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
@@ -86,7 +86,7 @@ public class ListMessageTests {
 
 	PO_View.checkElement(driver, "text", "Cuantos años lo tienes");
 	// the concerned users
-	PO_View.checkElement(driver, "text", "algo1@gmail.com");
+	PO_View.checkElement(driver, "text", "algo5@gmail.com");
 	PO_View.checkElement(driver, "text", "algo2@gmail.com");
 
 	// otro mensaje a otra oferta
