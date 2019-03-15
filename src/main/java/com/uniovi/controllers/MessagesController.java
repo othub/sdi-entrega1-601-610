@@ -10,8 +10,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.uniovi.entities.Message;
 import com.uniovi.entities.Offer;
@@ -96,27 +98,25 @@ public class MessagesController {
 	return "message/delete";
     }
 
-//    @PostMapping("/message/delete")
-//    public String delete(@RequestParam("idChecked") List<String> offers) {
-//	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//	String email = auth.getName();
-//	User activeUser = usersService.getUserByEmail(email);
-//	if (offers != null) {
-//	    for (String id : offers) {
-//		Long idToDelete = Long.parseLong(id);
-//		Offer offer = offersService.getOffer(idToDelete);
-//		System.err.println(offer.getTitle());
-//		if (offer != null) {
-//		    for (Message m : offer.getMessagesExchanged()) {
-//			System.err.println("msg to delete in controller is: " + m.getId());
-//			messagesService.deleteMessage(m.getId());
-//		    }
-//		    offersService.deleteConversation(offer);
-//		    usersService.deleteExchanges(activeUser);
-//		}
-//	    }
-//	}
-//	return "message/delete";
-//    }
+    @PostMapping("/message/delete")
+    public String delete(@RequestParam("idChecked") List<String> offers) {
+	if (offers != null) {
+	    for (String id : offers) {
+		Long idToDelete = Long.parseLong(id);
+		Offer offer = offersService.getOffer(idToDelete);
+		System.err.println(offer.getTitle());
+		if (offer != null) {
+		    if (offer.getMessagesExchanged() != null)
+			for (Message m : offer.getMessagesExchanged()) {
+			    if (m != null) {
+				System.err.println("msg to delete in controller is: " + m.getId());
+				messagesService.deleteMessage(m.getId());
+			    }
+			}
+		}
+	    }
+	}
+	return "redirect:/message/delete";
+    }
 
 }

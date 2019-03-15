@@ -27,7 +27,7 @@
 		         			</ul>	         			
 					       <p th:text="${ofr.title}"></p>
 					       <input type="checkbox" th:name="idChecked"  th:value="${ofr.id}"/>
-					       <div th:each="msg: ${ofr.messagesExchanged}">
+					       <div th:each="msg: ${ofr.messagesExchanged}" th:if="${ofr.messagesExchanged != null and not #lists.isEmpty(ofr.messagesExchanged)}">
 						       <ul>					            
 						           <li th:text="${msg.sender.email}"></li>	
 						           <li th:text="${msg.receiver.email}"></li>	

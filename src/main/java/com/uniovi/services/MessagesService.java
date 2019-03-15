@@ -9,12 +9,14 @@ import com.uniovi.entities.Message;
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
 import com.uniovi.repositories.MessagesRepository;
+import com.uniovi.repositories.OffersRepository;
+import com.uniovi.repositories.UsersRepository;
 
 /**
  * gestionar todo lo relativo a la lógica de negocio de las Notas. Los servicios
  * funcionan internamente como Beans.Al lanzar el proyecto se crea
  * automáticamente un Bean por cada servicio
- * 
+ *
  * @version $Id$
  */
 @Service
@@ -22,6 +24,12 @@ public class MessagesService {
 
     @Autowired
     private MessagesRepository messagesRepository;
+
+    @Autowired
+    private OffersRepository offersRepository;
+
+    @Autowired
+    private UsersRepository usersRepository;
 
     public void addMessage(Message message) {
 
@@ -44,15 +52,23 @@ public class MessagesService {
 	return messagesRepository.findMessageByUser(activeUser);
     }
 
-//    /**
-//     * @param id
-//     */
-//    public void deleteMessage(Long id) {
-//	System.err.println("msg to delete in service is: " + id);
-//	Message m = messagesRepository.findById(id).get();
-//	m.getSender().getMessagesSent().remove(m);
-//	m.getReceiver().getMessagesReceived().remove(message);
-//	messagesRepository.deleteById(id);
-//    }
+    /**
+     * @param id
+     */
+    public void deleteMessage(Long id) {
+	System.err.println("msg to delete in service is: " + id);
+	messagesRepository.findById(id).get().getOffer().getMessagesExchanged()
+		.remove(messagesRepository.findById(id).get());
+	messagesRepository.findById(id).get().getSender().getMessagesReceived()
+		.remove(messagesRepository.findById(id).get());
+	messagesRepository.findById(id).get().getSender().getMessagesSent()
+		.remove(messagesRepository.findById(id).get());
+	messagesRepository.findById(id).get().getReceiver().getMessagesReceived()
+		.remove(messagesRepository.findById(id).get());
+	messagesRepository.findById(id).get().getReceiver().getMessagesSent()
+		.remove(messagesRepository.findById(id).get());
+
+	messagesRepository.deleteMessage(id);
+    }
 
 }

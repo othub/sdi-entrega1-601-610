@@ -35,7 +35,7 @@ public class Offer {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Message> messagesExchanged;
 
     /**
