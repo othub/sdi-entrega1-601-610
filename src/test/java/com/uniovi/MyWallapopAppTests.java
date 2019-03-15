@@ -62,7 +62,7 @@ public class MyWallapopAppTests {
     static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 
     static String URLlocal = "http://localhost:8090";
-    static String URLremota = "";
+    static String URLremota = "ec2-35-180-164-87.eu-west-3.compute.amazonaws.com:8090";
     static String URL = URLlocal;
 
     public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
