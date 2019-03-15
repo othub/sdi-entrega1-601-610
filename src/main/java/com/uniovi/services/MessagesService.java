@@ -52,7 +52,6 @@ public class MessagesService {
      * @param id
      */
     public void deleteMessage(Long id) {
-	System.err.println("msg to delete in service is: " + id);
 	messagesRepository.deleteMessage(id);
     }
 
