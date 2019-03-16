@@ -26,37 +26,37 @@ import com.uniovi.services.UsersService;
 @Controller
 public class ProductBoughtController {
 
-	@Autowired
-	private UsersService usersService;
+    @Autowired
+    private UsersService usersService;
 
-	@SuppressWarnings("unused")
-	@Autowired
-	private HttpSession httpSession;
+    @SuppressWarnings("unused")
+    @Autowired
+    private HttpSession httpSession;
 
-	@Autowired
-	private ProductBoughtService offersBoughtService;
+    @Autowired
+    private ProductBoughtService offersBoughtService;
 
-	// __________________________ OFFERS bought _____________________//
+    // __________________________ OFFERS bought _____________________//
 
-	/**
-	 * returns the user's bought offers
-	 * 
-	 * @param model
-	 * @param pageable
-	 * @param principal
-	 * @param searchText
-	 * @return
-	 */
-	@RequestMapping("/offer/bought")
-	public String getListBought(Model model, Pageable pageable, Principal principal,
-			@RequestParam(value = "", required = false) String searchText) {
-		String email = principal.getName();
-		User user = usersService.getUserByEmail(email);
-		Page<ProductBought> offers = new PageImpl<ProductBought>(new LinkedList<ProductBought>());
-		offers = offersBoughtService.getProductBoughtsForUser(pageable, user);
-		model.addAttribute("userMoney", user.getMoneySum());
-		model.addAttribute("offerList", offers.getContent());
-		model.addAttribute("page", offers);
-		return "offer/bought";
-	}
+    /**
+     * returns the user's bought offers
+     * 
+     * @param model
+     * @param pageable
+     * @param principal
+     * @param searchText
+     * @return
+     */
+    @RequestMapping("/offer/bought")
+    public String getListBought(Model model, Pageable pageable, Principal principal,
+	    @RequestParam(value = "", required = false) String searchText) {
+	String email = principal.getName();
+	User user = usersService.getUserByEmail(email);
+	Page<ProductBought> offers = new PageImpl<ProductBought>(new LinkedList<ProductBought>());
+	offers = offersBoughtService.getProductBoughtsForUser(pageable, user);
+	model.addAttribute("userMoney", user.getMoneySum());
+	model.addAttribute("offerList", offers.getContent());
+	model.addAttribute("page", offers);
+	return "offer/bought";
+    }
 }

@@ -28,132 +28,132 @@ import com.uniovi.utils.SeleniumUtils;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SendMessageTests {
 
-	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
-	// automáticas)):
-	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	// CHANGE THIS
-	static String Geckdriver024 = "D:\\Documents\\S6\\SDI\\Practicas\\PL-SDI-Sesion5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+    // En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
+    // automáticas)):
+    static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+    // CHANGE THIS
+    static String Geckdriver024 = "D:\\Documents\\S6\\SDI\\Practicas\\PL-SDI-Sesion5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
-	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
-	static String URL = "http://localhost:8090";
+    static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
+    static String URL = "http://localhost:8090";
 
-	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
-		System.setProperty("webdriver.firefox.bin", PathFirefox);
-		System.setProperty("webdriver.gecko.driver", Geckdriver);
-		WebDriver driver = new FirefoxDriver();
-		return driver;
-	}
+    public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
+	System.setProperty("webdriver.firefox.bin", PathFirefox);
+	System.setProperty("webdriver.gecko.driver", Geckdriver);
+	WebDriver driver = new FirefoxDriver();
+	return driver;
+    }
 
-	@Before
-	public void setUp() {
-		driver.navigate().to(URL);
-	}
+    @Before
+    public void setUp() {
+	driver.navigate().to(URL);
+    }
 
-	// Después de cada prueba se borran las cookies del navegador
-	@After
-	public void tearDown() {
-		driver.manage().deleteAllCookies();
-	}
+    // Después de cada prueba se borran las cookies del navegador
+    @After
+    public void tearDown() {
+	driver.manage().deleteAllCookies();
+    }
 
-	@Test
-	public void Prueba31() {
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
-		PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
+    @Test
+    public void Prueba31() {
+	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
-		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
-		elementos.get(0).click();
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'message/chat')]");
-		elementos.get(0).click();
+	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
+	elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'message/chat')]");
+	elementos.get(0).click();
 
-		// enviamos un mensaje al usuario cuyo oferta es Samsung note y email
-		// algo1@gmail.com
+	// enviamos un mensaje al usuario cuyo oferta es Samsung note y email
+	// algo1@gmail.com
 
-		Select dropdown = new Select(driver.findElement(By.id("user")));
-		dropdown.selectByIndex(2);
+	Select dropdown = new Select(driver.findElement(By.id("user")));
+	dropdown.selectByIndex(2);
 
-		PO_View.checkElement(driver, "text", "Tu mensaje");
+	PO_View.checkElement(driver, "text", "Tu mensaje");
 
-		// enviamos un mensaje
-		PO_SendMessageView.fillForm(driver, "Cuantos años la tienes");
+	// enviamos un mensaje
+	PO_SendMessageView.fillForm(driver, "Cuantos años la tienes");
 
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		assertTrue(elementos.size() == 1);
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(elementos.size() == 1);
 
-		PO_View.checkElement(driver, "text", "Cuantos años la tienes");
+	PO_View.checkElement(driver, "text", "Cuantos años la tienes");
 
-		// comprobamos que se actualizó en la lista de mensajes
-		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
-		elementos.get(0).click();
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'message/list')]");
-		elementos.get(0).click();
+	// comprobamos que se actualizó en la lista de mensajes
+	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
+	elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'message/list')]");
+	elementos.get(0).click();
 
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		assertTrue(!elementos.isEmpty());
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(!elementos.isEmpty());
 
-		PO_View.checkElement(driver, "text", "Cuantos años la tienes");
-		PO_View.checkElement(driver, "text", "algo1@gmail.com");
-		PO_View.checkElement(driver, "text", "algo5@gmail.com");
+	PO_View.checkElement(driver, "text", "Cuantos años la tienes");
+	PO_View.checkElement(driver, "text", "algo1@gmail.com");
+	PO_View.checkElement(driver, "text", "algo5@gmail.com");
 
-		// desconectamos
-		PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
-	}
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
+    }
 
-	@Test
-	public void Prueba32() {
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
-		PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
+    @Test
+    public void Prueba32() {
+	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
-		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
-		elementos.get(0).click();
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'message/chat')]");
-		elementos.get(0).click();
+	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
+	elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'message/chat')]");
+	elementos.get(0).click();
 
-		// enviamos un mensaje al usuario cuyo oferta es Samsung note y email
-		// algo1@gmail.com
+	// enviamos un mensaje al usuario cuyo oferta es Samsung note y email
+	// algo1@gmail.com
 
-		Select dropdown = new Select(driver.findElement(By.id("user")));
-		dropdown.selectByIndex(1);
+	Select dropdown = new Select(driver.findElement(By.id("user")));
+	dropdown.selectByIndex(1);
 
-		PO_View.checkElement(driver, "text", "Tu mensaje");
+	PO_View.checkElement(driver, "text", "Tu mensaje");
 
-		// enviamos un mensaje
-		PO_SendMessageView.fillForm(driver, "Quiero verlo en persona porfa");
+	// enviamos un mensaje
+	PO_SendMessageView.fillForm(driver, "Quiero verlo en persona porfa");
 
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		assertTrue(elementos.size() == 2);
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(elementos.size() == 2);
 
-		PO_View.checkElement(driver, "text", "Cuantos años la tienes");
-		PO_View.checkElement(driver, "text", "Quiero verlo en persona porfa");
+	PO_View.checkElement(driver, "text", "Cuantos años la tienes");
+	PO_View.checkElement(driver, "text", "Quiero verlo en persona porfa");
 
-		// comprobamos que se actualizó en la lista de mensajes
-		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
-		elementos.get(0).click();
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'message/list')]");
-		elementos.get(0).click();
+	// comprobamos que se actualizó en la lista de mensajes
+	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'messages-menu')]/a");
+	elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'message/list')]");
+	elementos.get(0).click();
 
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		assertTrue(!elementos.isEmpty());
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(!elementos.isEmpty());
 
-		PO_View.checkElement(driver, "text", "Cuantos años la tienes");
-		PO_View.checkElement(driver, "text", "Quiero verlo en persona porfa");
-		PO_View.checkElement(driver, "text", "algo1@gmail.com");
-		PO_View.checkElement(driver, "text", "algo5@gmail.com");
+	PO_View.checkElement(driver, "text", "Cuantos años la tienes");
+	PO_View.checkElement(driver, "text", "Quiero verlo en persona porfa");
+	PO_View.checkElement(driver, "text", "algo1@gmail.com");
+	PO_View.checkElement(driver, "text", "algo5@gmail.com");
 
-		// desconectamos
-		PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
-	}
+	// desconectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
+    }
 
-	// Antes de la primera prueba
-	@BeforeClass
-	static public void begin() {
-	}
+    // Antes de la primera prueba
+    @BeforeClass
+    static public void begin() {
+    }
 
-	// Al finalizar la última prueba
-	@AfterClass
-	static public void end() {
-		// Cerramos el navegador al finalizar las pruebas
-		driver.quit();
-	}
+    // Al finalizar la última prueba
+    @AfterClass
+    static public void end() {
+	// Cerramos el navegador al finalizar las pruebas
+	driver.quit();
+    }
 }

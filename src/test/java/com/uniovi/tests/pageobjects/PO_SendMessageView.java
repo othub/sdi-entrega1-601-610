@@ -10,19 +10,19 @@ import org.openqa.selenium.WebElement;
  */
 public class PO_SendMessageView extends PO_NavView {
 
-	/**
-	 * @param driver
-	 * @param string
-	 * @param string2
-	 * @param i
-	 */
-	public static void fillForm(WebDriver driver, String msgf) {
-		WebElement title = driver.findElement(By.name("messageText"));
-		title.click();
-		title.clear();
-		title.sendKeys(msgf);
-		
-		By boton = By.className("btn");
-		driver.findElement(boton).click();
-	}
+    /**
+     * @param driver
+     * @param string
+     * @param string2
+     * @param i
+     */
+    public static void fillForm(WebDriver driver, String msgf) {
+	WebElement title = driver.findElement(By.name("messageText"));
+	title.click();
+	title.clear();
+	title.sendKeys(msgf);
+
+	By boton = By.className("btn");
+	driver.findElement(boton).click();
+    }
 }

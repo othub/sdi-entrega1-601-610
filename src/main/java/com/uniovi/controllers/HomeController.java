@@ -17,25 +17,25 @@ import com.uniovi.services.UsersService;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private UsersService usersService;
+    @Autowired
+    private UsersService usersService;
 
-	/**
-	 * returns the index and add the user's money in the view if he's logged in
-	 * 
-	 * @param model
-	 * @param principal
-	 * @return
-	 */
-	@RequestMapping("/")
-	public String index(Model model, Principal principal) {
-		if (principal != null) {
-			String email = principal.getName();
-			User user = usersService.getUserByEmail(email);
-			if (user != null)
-				model.addAttribute("userMoney", user.getMoneySum());
-		}
-		return "index"; // devuelve el index.html
+    /**
+     * returns the index and add the user's money in the view if he's logged in
+     * 
+     * @param model
+     * @param principal
+     * @return
+     */
+    @RequestMapping("/")
+    public String index(Model model, Principal principal) {
+	if (principal != null) {
+	    String email = principal.getName();
+	    User user = usersService.getUserByEmail(email);
+	    if (user != null)
+		model.addAttribute("userMoney", user.getMoneySum());
 	}
+	return "index"; // devuelve el index.html
+    }
 
 }

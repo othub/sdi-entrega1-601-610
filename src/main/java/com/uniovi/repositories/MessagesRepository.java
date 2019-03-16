@@ -16,20 +16,20 @@ import com.uniovi.entities.User;
  */
 public interface MessagesRepository extends CrudRepository<Message, Long> {
 
-	/**
-	 * @param pageable
-	 * @param user
-	 * @return
-	 */
-	@Query("SELECT m FROM Message m WHERE m.sender = ?1 ORDER BY m.id ASC ")
-	List<Message> findMessageByUser(User sender);
+    /**
+     * @param pageable
+     * @param user
+     * @return
+     */
+    @Query("SELECT m FROM Message m WHERE m.sender = ?1 ORDER BY m.id ASC ")
+    List<Message> findMessageByUser(User sender);
 
-	/**
-	 * @param id
-	 */
-	@Modifying
-	@Transactional
-	@Query("DELETE FROM Message WHERE id = ?1")
-	void deleteMessage(Long id);
+    /**
+     * @param id
+     */
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Message WHERE id = ?1")
+    void deleteMessage(Long id);
 
 }

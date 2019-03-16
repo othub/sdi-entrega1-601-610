@@ -28,204 +28,204 @@ import com.uniovi.utils.SeleniumUtils;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InternalizationTests {
 
-	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
-	// automáticas)):
-	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	// CHANGE THIS
-	static String Geckdriver024 = "D:\\Documents\\S6\\SDI\\Practicas\\PL-SDI-Sesion5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+    // En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
+    // automáticas)):
+    static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+    // CHANGE THIS
+    static String Geckdriver024 = "D:\\Documents\\S6\\SDI\\Practicas\\PL-SDI-Sesion5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
-	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
-	static String URL = "http://localhost:8090";
+    static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
+    static String URL = "http://localhost:8090";
 
-	static List<WebElement> elementos;
+    static List<WebElement> elementos;
 
-	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
-		System.setProperty("webdriver.firefox.bin", PathFirefox);
-		System.setProperty("webdriver.gecko.driver", Geckdriver);
-		WebDriver driver = new FirefoxDriver();
-		return driver;
-	}
+    public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
+	System.setProperty("webdriver.firefox.bin", PathFirefox);
+	System.setProperty("webdriver.gecko.driver", Geckdriver);
+	WebDriver driver = new FirefoxDriver();
+	return driver;
+    }
 
-	@Before
-	public void setUp() {
-		driver.navigate().to(URL);
-	}
+    @Before
+    public void setUp() {
+	driver.navigate().to(URL);
+    }
 
-	// Después de cada prueba se borran las cookies del navegador
-	@After
-	public void tearDown() {
-		driver.manage().deleteAllCookies();
-	}
+    // Después de cada prueba se borran las cookies del navegador
+    @After
+    public void tearDown() {
+	driver.manage().deleteAllCookies();
+    }
 
-	@Test
-	public void Prueba27() {
-		// cambiando las idiomas en index.html <-> home
-		homeTest();
+    @Test
+    public void Prueba27() {
+	// cambiando las idiomas en index.html <-> home
+	homeTest();
 
-		// login spanish -> english -> spanish
-		loginUserTest();
+	// login spanish -> english -> spanish
+	loginUserTest();
 
-		// estamos conectados con el usuario con correo algo5@gmail.com
-		// click en menu y hacemos click en agregar oferta
-		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
-		elementos.get(0).click();
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/add')]");
-		elementos.get(0).click();
-		// la agregamos
-		addOfferTest();
+	// estamos conectados con el usuario con correo algo5@gmail.com
+	// click en menu y hacemos click en agregar oferta
+	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
+	elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/add')]");
+	elementos.get(0).click();
+	// la agregamos
+	addOfferTest();
 
-		// rellenamos el formulario
-		PO_AddOfferView.fillForm(driver, "Coche a vender", "Polo 2009", 4500);
-		// comprobamos que exista la oferta que acabamos de agregar
-		PO_View.checkElement(driver, "text", "Polo 2009");
+	// rellenamos el formulario
+	PO_AddOfferView.fillForm(driver, "Coche a vender", "Polo 2009", 4500);
+	// comprobamos que exista la oferta que acabamos de agregar
+	PO_View.checkElement(driver, "text", "Polo 2009");
 
-		// nos dirige a la pagina de offer/list
-		listOffersTest();
+	// nos dirige a la pagina de offer/list
+	listOffersTest();
 
-		// disconnect
-		PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
+	// disconnect
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
-		// login con admin
-		loginAdminTest();
+	// login con admin
+	loginAdminTest();
 
-		// ahora estamos como admin y vamos a mostrar la lista de usuarios
-		// menu -> ver usuarios
-		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
-		elementos.get(0).click();
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
-		elementos.get(0).click();
+	// ahora estamos como admin y vamos a mostrar la lista de usuarios
+	// menu -> ver usuarios
+	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+	elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
+	elementos.get(0).click();
 
-		listUsersTest();
+	listUsersTest();
 
-		PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
-	}
+    }
 
-	/**
-	 * 
-	 */
-	private void listUsersTest() {
-		// hay 7 usuarios en el sistema
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		assertTrue(elementos.size() == 9);
-		// estamos en spanish, probamos que si
-		PO_View.checkElement(driver, "text", "Los usuarios de My Wallapop son los siguientes:");
-		// changing to english
-		PO_NavView.changeIdiom(driver, "English");
-		PO_View.checkElement(driver, "text", "My Wallapop current users are :");
-		// changing to spanish again
-		PO_NavView.changeIdiom(driver, "Spanish");
-		PO_View.checkElement(driver, "text", "Eliminar");
-	}
+    /**
+     * 
+     */
+    private void listUsersTest() {
+	// hay 7 usuarios en el sistema
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(elementos.size() == 9);
+	// estamos en spanish, probamos que si
+	PO_View.checkElement(driver, "text", "Los usuarios de My Wallapop son los siguientes:");
+	// changing to english
+	PO_NavView.changeIdiom(driver, "English");
+	PO_View.checkElement(driver, "text", "My Wallapop current users are :");
+	// changing to spanish again
+	PO_NavView.changeIdiom(driver, "Spanish");
+	PO_View.checkElement(driver, "text", "Eliminar");
+    }
 
-	/**
-	 * 
-	 */
-	private void loginAdminTest() {
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.checkElement(driver, "text", "Identificate");
-		PO_LoginView.fillForm(driver, "admin@email.com", "123456");
-		PO_View.checkElement(driver, "text", "Bienvenido Administrador");
-		// disconnect
-		PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
+    /**
+     * 
+     */
+    private void loginAdminTest() {
+	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+	PO_LoginView.checkElement(driver, "text", "Identificate");
+	PO_LoginView.fillForm(driver, "admin@email.com", "123456");
+	PO_View.checkElement(driver, "text", "Bienvenido Administrador");
+	// disconnect
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
-		// changing to english
-		PO_NavView.changeIdiom(driver, "English");
-		PO_LoginView.checkElement(driver, "text", "Log in");
-		PO_LoginView.fillForm(driver, "admin@email.com", "123456");
-		PO_View.checkElement(driver, "text", "Welcome dear Administrator");
-		// disconnect
-		PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
+	// changing to english
+	PO_NavView.changeIdiom(driver, "English");
+	PO_LoginView.checkElement(driver, "text", "Log in");
+	PO_LoginView.fillForm(driver, "admin@email.com", "123456");
+	PO_View.checkElement(driver, "text", "Welcome dear Administrator");
+	// disconnect
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
-		// changing to spanish again
-		PO_NavView.changeIdiom(driver, "Spanish");
-		PO_LoginView.checkElement(driver, "text", "Identificate");
-		PO_LoginView.fillForm(driver, "admin@email.com", "123456");
-		PO_View.checkElement(driver, "text", "Bienvenido Administrador");
-	}
+	// changing to spanish again
+	PO_NavView.changeIdiom(driver, "Spanish");
+	PO_LoginView.checkElement(driver, "text", "Identificate");
+	PO_LoginView.fillForm(driver, "admin@email.com", "123456");
+	PO_View.checkElement(driver, "text", "Bienvenido Administrador");
+    }
 
-	/**
-	 * 
-	 */
-	private void addOfferTest() {
-		PO_View.checkElement(driver, "text", "Agregar una oferta");
-		PO_View.checkElement(driver, "text", "Correo y Nombre :");
-		PO_View.checkElement(driver, "text", "Titulo de oferta :");
-		// changing to english
-		PO_NavView.changeIdiom(driver, "English");
-		PO_View.checkElement(driver, "text", "Email and Name :");
-		PO_View.checkElement(driver, "text", "Description :");
-		// changing to spanish again
-		PO_NavView.changeIdiom(driver, "Spanish");
-		PO_View.checkElement(driver, "text", "Correo y Nombre :");
-		PO_View.checkElement(driver, "text", "Titulo de oferta :");
-	}
+    /**
+     * 
+     */
+    private void addOfferTest() {
+	PO_View.checkElement(driver, "text", "Agregar una oferta");
+	PO_View.checkElement(driver, "text", "Correo y Nombre :");
+	PO_View.checkElement(driver, "text", "Titulo de oferta :");
+	// changing to english
+	PO_NavView.changeIdiom(driver, "English");
+	PO_View.checkElement(driver, "text", "Email and Name :");
+	PO_View.checkElement(driver, "text", "Description :");
+	// changing to spanish again
+	PO_NavView.changeIdiom(driver, "Spanish");
+	PO_View.checkElement(driver, "text", "Correo y Nombre :");
+	PO_View.checkElement(driver, "text", "Titulo de oferta :");
+    }
 
-	/**
-	 * 
-	 */
-	private void listOffersTest() {
-		// estamos en spanish, probamos que si
-		PO_View.checkElement(driver, "text", "Precio");
-		PO_View.checkElement(driver, "text", "Titulo");
-		// changing to english
-		PO_NavView.changeIdiom(driver, "English");
-		PO_View.checkElement(driver, "text", "Amount");
-		PO_View.checkElement(driver, "text", "Date of creation");
-		// changing to spanish again
-		PO_NavView.changeIdiom(driver, "Spanish");
-		PO_View.checkElement(driver, "text", "Precio");
-		PO_View.checkElement(driver, "text", "Fecha de creacion");
-	}
+    /**
+     * 
+     */
+    private void listOffersTest() {
+	// estamos en spanish, probamos que si
+	PO_View.checkElement(driver, "text", "Precio");
+	PO_View.checkElement(driver, "text", "Titulo");
+	// changing to english
+	PO_NavView.changeIdiom(driver, "English");
+	PO_View.checkElement(driver, "text", "Amount");
+	PO_View.checkElement(driver, "text", "Date of creation");
+	// changing to spanish again
+	PO_NavView.changeIdiom(driver, "Spanish");
+	PO_View.checkElement(driver, "text", "Precio");
+	PO_View.checkElement(driver, "text", "Fecha de creacion");
+    }
 
-	/**
-	 * 
-	 */
-	private void loginUserTest() {
-		// login con usuario estandar spanish
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.checkElement(driver, "text", "Identificate");
-		PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
-		PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
-		// disconnect
-		PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
+    /**
+     * 
+     */
+    private void loginUserTest() {
+	// login con usuario estandar spanish
+	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+	PO_LoginView.checkElement(driver, "text", "Identificate");
+	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
+	// disconnect
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
-		// changing to english
-		PO_NavView.changeIdiom(driver, "English");
-		PO_LoginView.checkElement(driver, "text", "Log in");
-		PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
-		PO_View.checkElement(driver, "text", "The current offers in My Wallapop are the following :");
-		// disconnect
-		PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
+	// changing to english
+	PO_NavView.changeIdiom(driver, "English");
+	PO_LoginView.checkElement(driver, "text", "Log in");
+	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
+	PO_View.checkElement(driver, "text", "The current offers in My Wallapop are the following :");
+	// disconnect
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
-		// changing to spanish again
-		PO_NavView.changeIdiom(driver, "Spanish");
-		PO_LoginView.checkElement(driver, "text", "Identificate");
-		PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
-		PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
-	}
+	// changing to spanish again
+	PO_NavView.changeIdiom(driver, "Spanish");
+	PO_LoginView.checkElement(driver, "text", "Identificate");
+	PO_LoginView.fillForm(driver, "algo5@gmail.com", "123456");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
+    }
 
-	/**
-	 * 
-	 */
-	private void homeTest() {
-		// pagina principal en spanish
-		PO_HomeView.checkWelcome(driver, PO_Properties.getSPANISH());
-		PO_NavView.changeIdiom(driver, "English");
-		PO_HomeView.checkWelcome(driver, PO_Properties.getENGLISH());
-		PO_NavView.changeIdiom(driver, "Spanish");
-		PO_HomeView.checkWelcome(driver, PO_Properties.getSPANISH());
-	}
+    /**
+     * 
+     */
+    private void homeTest() {
+	// pagina principal en spanish
+	PO_HomeView.checkWelcome(driver, PO_Properties.getSPANISH());
+	PO_NavView.changeIdiom(driver, "English");
+	PO_HomeView.checkWelcome(driver, PO_Properties.getENGLISH());
+	PO_NavView.changeIdiom(driver, "Spanish");
+	PO_HomeView.checkWelcome(driver, PO_Properties.getSPANISH());
+    }
 
-	// Antes de la primera prueba
-	@BeforeClass
-	static public void begin() {
-	}
+    // Antes de la primera prueba
+    @BeforeClass
+    static public void begin() {
+    }
 
-	// Al finalizar la última prueba
-	@AfterClass
-	static public void end() {
-		// Cerramos el navegador al finalizar las pruebas
-		driver.quit();
-	}
+    // Al finalizar la última prueba
+    @AfterClass
+    static public void end() {
+	// Cerramos el navegador al finalizar las pruebas
+	driver.quit();
+    }
 }

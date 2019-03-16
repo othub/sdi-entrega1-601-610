@@ -27,100 +27,100 @@ import com.uniovi.utils.SeleniumUtils;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ListBoughtOffersTests {
 
-	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
-	// automáticas)):
-	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	// CHANGE THIS
-	static String Geckdriver024 = "D:\\Documents\\S6\\SDI\\Practicas\\PL-SDI-Sesion5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+    // En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
+    // automáticas)):
+    static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+    // CHANGE THIS
+    static String Geckdriver024 = "D:\\Documents\\S6\\SDI\\Practicas\\PL-SDI-Sesion5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
-	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
-	static String URL = "http://localhost:8090";
+    static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
+    static String URL = "http://localhost:8090";
 
-	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
-		System.setProperty("webdriver.firefox.bin", PathFirefox);
-		System.setProperty("webdriver.gecko.driver", Geckdriver);
-		WebDriver driver = new FirefoxDriver();
-		return driver;
-	}
+    public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
+	System.setProperty("webdriver.firefox.bin", PathFirefox);
+	System.setProperty("webdriver.gecko.driver", Geckdriver);
+	WebDriver driver = new FirefoxDriver();
+	return driver;
+    }
 
-	@Before
-	public void setUp() {
-		driver.navigate().to(URL);
-	}
+    @Before
+    public void setUp() {
+	driver.navigate().to(URL);
+    }
 
-	// Después de cada prueba se borran las cookies del navegador
-	@After
-	public void tearDown() {
-		driver.manage().deleteAllCookies();
-	}
+    // Después de cada prueba se borran las cookies del navegador
+    @After
+    public void tearDown() {
+	driver.manage().deleteAllCookies();
+    }
 
-	@Test
-	public void Prueba26() {
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, "algo3@gmail.com", "123456");
-		PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
+    @Test
+    public void Prueba26() {
+	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+	PO_LoginView.fillForm(driver, "algo3@gmail.com", "123456");
+	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
 
-		// entramos para comprobar que la lista de ofertas compradas por algo3 es vacía
-		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
-		elementos.get(0).click();
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/bought')]");
-		elementos.get(0).click();
+	// entramos para comprobar que la lista de ofertas compradas por algo3 es vacía
+	List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
+	elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/bought')]");
+	elementos.get(0).click();
 
-		// hay 0 ofertas compradas por este usuario
-		List<WebElement> lista = driver.findElements(By.xpath("//tbody/tr"));
-		assertTrue(lista.size() == 0);
+	// hay 0 ofertas compradas por este usuario
+	List<WebElement> lista = driver.findElements(By.xpath("//tbody/tr"));
+	assertTrue(lista.size() == 0);
 
-		// volvemos a home
-		driver.navigate().back();
+	// volvemos a home
+	driver.navigate().back();
 
-		// el numero de articulos que aparecen son 5
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		assertTrue(elementos.size() == 5);
+	// el numero de articulos que aparecen son 5
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(elementos.size() == 5);
 
-		assertTrue(driver.getPageSource().contains("100.0 €")); // estamos sin dinero
+	assertTrue(driver.getPageSource().contains("100.0 €")); // estamos sin dinero
 
-		// buscar oferta
-		PO_SearchOffersView.search(driver, "mercedes"); // buscamos un mercedes
+	// buscar oferta
+	PO_SearchOffersView.search(driver, "mercedes"); // buscamos un mercedes
 
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		assertTrue(elementos.size() == 1); // hay 1 solo mercedes
-		PO_View.checkElement(driver, "text", "220c"); // su precio del coche es 70
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(elementos.size() == 1); // hay 1 solo mercedes
+	PO_View.checkElement(driver, "text", "220c"); // su precio del coche es 70
 
-		By comprar = By.className("btn-info");
-		driver.findElement(comprar).click();
+	By comprar = By.className("btn-info");
+	driver.findElement(comprar).click();
 
-		// se actualiza el precio a 30
-		assertTrue(driver.getPageSource().contains("30.0 €")); // no se cambió el saldo del usuario
+	// se actualiza el precio a 30
+	assertTrue(driver.getPageSource().contains("30.0 €")); // no se cambió el saldo del usuario
 
-		// VAMOS AHORA A LA LISTA de OFERTAS COMPRADAS
+	// VAMOS AHORA A LA LISTA de OFERTAS COMPRADAS
 
-		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
-		elementos.get(0).click();
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/bought')]");
-		elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'offers-menu')]/a");
+	elementos.get(0).click();
+	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/bought')]");
+	elementos.get(0).click();
 
-		// hay 1 oferta que es mercedes
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		assertTrue(elementos.size() == 1);
+	// hay 1 oferta que es mercedes
+	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+	assertTrue(elementos.size() == 1);
 
-		// comprobamos que es un mercedes
-		PO_View.checkElement(driver, "text", "220c");
-		PO_View.checkElement(driver, "text", "Coche");
+	// comprobamos que es un mercedes
+	PO_View.checkElement(driver, "text", "220c");
+	PO_View.checkElement(driver, "text", "Coche");
 
-		// desonectamos
-		PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
+	// desonectamos
+	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
 
-	}
+    }
 
-	// Antes de la primera prueba
-	@BeforeClass
-	static public void begin() {
-	}
+    // Antes de la primera prueba
+    @BeforeClass
+    static public void begin() {
+    }
 
-	// Al finalizar la última prueba
-	@AfterClass
-	static public void end() {
-		// Cerramos el navegador al finalizar las pruebas
-		driver.quit();
-	}
+    // Al finalizar la última prueba
+    @AfterClass
+    static public void end() {
+	// Cerramos el navegador al finalizar las pruebas
+	driver.quit();
+    }
 }

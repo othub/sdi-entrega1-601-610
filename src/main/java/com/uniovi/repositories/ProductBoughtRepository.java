@@ -14,18 +14,18 @@ import com.uniovi.entities.User;
  */
 public interface ProductBoughtRepository extends CrudRepository<ProductBought, Long> {
 
-	/**
-	 * @param pageable
-	 * @param user
-	 * @return
-	 */
-	@Query("SELECT o FROM ProductBought o WHERE o.user = ?1 ORDER BY o.id ASC ")
-	Page<ProductBought> findAllByUser(Pageable pageable, User user);
+    /**
+     * @param pageable
+     * @param user
+     * @return
+     */
+    @Query("SELECT o FROM ProductBought o WHERE o.user = ?1 ORDER BY o.id ASC ")
+    Page<ProductBought> findAllByUser(Pageable pageable, User user);
 
-	/**
-	 * @param pageable
-	 * @return
-	 */
-	Page<ProductBought> findAll(Pageable pageable);
+    /**
+     * @param pageable
+     * @return
+     */
+    Page<ProductBought> findAll(Pageable pageable);
 
 }

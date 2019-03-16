@@ -21,53 +21,53 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class CustomConfiguration implements WebMvcConfigurer {
 
-	/**
-	 * determinan el entorno local actual basado en la sesión, las cookies, el
-	 * encabezado Accept-Language o en un valor fijo.
-	 * 
-	 * @return
-	 */
-	@Bean
-	public LocaleResolver localeResolver() {
-		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-		localeResolver.setDefaultLocale(new Locale("es", "ES"));
-		return localeResolver;
-	}
+    /**
+     * determinan el entorno local actual basado en la sesión, las cookies, el
+     * encabezado Accept-Language o en un valor fijo.
+     * 
+     * @return
+     */
+    @Bean
+    public LocaleResolver localeResolver() {
+	SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+	localeResolver.setDefaultLocale(new Locale("es", "ES"));
+	return localeResolver;
+    }
 
-	/**
-	 * detectar parámetro de idioma
-	 * 
-	 * @return
-	 */
-	@Bean
-	public LocaleChangeInterceptor localeChangeInterceptor() {
-		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-		localeChangeInterceptor.setParamName("lang");
-		return localeChangeInterceptor;
-	}
+    /**
+     * detectar parámetro de idioma
+     * 
+     * @return
+     */
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+	LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+	localeChangeInterceptor.setParamName("lang");
+	return localeChangeInterceptor;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
-	 */
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(localeChangeInterceptor());
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+	registry.addInterceptor(localeChangeInterceptor());
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addArgumentResolvers(java.util.List)
-	 */
-	@Override
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-		int page = 0;
-		int size = 5;
-		PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
-		resolver.setFallbackPageable(PageRequest.of(page, size));
-		argumentResolvers.add(resolver);
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addArgumentResolvers(java.util.List)
+     */
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+	int page = 0;
+	int size = 5;
+	PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
+	resolver.setFallbackPageable(PageRequest.of(page, size));
+	argumentResolvers.add(resolver);
+    }
 
 }
