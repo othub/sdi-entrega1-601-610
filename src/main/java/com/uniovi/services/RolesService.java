@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class RolesService {
 
-    String[] roles = { "ROLE_STANDARD", "ROLE_ADMIN" };
+	String[] roles = { "ROLE_STANDARD", "ROLE_ADMIN" };
 
-    /**
-     * @return the roles admin or standard
-     */
-    public String[] getRoles() {
-	return roles;
-    }
+	/**
+	 * @return the roles admin or standard
+	 */
+	public String[] getRoles() {
+		return roles;
+	}
 }

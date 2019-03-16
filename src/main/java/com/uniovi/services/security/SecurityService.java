@@ -13,40 +13,40 @@ import org.springframework.stereotype.Service;;
 @Service
 public class SecurityService {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
-    private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
+	private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 
-    /**
-     * find the users logged in based on the email.
-     * 
-     * @return
-     */
-    public String findLoggedInEmail() {
-	Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-	if (userDetails instanceof UserDetails) {
-	    return ((UserDetails) userDetails).getUsername();
+	/**
+	 * find the users logged in based on the email.
+	 * 
+	 * @return
+	 */
+	public String findLoggedInEmail() {
+		Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
+		if (userDetails instanceof UserDetails) {
+			return ((UserDetails) userDetails).getUsername();
+		}
+		return null;
 	}
-	return null;
-    }
 
-    /**
-     * @param email
-     * @param password
-     */
-    public void autoLogin(String email, String password) {
-	UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-	UsernamePasswordAuthenticationToken aToken = new UsernamePasswordAuthenticationToken(userDetails, password,
-		userDetails.getAuthorities());
-	authenticationManager.authenticate(aToken);
-	if (aToken.isAuthenticated()) {
-	    SecurityContextHolder.getContext().setAuthentication(aToken);
-	    logger.debug(String.format("Auto login %s successfully!", email));
+	/**
+	 * @param email
+	 * @param password
+	 */
+	public void autoLogin(String email, String password) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+		UsernamePasswordAuthenticationToken aToken = new UsernamePasswordAuthenticationToken(userDetails, password,
+				userDetails.getAuthorities());
+		authenticationManager.authenticate(aToken);
+		if (aToken.isAuthenticated()) {
+			SecurityContextHolder.getContext().setAuthentication(aToken);
+			logger.debug(String.format("Auto login %s successfully!", email));
+		}
 	}
-    }
 
 }

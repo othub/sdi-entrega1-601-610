@@ -26,56 +26,56 @@ import com.uniovi.repositories.ProductBoughtRepository;
 @Service
 public class ProductBoughtService {
 
-    @Autowired
-    private HttpSession httpSession;
+	@Autowired
+	private HttpSession httpSession;
 
-    @Autowired
-    private ProductBoughtRepository productsRepository;
+	@Autowired
+	private ProductBoughtRepository productsRepository;
 
-    /**
-     * @param id of the product bought
-     * @return
-     */
-    public ProductBought getProductBought(Long id) {
-	@SuppressWarnings("unchecked")
-	Set<ProductBought> consultedList = (Set<ProductBought>) httpSession.getAttribute("consultedList");
-	if (consultedList == null) {
-	    consultedList = new HashSet<ProductBought>();
+	/**
+	 * @param id of the product bought
+	 * @return
+	 */
+	public ProductBought getProductBought(Long id) {
+		@SuppressWarnings("unchecked")
+		Set<ProductBought> consultedList = (Set<ProductBought>) httpSession.getAttribute("consultedList");
+		if (consultedList == null) {
+			consultedList = new HashSet<ProductBought>();
+		}
+		ProductBought productObtained = productsRepository.findById(id).get();
+
+		consultedList.add(productObtained);
+
+		httpSession.setAttribute("consultedList", consultedList);
+		return productObtained;
 	}
-	ProductBought productObtained = productsRepository.findById(id).get();
 
-	consultedList.add(productObtained);
+	/**
+	 * @param product that will be added
+	 */
+	public void addProductBought(ProductBought product) {
+		productsRepository.save(product);
+	}
 
-	httpSession.setAttribute("consultedList", consultedList);
-	return productObtained;
-    }
+	/**
+	 * @param id of the deleted product
+	 */
+	public void deleteProductBought(Long id) {
+		productsRepository.deleteById(id);
+	}
 
-    /**
-     * @param product that will be added
-     */
-    public void addProductBought(ProductBought product) {
-	productsRepository.save(product);
-    }
+	/**
+	 * returns the user's bought offers
+	 * 
+	 * @param pageable
+	 * @param user
+	 * @return
+	 */
+	public Page<ProductBought> getProductBoughtsForUser(Pageable pageable, User user) {
+		Page<ProductBought> products = new PageImpl<ProductBought>(new LinkedList<ProductBought>());
+		products = productsRepository.findAllByUser(pageable, user);
 
-    /**
-     * @param id of the deleted product
-     */
-    public void deleteProductBought(Long id) {
-	productsRepository.deleteById(id);
-    }
-
-    /**
-     * returns the user's bought offers
-     * 
-     * @param pageable
-     * @param user
-     * @return
-     */
-    public Page<ProductBought> getProductBoughtsForUser(Pageable pageable, User user) {
-	Page<ProductBought> products = new PageImpl<ProductBought>(new LinkedList<ProductBought>());
-	products = productsRepository.findAllByUser(pageable, user);
-
-	return products;
-    }
+		return products;
+	}
 
 }

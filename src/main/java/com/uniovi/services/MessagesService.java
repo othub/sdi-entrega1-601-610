@@ -20,50 +20,50 @@ import com.uniovi.repositories.MessagesRepository;
 @Service
 public class MessagesService {
 
-    @Autowired
-    private MessagesRepository messagesRepository;
+	@Autowired
+	private MessagesRepository messagesRepository;
 
-    /**
-     * saves the message in the repository and adds it in the list of messages of
-     * the offer and the users concerned
-     * 
-     * @param message
-     */
-    public void addMessage(Message message) {
-	message.setReceiver(message.getOffer().getUser());
-	message.getSender().getMessagesSent().add(message);
-	message.getReceiver().getMessagesReceived().add(message);
+	/**
+	 * saves the message in the repository and adds it in the list of messages of
+	 * the offer and the users concerned
+	 * 
+	 * @param message
+	 */
+	public void addMessage(Message message) {
+		message.setReceiver(message.getOffer().getUser());
+		message.getSender().getMessagesSent().add(message);
+		message.getReceiver().getMessagesReceived().add(message);
 
-	messagesRepository.save(message);
+		messagesRepository.save(message);
 
-	Offer ofr = message.getOffer();
-	ofr.getMessagesExchanged().add(message);
+		Offer ofr = message.getOffer();
+		ofr.getMessagesExchanged().add(message);
 
-    }
+	}
 
-    /**
-     * Returns the user's messages
-     * 
-     * @param activeUser
-     * @return
-     */
-    public List<Message> getMessagesForUser(User activeUser) {
-	return messagesRepository.findMessageByUser(activeUser);
-    }
+	/**
+	 * Returns the user's messages
+	 * 
+	 * @param activeUser
+	 * @return
+	 */
+	public List<Message> getMessagesForUser(User activeUser) {
+		return messagesRepository.findMessageByUser(activeUser);
+	}
 
-    /**
-     * @param id of the message
-     * @return the message
-     */
-    public Message getMessage(Long id) {
-	return messagesRepository.findById(id).get();
-    }
+	/**
+	 * @param id of the message
+	 * @return the message
+	 */
+	public Message getMessage(Long id) {
+		return messagesRepository.findById(id).get();
+	}
 
-    /**
-     * @param id of the deleted message
-     */
-    public void deleteMessage(Long id) {
-	messagesRepository.deleteMessage(id);
-    }
+	/**
+	 * @param id of the deleted message
+	 */
+	public void deleteMessage(Long id) {
+		messagesRepository.deleteMessage(id);
+	}
 
 }

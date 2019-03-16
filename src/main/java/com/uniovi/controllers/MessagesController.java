@@ -29,102 +29,102 @@ import com.uniovi.services.UsersService;
 @Controller
 public class MessagesController {
 
-    @Autowired
-    private MessagesService messagesService;
+	@Autowired
+	private MessagesService messagesService;
 
-    @Autowired // Inyectar el servicio
-    private OffersService offersService;
+	@Autowired // Inyectar el servicio
+	private OffersService offersService;
 
-    @Autowired // Inyectar el servicio
-    private UsersService usersService;
+	@Autowired // Inyectar el servicio
+	private UsersService usersService;
 
-    @SuppressWarnings("unused")
-    @Autowired
-    private HttpSession httpSession;
+	@SuppressWarnings("unused")
+	@Autowired
+	private HttpSession httpSession;
 
-    // ___________________ SEND MESSAGES ___________________--//
+	// ___________________ SEND MESSAGES ___________________--//
 
-    /**
-     * adds a message
-     * 
-     * @return
-     */
-    @RequestMapping(value = "/message/chat", method = RequestMethod.POST)
-    public String addMessage(@ModelAttribute Message message) {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	String email = auth.getName();
-	User activeUser = usersService.getUserByEmail(email);
-	message.setSender(activeUser);
-	messagesService.addMessage(message);
-	return "redirect:/message/chat";
-    }
-
-    /**
-     * returns the html of message/chat
-     * 
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/message/chat")
-    public String getMessages(Model model) {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	String email = auth.getName();
-	User activeUser = usersService.getUserByEmail(email);
-	model.addAttribute("offersList", offersService.getOffersListForMessages());
-	model.addAttribute("userMoney", activeUser.getMoneySum());
-	model.addAttribute("messagesList", messagesService.getMessagesForUser(activeUser));
-	return "message/chat";
-    }
-
-    // ___________________ SEND MESSAGES ___________________--//
-
-    /**
-     * @param model
-     * @return the list of user's messages in the message/list.html
-     */
-    @RequestMapping(value = "/message/list")
-    public String listMessages(Model model) {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	String email = auth.getName();
-	User activeUser = usersService.getUserByEmail(email);
-	List<Offer> offers = offersService.getOffersListForMessagesFor(activeUser);
-	model.addAttribute("userMoney", activeUser.getMoneySum());
-	model.addAttribute("offersList", offers);
-	return "message/list";
-    }
-
-    // ___________________ DELETE MESSAGES ___________________--//
-
-    /**
-     * returns the list of user's messages that he wishes to delete
-     * 
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/message/delete")
-    public String deleteMessages(Model model) {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	String email = auth.getName();
-	User activeUser = usersService.getUserByEmail(email);
-	List<Offer> offers = offersService.getOffersListForMessagesFor(activeUser);
-	model.addAttribute("userMoney", activeUser.getMoneySum());
-	model.addAttribute("offersList", offers);
-	return "message/delete";
-    }
-
-    /**
-     * @param idMessages of the messages selected that will be deleted
-     * @return
-     */
-    @PostMapping("/message/delete")
-    public String delete(@RequestParam("idChecked") List<String> idMessages) {
-	if (idMessages != null) {
-	    for (String id : idMessages) {
-		Long idToDelete = Long.parseLong(id);
-		messagesService.deleteMessage(idToDelete);
-	    }
+	/**
+	 * adds a message
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/message/chat", method = RequestMethod.POST)
+	public String addMessage(@ModelAttribute Message message) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		User activeUser = usersService.getUserByEmail(email);
+		message.setSender(activeUser);
+		messagesService.addMessage(message);
+		return "redirect:/message/chat";
 	}
-	return "redirect:/message/delete";
-    }
+
+	/**
+	 * returns the html of message/chat
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/message/chat")
+	public String getMessages(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		User activeUser = usersService.getUserByEmail(email);
+		model.addAttribute("offersList", offersService.getOffersListForMessages());
+		model.addAttribute("userMoney", activeUser.getMoneySum());
+		model.addAttribute("messagesList", messagesService.getMessagesForUser(activeUser));
+		return "message/chat";
+	}
+
+	// ___________________ SEND MESSAGES ___________________--//
+
+	/**
+	 * @param model
+	 * @return the list of user's messages in the message/list.html
+	 */
+	@RequestMapping(value = "/message/list")
+	public String listMessages(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		User activeUser = usersService.getUserByEmail(email);
+		List<Offer> offers = offersService.getOffersListForMessagesFor(activeUser);
+		model.addAttribute("userMoney", activeUser.getMoneySum());
+		model.addAttribute("offersList", offers);
+		return "message/list";
+	}
+
+	// ___________________ DELETE MESSAGES ___________________--//
+
+	/**
+	 * returns the list of user's messages that he wishes to delete
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/message/delete")
+	public String deleteMessages(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		User activeUser = usersService.getUserByEmail(email);
+		List<Offer> offers = offersService.getOffersListForMessagesFor(activeUser);
+		model.addAttribute("userMoney", activeUser.getMoneySum());
+		model.addAttribute("offersList", offers);
+		return "message/delete";
+	}
+
+	/**
+	 * @param idMessages of the messages selected that will be deleted
+	 * @return
+	 */
+	@PostMapping("/message/delete")
+	public String delete(@RequestParam("idChecked") List<String> idMessages) {
+		if (idMessages != null) {
+			for (String id : idMessages) {
+				Long idToDelete = Long.parseLong(id);
+				messagesService.deleteMessage(idToDelete);
+			}
+		}
+		return "redirect:/message/delete";
+	}
 
 }
