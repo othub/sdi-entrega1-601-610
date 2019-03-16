@@ -4,58 +4,70 @@
 <head th:replace="fragments/head" />
 
 <body>
- <nav th:replace="fragments/nav" />
+	<nav th:replace="fragments/nav" />
 
-<div class="container">
-  <h1 style="text-align:center;" th:text="#{offers.add.header}"></h1>
-  <form class="form-horizontal" method="post" action="/offer/add">
-  
-   <div class="form-group">
-	  <label class="control-label col-sm-2" for="user" th:text="#{offers.add.user}"></label>
-	  <div class="col-sm-10">
-	    <select id="user" class="form-control" name="user">
-	      <option th:value="${user.id}" th:text="  ${user.email} +' - '+ ${user.name} +' ' + ${user.lastName} ">
-	        User
-	      </option>
-	    </select>
-	  </div>
+	<div class="container">
+		<h1 style="text-align: center;" th:text="#{offers.add.header}"></h1>
+		<form class="form-horizontal" method="post" action="/offer/add">
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="user"
+					th:text="#{offers.add.user}"></label>
+				<div class="col-sm-10">
+					<select id="user" class="form-control" name="user">
+						<option th:value="${user.id}"
+							th:text="  ${user.email} +' - '+ ${user.name} +' ' + ${user.lastName} ">
+							User</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="title"
+					th:text="#{offers.add.title}"></label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="title"
+						th:placeholder="#{offers.add.title}" required="true" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="description"
+					th:text="#{offers.add.description}"></label>
+				<div class="col-sm-10">
+					<input type="text" id="descripcion" class="form-control"
+						name="description" th:placeholder="#{offers.add.description}"
+						required="true" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="amount"
+					th:text="#{offers.add.price}"></label>
+				<div class="col-sm-10">
+					<input type="number" class="form-control" name="amount"
+						th:placeholder="#{offers.add.price}" required="true" min="0"
+						step="any" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="highlight"
+					th:text="#{offers.add.highlight} + ' 20 &euro;'"></label>
+				<div class="col-sm-10">
+					<input type="checkbox" name="isHighlighted" id="toHighlight" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary"
+						style="background-color: #38DFCE; color: white; font-weight: bold;"
+						th:text="#{offers.add.submit}"></button>
+				</div>
+			</div>
+		</form>
 	</div>
-	
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="title" th:text="#{offers.add.title}"></label>
-      <div class="col-sm-10">          
-        <input type="text" class="form-control" name="title" th:placeholder="#{offers.add.title}" required="true" />
-      </div>
-    </div>
-    
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="description" th:text="#{offers.add.description}"></label>
-      <div class="col-sm-10">          
-        <input type="text" id ="descripcion" class="form-control" name="description" th:placeholder="#{offers.add.description}" required="true" />
-      </div>
-    </div>
-    
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="amount" th:text="#{offers.add.price}"></label>
-      <div class="col-sm-10">          
-        <input type="number" class="form-control" name="amount" th:placeholder="#{offers.add.price}" required="true" min="0" step="any"/>
-      </div>
-    </div>
-    
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="highlight" th:text="#{offers.add.highlight} + ' 20 &euro;'"></label>
-      <div class="col-sm-10">          
-      	<input type="checkbox" name="isHighlighted" id="toHighlight"/>  
-      </div>
-    </div>
-    
-    <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary" style = "background-color: #38DFCE; color : white; font-weight: bold; " th:text="#{offers.add.submit}"></button>
-      </div>
-    </div>
-  </form>
-</div>
 
 </body>
 </html>

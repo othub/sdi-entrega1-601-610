@@ -3,60 +3,64 @@
 <head th:replace="fragments/head" />
 
 <body>
-	
+
 	<script language="JavaScript">
 		function toggle(source) {
-			  checkboxes = document.getElementsByName('idChecked');
-			  for(var i=0, n=checkboxes.length;i<n;i++) {
-			    checkboxes[i].checked = source.checked;
-			  }
+			checkboxes = document.getElementsByName('idChecked');
+			for (var i = 0, n = checkboxes.length; i < n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
 		}
 	</script>
-	
-<nav th:replace="fragments/nav" />
 
-<div class="container">
-  <h2 th:text="#{message.delete.title}"></h2>
-  <form class="form-horizontal" method="post" action="/message/delete">
-    
-    <!-- Tabla de mensajes -->
-    <div>
-	      <table class="table table-hover" th:fragment="tableMessages" id = "tableMessages">
-	      	<caption th:text="#{message.send.table.caption}" style=" display: table-caption; text-align: center;">Sent Messages</caption>
-	        <thead>
-	          <tr>
-	          	<th><input id="checkAll" type="checkbox" onClick="toggle(this)"/></th>
-	          	<th></th>
-	          	<th th:text="#{message.send.table.sender}">Sender</th>
-	          	<th th:text="#{message.send.table.receiver}">Receiver</th>
-	          	<th th:text="#{message.send.table.messageText}">Text</th>
-	          	<th th:text="#{offers.list.amount} + ' ( ' +  '&euro;' + ' )'">Price</th>
-	          	<th th:text="#{message.send.table.date}">Date</th>     	
-	          </tr>
-	        </thead>
-	        <tbody th:each="ofr : ${offersList}">
-	          	<tr th:each="msg: ${ofr.messagesExchanged}">
-		          	<td>
-		            	<input type="checkbox" th:name="idChecked" th:value="${msg.id}"/>
-		        	</td>
-	          		<td th:text="${ofr.title}"></td>
-	          		<td th:text="${msg.sender.name}+ ' -- ' + ${msg.sender.email} ">example@email.com</td>
-		            <td th:text="${msg.receiver.name}+ ' -- ' + ${msg.receiver.email} ">example@email.com</td>
-		            <td th:text="${msg.messageText}">Sent Message</td>
-		            <td th:text="${ofr.amount}">Title</td>
-		            <td th:text="${msg.date}">Date</td>
-	          	</tr>
-	          	<tr></tr>
-	        </tbody>
-	      </table>
-	      <button type="submit" name='delete' value="delete"
-             class='btn btn-danger' style="font-weight: bold;"
-             th:text="#{message.list.delete}" th:if="${offersList != null and not #lists.isEmpty(offersList)}"
-             data-toggle="tooltip" data-placement="right">
-   		 </button>
-     </div>
-  </form>
-</div>
+	<nav th:replace="fragments/nav" />
+
+	<div class="container">
+		<h2 th:text="#{message.delete.title}"></h2>
+		<form class="form-horizontal" method="post" action="/message/delete">
+
+			<!-- Tabla de mensajes -->
+			<div>
+				<table class="table table-hover" th:fragment="tableMessages"
+					id="tableMessages">
+					<caption th:text="#{message.send.table.caption}"
+						style="display: table-caption; text-align: center;">Sent
+						Messages</caption>
+					<thead>
+						<tr>
+							<th><input id="checkAll" type="checkbox"
+								onClick="toggle(this)" /></th>
+							<th></th>
+							<th th:text="#{message.send.table.sender}">Sender</th>
+							<th th:text="#{message.send.table.receiver}">Receiver</th>
+							<th th:text="#{message.send.table.messageText}">Text</th>
+							<th th:text="#{offers.list.amount} + ' ( ' +  '&euro;' + ' )'">Price</th>
+							<th th:text="#{message.send.table.date}">Date</th>
+						</tr>
+					</thead>
+					<tbody th:each="ofr : ${offersList}">
+						<tr th:each="msg: ${ofr.messagesExchanged}">
+							<td><input type="checkbox" th:name="idChecked"
+								th:value="${msg.id}" /></td>
+							<td th:text="${ofr.title}"></td>
+							<td th:text="${msg.sender.name}+ ' -- ' + ${msg.sender.email} ">example@email.com</td>
+							<td
+								th:text="${msg.receiver.name}+ ' -- ' + ${msg.receiver.email} ">example@email.com</td>
+							<td th:text="${msg.messageText}">Sent Message</td>
+							<td th:text="${ofr.amount}">Title</td>
+							<td th:text="${msg.date}">Date</td>
+						</tr>
+						<tr></tr>
+					</tbody>
+				</table>
+				<button type="submit" name='delete' value="delete"
+					class='btn btn-danger' style="font-weight: bold;"
+					th:text="#{message.list.delete}"
+					th:if="${offersList != null and not #lists.isEmpty(offersList)}"
+					data-toggle="tooltip" data-placement="right"></button>
+			</div>
+		</form>
+	</div>
 
 </body>
 </html>

@@ -4,82 +4,90 @@
 <head th:replace="fragments/head" />
 
 <body>
- <script language="JavaScript">
+	<script language="JavaScript">
 		function toggle(source) {
-			  checkboxes = document.getElementsByName('idChecked');
-			  for(var i=0, n=checkboxes.length;i<n;i++) {
-			    checkboxes[i].checked = source.checked;
-			  }
+			checkboxes = document.getElementsByName('idChecked');
+			for (var i = 0, n = checkboxes.length; i < n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
 		}
 	</script>
-	
-<nav th:replace="fragments/nav" />
 
-<div class="container">
-   <h1  style="text-align:center;" th:text="#{offers.list.header}"></h1>
-   
-  <p style="text-align:center;" th:text="#{offers.list.paragraph}"></p>  
-                                                                                      	  
-  <div class="table-responsive">   
-  <!--  actualizar únicamente la tabla de notas -->   
-  <form th:action='@{/offer/list}' method="POST">    
-	  <table class="table table-hover" th:fragment="tableOffers" id="tableOffers">
-	    <thead>
-	      <tr>
-	        <th><input id="checkAll" type="checkbox" onClick="toggle(this)"/></th>
-	        <th th:text="#{offers.list.title}"></th>
-	        <th th:text="#{offers.list.description}"></th>
-	        <th th:text="#{offers.list.amount}  + ' ( ' +  '&euro;' + ' )'"></th>
-	        <th th:text="#{offers.list.date}"></th>
-	        <th></th>
-	      </tr>
-	    </thead>
-		<tbody>
-		  <tr th:each="offer : ${offerList}">
-		    <td>
-	             <input type="checkbox" th:name="idChecked" th:value="${offer.id}"/>
-	        </td>
-		    <td th:text="${offer.title}"> Title</td>
-		    <td th:text="${offer.description}"> Description</td>
-		    <td th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
-		    <td th:text="${offer.date}">2019-02-02</td>
-		    <td>
-		    <!-- Highlight -->
-		    <div th:if="${!offer.isHighlighted}">
-		    	<button type="button" th:id="${'highlightButton' + offer.id}" 
-		    			class="btn btn-info" th:text="#{offers.list.highlight}" 
-		    			th:href="${'/offer/highlight/' + offer.id}" style= "font-weight: bold;">
-		    			Destacar
-		    	</button>
-		    	<script th:inline="javascript">
-					  /*<![CDATA[*/
-					  $("#highlightButton[[${offer.id}]]").click(function() {
-					    $.get("/offer/highlight/[[${offer.id}]]", function(data) {
-					    	location.reload();
-					    });
-					  }); 
-					   /*]]>*/
-					</script>	  
-			  </div>
-			  <!-- NOT highlight -->
-			  <div th:unless="${!offer.isHighlighted}"> 
-				<button type="button" th:id="${'highlighted' + offer.id}" class="btn btn-warning" th:text="#{offers.list.highlighted}" style= "font-weight: bold;">Destacado</button>
-			  </div>
-		    </td>
-		  </tr>
-		</tbody>
-	  </table>
-	     <button type="submit" name='delete' value="delete"
-             class='btn btn-danger' style="font-weight: bold;"
-             th:text="#{offers.list.delete}" th:if="${offerList != null and not #lists.isEmpty(offerList)}"
-             data-toggle="tooltip" data-placement="right">
-   		 </button>
-  	</form>
-  </div>
-  <footer th:replace="fragments/pagination"/>
-</div>
+	<nav th:replace="fragments/nav" />
 
-<footer th:replace="fragments/footer"/>
+	<div class="container">
+		<h1 style="text-align: center;" th:text="#{offers.list.header}"></h1>
+
+		<p style="text-align: center;" th:text="#{offers.list.paragraph}"></p>
+
+		<div class="table-responsive">
+			<!--  actualizar únicamente la tabla de notas -->
+			<form th:action='@{/offer/list}' method="POST">
+				<table class="table table-hover" th:fragment="tableOffers"
+					id="tableOffers">
+					<thead>
+						<tr>
+							<th><input id="checkAll" type="checkbox"
+								onClick="toggle(this)" /></th>
+							<th th:text="#{offers.list.title}"></th>
+							<th th:text="#{offers.list.description}"></th>
+							<th th:text="#{offers.list.amount}  + ' ( ' +  '&euro;' + ' )'"></th>
+							<th th:text="#{offers.list.date}"></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="offer : ${offerList}">
+							<td><input type="checkbox" th:name="idChecked"
+								th:value="${offer.id}" /></td>
+							<td th:text="${offer.title}">Title</td>
+							<td th:text="${offer.description}">Description</td>
+							<td th:text="${offer.amount} + ' ' +  '&euro;'">10</td>
+							<td th:text="${offer.date}">2019-02-02</td>
+							<td>
+								<!-- Highlight -->
+								<div th:if="${!offer.isHighlighted}">
+									<button type="button" th:id="${'highlightButton' + offer.id}"
+										class="btn btn-info" th:text="#{offers.list.highlight}"
+										th:href="${'/offer/highlight/' + offer.id}"
+										style="font-weight: bold;">Destacar</button>
+									<script th:inline="javascript">
+										/*_$tag____*/
+										$("#highlightButton[[${offer.id}]]")
+												.click(
+														function() {
+															$
+																	.get(
+																			"/offer/highlight/[[${offer.id}]]",
+																			function(
+																					data) {
+																				location
+																						.reload();
+																			});
+														});
+										/*_$t*/
+									</script>
+								</div> <!-- NOT highlight -->
+								<div th:unless="${!offer.isHighlighted}">
+									<button type="button" th:id="${'highlighted' + offer.id}"
+										class="btn btn-warning" th:text="#{offers.list.highlighted}"
+										style="font-weight: bold;">Destacado</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="submit" name='delete' value="delete"
+					class='btn btn-danger' style="font-weight: bold;"
+					th:text="#{offers.list.delete}"
+					th:if="${offerList != null and not #lists.isEmpty(offerList)}"
+					data-toggle="tooltip" data-placement="right"></button>
+			</form>
+		</div>
+		<footer th:replace="fragments/pagination" />
+	</div>
+
+	<footer th:replace="fragments/footer" />
 </body>
 
 </html>

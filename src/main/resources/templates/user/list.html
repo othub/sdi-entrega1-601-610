@@ -6,56 +6,57 @@
 <body>
 	<script language="JavaScript">
 		function toggle(source) {
-			  checkboxes = document.getElementsByName('idChecked');
-			  for(var i=0, n=checkboxes.length;i<n;i++) {
-			    checkboxes[i].checked = source.checked;
-			  }
+			checkboxes = document.getElementsByName('idChecked');
+			for (var i = 0, n = checkboxes.length; i < n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
 		}
 	</script>
-  <!-- Barra de Navegación superior -->
-  <nav th:replace="fragments/nav" />
-  <div class="container">
-    <h1 style="text-align:center;" th:text="#{users.list.header}"></h1>
-    <p  style="text-align:center;" th:text="#{users.list.paragraph}"></p>
-    <div class="table-responsive">
-    <form th:action='@{/user/list}' method="POST">
-    
-         <button type="submit" name='delete' value="delete"
-             class='btn btn-danger' style="font-weight: bold;"
-             th:text="#{users.list.delete}" th:if="${usersList != null and not #lists.isEmpty(usersList)}"
-             data-toggle="tooltip" data-placement="right">
-   		 </button>
-   		 
-	      <table class="table table-hover">
-	        <thead>
-	          <tr>
-	          	<th><input id="checkAll" type="checkbox" onClick="toggle(this)"/></th>
-	            <th>Email</th>
-	            <th th:text="#{signup.name}"></th>
-	            <th th:text="#{signup.lastName}"></th>
-	            <th class="col-md-1"></th>
-	            <th class="col-md-1"></th>
-	            <th class="col-md-1"></th>
-	            <th class="col-md-1"></th>
-	            <th class="col-md-1"></th>
-	          </tr>
-	        </thead>
-	        <tbody>
-	          <tr th:each="user : ${usersList}">
-	          	<td>
-                    <input type="checkbox" th:name="idChecked" th:value="${user.id}"/>
-                </td>
-	            <td th:text="${user.email}">example@email.com</td>
-	            <td th:text="${user.name}">Name</td>
-	            <td th:text="${user.lastName}">Last Name</td>
-	            <td><a th:text="#{users.list.delete}" th:href="${'/user/delete/' + user.id}"></a></td>
-	          </tr>
-	        </tbody>
-	      </table>
-	  </form>
-    </div>
-  </div>
-  <footer th:replace="fragments/footer" />
+	<!-- Barra de Navegación superior -->
+	<nav th:replace="fragments/nav" />
+	<div class="container">
+		<h1 style="text-align: center;" th:text="#{users.list.header}"></h1>
+		<p style="text-align: center;" th:text="#{users.list.paragraph}"></p>
+		<div class="table-responsive">
+			<form th:action='@{/user/list}' method="POST">
+
+				<button type="submit" name='delete' value="delete"
+					class='btn btn-danger' style="font-weight: bold;"
+					th:text="#{users.list.delete}"
+					th:if="${usersList != null and not #lists.isEmpty(usersList)}"
+					data-toggle="tooltip" data-placement="right"></button>
+
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th><input id="checkAll" type="checkbox"
+								onClick="toggle(this)" /></th>
+							<th>Email</th>
+							<th th:text="#{signup.name}"></th>
+							<th th:text="#{signup.lastName}"></th>
+							<th class="col-md-1"></th>
+							<th class="col-md-1"></th>
+							<th class="col-md-1"></th>
+							<th class="col-md-1"></th>
+							<th class="col-md-1"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user : ${usersList}">
+							<td><input type="checkbox" th:name="idChecked"
+								th:value="${user.id}" /></td>
+							<td th:text="${user.email}">example@email.com</td>
+							<td th:text="${user.name}">Name</td>
+							<td th:text="${user.lastName}">Last Name</td>
+							<td><a th:text="#{users.list.delete}"
+								th:href="${'/user/delete/' + user.id}"></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+	<footer th:replace="fragments/footer" />
 </body>
 
 </html>
