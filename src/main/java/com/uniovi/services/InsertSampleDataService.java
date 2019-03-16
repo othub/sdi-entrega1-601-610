@@ -25,10 +25,10 @@ public class InsertSampleDataService {
     private RolesService rolesService;
 
     /**
-     * 13 users. 5 will be deleted in the tests (they are named delete1 to delete5).
-     * and 8 are normal. one of the 8 is admin. We are left with 7 users. 5 of them
-     * have 3 offers, 2 offers bought. And the messages are tests also even though
-     * it isn't concluded.
+     * 13 users. 5 will be deleted in the tests (they are named delete1 to delete5)
+     * with email (akran1 to akran5)@gmail.com . and 8 are normal. one of the 8 is
+     * admin. We are left with 7 users. 5 of them have 3 offers, 2 offers bought.
+     * And the messages are tests also even though it isn't concluded.
      */
     @SuppressWarnings("serial")
     @PostConstruct

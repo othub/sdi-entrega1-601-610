@@ -79,10 +79,10 @@ public class MyWallapopAppTests {
     }
 
     /**
-     * 13 users. 5 will be deleted in the tests (they are named delete1 to delete5).
-     * and 8 are normal. one of the 8 is admin. We are left with 7 users. 5 of them
-     * have 3 offers, 2 offers bought. And the messages are tests also even though
-     * it isn't concluded.
+     * 13 users. 5 will be deleted in the tests (they are named delete1 to delete5)
+     * with email (akran1 to akran5)@gmail.com . and 8 are normal. one of the 8 is
+     * admin. We are left with 7 users. 5 of them have 3 offers, 2 offers bought.
+     * And the messages are tests also even though it isn't concluded.
      */
     @SuppressWarnings("serial")
     private void initdb() {
@@ -460,7 +460,8 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
 	elementos.get(0).click();
 
-	// hay 8 usuarios en el sistema incluyendo el admin
+	// hay 14 usuarios en el sistema incluyendo el admin y el usuario registrado
+	// correctamente con la primera prueba
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 14);
 
@@ -478,7 +479,7 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
 	elementos.get(0).click();
 
-	// hay 8 usuarios en el sistema
+	// hay 14 usuarios en el sistema
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 14);
 
@@ -506,6 +507,7 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
 	elementos.get(0).click();
 
+	// ahora son 13 porque borramos el anterior en la prueba 13
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 13);
 
@@ -540,11 +542,12 @@ public class MyWallapopAppTests {
 
 	driver.findElement(By.className("btn-danger")).click();
 
-	// No existe el email, se ha borrado
+	// No existen los email, se ha borrado
 	assertFalse(driver.getPageSource().contains("akran1@gmail.com"));
 	assertFalse(driver.getPageSource().contains("akran2@gmail.com"));
 	assertFalse(driver.getPageSource().contains("akran3@gmail.com"));
 
+	// ahora nos quedamos con 9 usuarios
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 9);
 
@@ -567,7 +570,7 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/list')]");
 	elementos.get(0).click();
 
-	// hay 2 ofertas de este usuario
+	// hay 3 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 3);
 
@@ -577,12 +580,14 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/add')]");
 	elementos.get(0).click();
 
+	// añadimos la oferta
 	PO_View.checkElement(driver, "text", "Agregar una oferta");
 
 	PO_AddOfferView.fillForm(driver, "Coche a vender", "Polo 2009", 4500);
 
 	PO_View.checkElement(driver, "text", "Polo 2009");
 
+	// con las 3 existentes y la ultima que hemos añadido, nos quedamos con 4
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 4);
 
@@ -600,7 +605,7 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/list')]");
 	elementos.get(0).click();
 
-	// hay 2 ofertas de este usuario
+	// hay 4 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 4);
 
@@ -627,7 +632,7 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/list')]");
 	elementos.get(0).click();
 
-	// hay 2 ofertas de este usuario
+	// quedan 4 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 4);
 
@@ -646,7 +651,7 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/list')]");
 	elementos.get(0).click();
 
-	// hay 2 ofertas de este usuario
+	// hay 3 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 3);
 
@@ -682,7 +687,7 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/list')]");
 	elementos.get(0).click();
 
-	// hay 2 ofertas de este usuario
+	// hay 3 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 3);
 
@@ -692,6 +697,7 @@ public class MyWallapopAppTests {
 
 	driver.findElement(By.className("btn-danger")).click(); // borrar la oferta
 
+	// se ha actualizado el numero
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 2);
 
@@ -710,7 +716,7 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/list')]");
 	elementos.get(0).click();
 
-	// hay 1 oferta de este usuario
+	// hay 2 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 2);
 
@@ -718,6 +724,7 @@ public class MyWallapopAppTests {
 
 	driver.findElement(By.className("btn-danger")).click(); // borrar la oferta
 
+	// al final nos quedamos con 1
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 1);
 
@@ -735,7 +742,7 @@ public class MyWallapopAppTests {
 		PO_View.getTimeout());
 	assertTrue(elementos.size() == 5); // de momento en la pagina uno tenemos 5
 
-	// buscar oferta
+	// buscar oferta de patin
 	PO_SearchOffersView.search(driver, "patin"); // buscamos un patinete
 	PO_View.checkElement(driver, "text", "patinete electrico"); // hay uno solo
 
@@ -852,7 +859,7 @@ public class MyWallapopAppTests {
 	List<WebElement> btnComprar = driver.findElements(By.className("btn-info"));
 	assertTrue(btnComprar.isEmpty()); // sigue en comprar
 
-	// se actualiza el precio a 00
+	// se actualiza el saldo a 00
 	PO_View.checkElement(driver, "text", "0.0 €");
 
 	// desconectamos
