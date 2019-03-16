@@ -1362,7 +1362,7 @@ public class MyWallapopAppTests {
 	PO_SendMessageView.fillForm(driver, "Quiero verlo");
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	// tiene tres mensajes
+	// tiene cinco mensajes
 	assertTrue(elementos.size() == 5);
 
 	PO_View.checkElement(driver, "text", "Quiero verlo");
@@ -1397,7 +1397,7 @@ public class MyWallapopAppTests {
 	elementos.get(0).click();
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	// tiene tres mensajes
+	// tiene cuatro mensajes
 	assertTrue(elementos.size() == 4); // ahora tenemos solamente 2 mensajes
 
 	// comprobamos que se actualizó en la lista de mensajes
@@ -1417,8 +1417,8 @@ public class MyWallapopAppTests {
 	elementos.get(0).click();
 
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-	// tiene un mensaje
-	assertTrue(elementos.size() == 3); // ahora tenemos solamente 1 msg
+	// tiene 3 mensajes
+	assertTrue(elementos.size() == 3); // ahora tenemos solamente 3 msg
 
 	// desconectamos
 	PO_PrivateView.clickOption(driver, "logout", "text", "Correo :");
@@ -1434,7 +1434,7 @@ public class MyWallapopAppTests {
 	elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'offer/list')]");
 	elementos.get(0).click();
 
-	// hay 3 ofertas de este usuario
+	// hay 4 ofertas de este usuario
 	elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 	assertTrue(elementos.size() == 4);
 
@@ -1510,7 +1510,7 @@ public class MyWallapopAppTests {
     }
 
     public void Prueba38() {
-	// entramos con alg4 que no tiene saldo
+	// entramos con alg4 que no tiene saldo, prueba25
 	PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
 	PO_LoginView.fillForm(driver, "alg4@gmail.com", "123456");
 	PO_View.checkElement(driver, "text", "Las ofertas actuales en My Wallapop son las siguientes :");
