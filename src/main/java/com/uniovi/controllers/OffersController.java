@@ -30,10 +30,10 @@ import com.uniovi.services.UsersService;
  * 
  * @version $Id$
  */
-@Controller // al lugar de Rest para interactuar con las vistas
+@Controller
 public class OffersController {
 
-    @Autowired // Inyectar el servicio
+    @Autowired
     private OffersService offersService;
 
     @Autowired
@@ -46,8 +46,8 @@ public class OffersController {
     // ___________________ ADD ___________________--//
 
     /**
-     * Añadimos el POST Al lugar de request param, pasamos un parametro de la
-     * entidad Offer
+     * Adds the offer that will be highlighted or not depending of the checkbox
+     * value
      * 
      * @return
      */
@@ -63,6 +63,13 @@ public class OffersController {
 	return "redirect:/offer/list";
     }
 
+    /**
+     * 
+     * returns the add.html of the html
+     * 
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/offer/add")
     public String getOffer(Model model) {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -81,6 +88,12 @@ public class OffersController {
 	return "redirect:/offer/list";
     }
 
+    /**
+     * multiple delete of the offers
+     * 
+     * @param idOffers
+     * @return
+     */
     @PostMapping("/offer/list")
     public String delete(@RequestParam("idChecked") List<String> idOffers) {
 	if (idOffers != null) {
@@ -95,7 +108,7 @@ public class OffersController {
     // ____________________- LIST ___________________--//
 
     /*
-     * incluimos una función por cada URL a la que va a responder el controlador,
+     * returns the existing offers
      */
     @RequestMapping("/offer/list")
     public String getList(Model model, Pageable pageable, Principal principal,
@@ -116,6 +129,15 @@ public class OffersController {
 
     // _________________________ HOME _____________________//
 
+    /**
+     * returns all the existing offers in the system
+     * 
+     * @param model
+     * @param pageable
+     * @param principal
+     * @param searchText
+     * @return
+     */
     @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
     public String home(Model model, Pageable pageable, Principal principal,
 	    @RequestParam(value = "", required = false) String searchText) {
@@ -138,7 +160,7 @@ public class OffersController {
 
     // _________________________ UPDATE _______________________//
     /**
-     * Actualiza la tabla de notas a traves del boton
+     * Actualiza la tabla de ofertas a traves del boton
      * 
      * @param model
      * @return
@@ -150,6 +172,15 @@ public class OffersController {
 	return "home :: tableOffers";
     }
 
+    // _________________________ BUY _______________________//
+
+    /**
+     * sets the offer as bought and changes the button to bought
+     * 
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/home/{id}/available", method = RequestMethod.GET)
     public String setAvailableFalse(Model model, @PathVariable Long id) {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -163,6 +194,12 @@ public class OffersController {
 
     // _________________________ HIGHLIGHT _______________________//
 
+    /**
+     * sets the offer as destacado and changes the button to destacado
+     * 
+     * @param id
+     * @return
+     */
     @RequestMapping("/offer/highlight/{id}")
     public String highlight(@PathVariable Long id) {
 	Offer offer = offersService.getOffer(id);

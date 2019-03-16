@@ -21,18 +21,28 @@ public class SignUpFormValidator implements Validator {
     @Autowired
     private UsersService usersService;
 
+    // these are used for detecting a correct email.
     private String regex = "^(.+)@(.+)$";
-
     private Pattern pattern = Pattern.compile(regex);
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.springframework.validation.Validator#supports(java.lang.Class)
+     */
     @Override
     public boolean supports(Class<?> aClass) {
 	return User.class.equals(aClass);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.springframework.validation.Validator#validate(java.lang.Object,
+     *      org.springframework.validation.Errors)
+     */
     @Override
     public void validate(Object target, Errors errors) {
-
 	User user = (User) target;
 	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Error.empty");
 	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "Error.empty");

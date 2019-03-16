@@ -193,7 +193,7 @@ public class Offer {
     @Override
     public String toString() {
 	return "Offer [ID=" + id + ", title=" + title + ", description=" + description + ", amount=" + amount
-		+ ", date=" + date + ", isAvailable=" + isAvailable + ", user=" + user + "]";
+		+ ", date=" + date + ", isAvailable=" + isAvailable + ", user=" + user.getEmail() + "]";
     }
 
 }

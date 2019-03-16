@@ -30,7 +30,7 @@ public class User {
     private String lastName;
     private double moneySum = 100;
 
-    // ROLES
+    // ROLE
     private String role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

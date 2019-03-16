@@ -20,6 +20,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UsersRepository usersRepository;
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 	User user = usersRepository.findByEmail(email);

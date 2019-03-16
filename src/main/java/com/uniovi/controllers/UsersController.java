@@ -36,12 +36,21 @@ public class UsersController {
     @Autowired
     private RolesService rolesService;
 
+    /**
+     * 
+     * @param model
+     * @return all mywallapop users including the admin
+     */
     @RequestMapping("/user/list")
     public String getListado(Model model) {
 	model.addAttribute("usersList", usersService.getUsers());
 	return "user/list";
     }
 
+    /**
+     * @param model
+     * @return the navigation
+     */
     @RequestMapping(value = { "/nav" }, method = RequestMethod.GET)
     public String nav(Model model) {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -81,6 +90,13 @@ public class UsersController {
 
     // ______________________MULTIPLE DELETES ___________________________//
 
+    /**
+     * Delete the selected users if ok : normal if not : redirects to error page if
+     * the user is admin
+     * 
+     * @param idUsers
+     * @return
+     */
     @PostMapping("/user/list")
     public String delete(@RequestParam("idChecked") List<String> idUsers) {
 	if (idUsers != null) {
@@ -96,6 +112,12 @@ public class UsersController {
 	return "redirect:/user/list";
     }
 
+    /**
+     * single delete of the user
+     * 
+     * @param id
+     * @return
+     */
     @RequestMapping("/user/delete/{id}")
     public String delete(@PathVariable Long id) {
 	User user = usersService.getUser(id);

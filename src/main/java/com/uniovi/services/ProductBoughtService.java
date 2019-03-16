@@ -32,6 +32,10 @@ public class ProductBoughtService {
     @Autowired
     private ProductBoughtRepository productsRepository;
 
+    /**
+     * @param id of the product bought
+     * @return
+     */
     public ProductBought getProductBought(Long id) {
 	@SuppressWarnings("unchecked")
 	Set<ProductBought> consultedList = (Set<ProductBought>) httpSession.getAttribute("consultedList");
@@ -46,23 +50,31 @@ public class ProductBoughtService {
 	return productObtained;
     }
 
+    /**
+     * @param product that will be added
+     */
     public void addProductBought(ProductBought product) {
 	productsRepository.save(product);
     }
 
+    /**
+     * @param id of the deleted product
+     */
     public void deleteProductBought(Long id) {
 	productsRepository.deleteById(id);
     }
 
+    /**
+     * returns the user's bought offers
+     * 
+     * @param pageable
+     * @param user
+     * @return
+     */
     public Page<ProductBought> getProductBoughtsForUser(Pageable pageable, User user) {
 	Page<ProductBought> products = new PageImpl<ProductBought>(new LinkedList<ProductBought>());
 	products = productsRepository.findAllByUser(pageable, user);
 
-	return products;
-    }
-
-    public Page<ProductBought> getProductBoughts(Pageable pageable) {
-	Page<ProductBought> products = productsRepository.findAll(pageable);
 	return products;
     }
 

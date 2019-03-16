@@ -15,6 +15,7 @@ import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -23,6 +24,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	return new BCryptPasswordEncoder();
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 	http.csrf().disable().authorizeRequests()
@@ -38,6 +44,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#authenticationManagerBean()
+     */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {

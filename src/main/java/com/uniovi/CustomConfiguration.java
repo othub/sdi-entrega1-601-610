@@ -47,8 +47,7 @@ public class CustomConfiguration implements WebMvcConfigurer {
     }
 
     /**
-     * Al interceptor le añadiremos un parámetro llamado lang que es el que
-     * utilizaremos en las peticiones
+     * {@inheritDoc}
      * 
      * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
      */
@@ -57,6 +56,11 @@ public class CustomConfiguration implements WebMvcConfigurer {
 	registry.addInterceptor(localeChangeInterceptor());
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addArgumentResolvers(java.util.List)
+     */
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 	int page = 0;

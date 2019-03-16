@@ -129,8 +129,8 @@ public class Message {
      */
     @Override
     public String toString() {
-	return "Message [id=" + id + ", sender=" + sender + ", receiver=" + receiver + ", offer=" + offer
-		+ ", messageText=" + messageText + ", date=" + date + "]";
+	return "Message [id=" + id + ", sender=" + sender.getEmail() + ", receiver=" + receiver.getEmail() + ", offer="
+		+ offer.getTitle() + ", messageText=" + messageText + ", date=" + date + "]";
     }
 
     /**

@@ -13,12 +13,12 @@ import com.uniovi.entities.User;
  */
 public interface UsersRepository extends CrudRepository<User, Long> {
 
+    /**
+     * @param email
+     * @return
+     */
     User findByEmail(String email);
 
-    /**
-     * @param rest
-     * @param id
-     */
     /**
      * @param rest
      * @param id

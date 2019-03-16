@@ -57,6 +57,10 @@ public interface OffersRepository extends CrudRepository<Offer, Long> {
     @Query("UPDATE Offer SET isHighlighted = ?1 WHERE id = ?2")
     void updateHighlight(boolean isHighlighted, Long id);
 
+    /**
+     * @param pageable
+     * @return
+     */
     @Query("SELECT o FROM Offer o ORDER BY o.isHighlighted DESC ")
     Page<Offer> findAllSorted(Pageable pageable);
 

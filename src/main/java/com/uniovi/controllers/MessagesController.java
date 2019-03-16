@@ -45,8 +45,7 @@ public class MessagesController {
     // ___________________ SEND MESSAGES ___________________--//
 
     /**
-     * Añadimos el POST Al lugar de request param, pasamos un parametro de la
-     * entidad Mark
+     * adds a message
      * 
      * @return
      */
@@ -60,6 +59,12 @@ public class MessagesController {
 	return "redirect:/message/chat";
     }
 
+    /**
+     * returns the html of message/chat
+     * 
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/message/chat")
     public String getMessages(Model model) {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -73,12 +78,16 @@ public class MessagesController {
 
     // ___________________ SEND MESSAGES ___________________--//
 
+    /**
+     * @param model
+     * @return the list of user's messages in the message/list.html
+     */
     @RequestMapping(value = "/message/list")
     public String listMessages(Model model) {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	String email = auth.getName();
 	User activeUser = usersService.getUserByEmail(email);
-	List<Offer> offers = offersService.getOffersListForMessages(activeUser);
+	List<Offer> offers = offersService.getOffersListForMessagesFor(activeUser);
 	model.addAttribute("userMoney", activeUser.getMoneySum());
 	model.addAttribute("offersList", offers);
 	return "message/list";
@@ -86,17 +95,27 @@ public class MessagesController {
 
     // ___________________ DELETE MESSAGES ___________________--//
 
+    /**
+     * returns the list of user's messages that he wishes to delete
+     * 
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/message/delete")
     public String deleteMessages(Model model) {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	String email = auth.getName();
 	User activeUser = usersService.getUserByEmail(email);
-	List<Offer> offers = offersService.getOffersListForMessages(activeUser);
+	List<Offer> offers = offersService.getOffersListForMessagesFor(activeUser);
 	model.addAttribute("userMoney", activeUser.getMoneySum());
 	model.addAttribute("offersList", offers);
 	return "message/delete";
     }
 
+    /**
+     * @param idMessages of the messages selected that will be deleted
+     * @return
+     */
     @PostMapping("/message/delete")
     public String delete(@RequestParam("idChecked") List<String> idMessages) {
 	if (idMessages != null) {

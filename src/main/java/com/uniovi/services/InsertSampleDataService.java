@@ -1,4 +1,4 @@
-package com.uniovi;
+package com.uniovi.services;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,15 +11,8 @@ import org.springframework.stereotype.Service;
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.ProductBought;
 import com.uniovi.entities.User;
-import com.uniovi.services.RolesService;
-import com.uniovi.services.UsersService;
 
 /**
- * Como necesitaremos varios usuarios y notas para ver en funcionamiento la
- * aplicación, vamos a crear un servicio de prueba InsertSampleDataService,
- * utilizaremos el método init() de este servicio para crear dinámicamente
- * varios usuarios con sus notas.
- * 
  * @version $Id$
  */
 @Service
@@ -31,6 +24,12 @@ public class InsertSampleDataService {
     @Autowired
     private RolesService rolesService;
 
+    /**
+     * 13 users. 5 will be deleted in the tests (they are named delete1 to delete5).
+     * and 8 are normal. one of the 8 is admin. We are left with 7 users. 5 of them
+     * have 3 offers, 2 offers bought. And the messages are tests also even though
+     * it isn't concluded.
+     */
     @SuppressWarnings("serial")
     @PostConstruct
     public void init() {

@@ -37,8 +37,15 @@ public class ProductBoughtController {
     private ProductBoughtService offersBoughtService;
 
     // __________________________ OFFERS bought _____________________//
-    /*
-     * incluimos una función por cada URL a la que va a responder el controlador,
+
+    /**
+     * returns the user's bought offers
+     * 
+     * @param model
+     * @param pageable
+     * @param principal
+     * @param searchText
+     * @return
      */
     @RequestMapping("/offer/bought")
     public String getListBought(Model model, Pageable pageable, Principal principal,
