@@ -1,6 +1,5 @@
-# sdi-entrega1-601-610
-myWallapop Application
+# My Wallapop remake
+myWallapop Application using java and spring boot
 
 ## Authors :
     * Othmane Bakhtaoui
-    * Vladislav Stelmakh
